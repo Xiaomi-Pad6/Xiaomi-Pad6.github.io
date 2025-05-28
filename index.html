@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xiaomi Pad 6 Custom ROM Hub</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&family=Road+Rage&display=swap"
       rel="stylesheet"
     />
     <link
@@ -338,10 +338,10 @@
         padding: 0.8rem 1.2rem;
         margin: 0 0.2rem;
         border-radius: 30px;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 0.9rem;
+        font-family: 'Road Rage', cursive;
+        font-size: 1.3rem;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         white-space: nowrap;
         transition: all 0.3s ease;
         background: rgba(108, 92, 231, 0.1);
@@ -357,18 +357,102 @@
         background: var(--primary);
         color: white;
       }
-      
-      @media (max-width: 768px) {
-        .navbar {
-          padding: 0.5rem;
-        }
-        
-        .nav-link {
-          padding: 0.6rem 1rem;
-          font-size: 0.8rem;
-        }
-      }
 
+.mobile-nav-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  z-index: 1000;
+  border: none;
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-btn:hover {
+  transform: scale(1.1);
+  background: #7d6ce9;
+}
+
+.mobile-nav-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-container.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-decoration: none;
+  font-family: 'Road Rage', cursive;
+  font-size: 0.9rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  border: 1px solid var(--primary);
+}
+
+.mobile-nav-link:hover {
+  transform: scale(1.1) translateX(-5px);
+  background: var(--primary);
+}
+
+.mobile-nav-link span {
+  position: absolute;
+  right: 60px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transform: translateX(10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  border: 1px solid var(--primary);
+}
+
+.mobile-nav-link:hover span {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+  
+  .mobile-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+} 
       /* Add scroll padding for anchor links */
       html {
         scroll-padding-top: 70px;
@@ -394,6 +478,45 @@
         <a href="#kernel" class="nav-link">Kernel</a>
       </div>
     </nav>
+    
+<button class="mobile-nav-btn" id="mobileNavBtn">
+  <i class="fas fa-bars"></i>
+</button>
+
+<div class="mobile-nav-container" id="mobileNavContainer">
+  <a href="#" class="mobile-nav-link active">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </a>
+  <a href="#active-roms" class="mobile-nav-link">
+    <i class="fas fa-bolt"></i>
+    <span>Active ROMs</span>
+  </a>
+  <a href="#eol" class="mobile-nav-link">
+    <i class="fas fa-history"></i>
+    <span>EOL</span>
+  </a>
+  <a href="#hyperos" class="mobile-nav-link">
+    <i class="fas fa-layer-group"></i>
+    <span>HyperOS</span>
+  </a>
+  <a href="#port" class="mobile-nav-link">
+    <i class="fas fa-exchange-alt"></i>
+    <span>Port</span>
+  </a>
+  <a href="#recovery" class="mobile-nav-link">
+    <i class="fas fa-tools"></i>
+    <span>Recovery</span>
+  </a>
+  <a href="#linux" class="mobile-nav-link">
+    <i class="fab fa-linux"></i>
+    <span>Linux</span>
+  </a>
+  <a href="#kernel" class="mobile-nav-link">
+    <i class="fas fa-microchip"></i>
+    <span>Kernel</span>
+  </a>
+</div>
 
     <div class="warning">
       ⚠️ Always backup your data before flashing any ROM. Follow instructions
@@ -1049,7 +1172,7 @@
       // Add navigation highlighting
       document.addEventListener('DOMContentLoaded', function() {
         const sections = document.querySelectorAll('.section-title');
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         
         window.addEventListener('scroll', () => {
           let current = '';
@@ -1074,6 +1197,22 @@
           });
         });
       });
+      // Add this to your existing script section
+const mobileNavBtn = document.getElementById('mobileNavBtn');
+const mobileNavContainer = document.getElementById('mobileNavContainer');
+
+mobileNavBtn.addEventListener('click', () => {
+  mobileNavContainer.classList.toggle('open');
+});
+
+// Close mobile nav when clicking outside
+document.addEventListener('click', (e) => {
+  if (mobileNavContainer.classList.contains('open') && 
+      !mobileNavContainer.contains(e.target) && 
+      e.target !== mobileNavBtn) {
+    mobileNavContainer.classList.remove('open');
+  }
+});
     </script>
   </body>
 </html>
