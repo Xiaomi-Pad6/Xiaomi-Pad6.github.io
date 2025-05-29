@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xiaomi Pad 6 Custom ROM Hub</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&family=Road+Rage&display=swap"
-      rel="stylesheet"
-    />
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -338,10 +338,11 @@
         padding: 0.8rem 1.2rem;
         margin: 0 0.2rem;
         border-radius: 30px;
-        font-family: 'Road Rage', cursive;
-        font-size: 1.3rem;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
-        letter-spacing: 1px;
         white-space: nowrap;
         transition: all 0.3s ease;
         background: rgba(108, 92, 231, 0.1);
@@ -1164,83 +1165,67 @@
     </div>
 
     <script>
-      // Scroll animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = "translateY(0)";
-          }
-        });
-      });
+  // 1. Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  });
 
-      document.querySelectorAll(".rom-card, table, .note").forEach((el) => {
-        el.style.opacity = 0;
-        el.style.transform = "translateY(20px)";
-        el.style.transition = "opacity 0.5s, transform 0.5s";
-        observer.observe(el);
-      });
-      // Add navigation highlighting
-      document.addEventListener('DOMContentLoaded', function() {
-        const sections = document.querySelectorAll('.section-title');
-        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-        
-        window.addEventListener('scroll', () => {
-          let current = '';
-          
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if(pageYOffset >= (sectionTop - 100)) {
-              current = section.getAttribute('id');
-            }
-          });
-          
-          navLinks.forEach(link => {
-            link.classList.remove('active');
-            if(link.getAttribute('href') === '#' && current === '') {
-              link.classList.add('active');
-            }
-            if(link.getAttribute('href') === `#${current}`) {
-              link.classList.add('active');
-            }
-          });
-        });
-      });
-      // Add this to your existing script section
-const mobileNavBtn = document.getElementById('mobileNavBtn');
-const mobileNavContainer = document.getElementById('mobileNavContainer');
+  document.querySelectorAll(".rom-card, table, .note").forEach((el) => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(20px)";
+    el.style.transition = "opacity 0.5s, transform 0.5s";
+    observer.observe(el);
+  });
 
-mobileNavBtn.addEventListener('click', () => {
-  mobileNavContainer.classList.toggle('open');
-});
-
-// Close mobile nav when clicking outside
-document.addEventListener('click', (e) => {
-  if (mobileNavContainer.classList.contains('open') && 
-      !mobileNavContainer.contains(e.target) && 
-      e.target !== mobileNavBtn) {
-    mobileNavContainer.classList.remove('open');
-  }
-});
-
+  // 2. Navigation highlighting
   document.addEventListener('DOMContentLoaded', () => {
-    const mobileNavBtn = document.getElementById('mobileNavBtn');
-    const mobileNavContainer = document.getElementById('mobileNavContainer');
+    const sections = document.querySelectorAll('.section-title');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
 
-    mobileNavBtn.addEventListener('click', (e) => {
-      e.stopPropagation();                 // extra safety
-      mobileNavContainer.classList.toggle('open');
+    window.addEventListener('scroll', () => {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= (sectionTop - 100)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        // default to top if no section yet
+        if (link.getAttribute('href') === '#' && current === '') {
+          link.classList.add('active');
+        }
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // 3. Mobile-nav toggle & outside-click
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn  = document.getElementById('mobileNavBtn');
+    const menu = document.getElementById('mobileNavContainer');
+
+    // Toggle open/close
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();    // prevent this click from bubbling up
+      menu.classList.toggle('open');
     });
 
+    // Close when clicking outside
     document.addEventListener('click', (e) => {
-      if (mobileNavBtn.contains(e.target)) return;
-      if (
-        mobileNavContainer.classList.contains('open') &&
-        !mobileNavContainer.contains(e.target)
-      ) {
-        mobileNavContainer.classList.remove('open');
+      if (btn.contains(e.target)) return;  // ignore clicks on the button
+      if (menu.classList.contains('open') && !menu.contains(e.target)) {
+        menu.classList.remove('open');
       }
     });
   });
