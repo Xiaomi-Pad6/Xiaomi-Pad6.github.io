@@ -457,6 +457,17 @@
       html {
         scroll-padding-top: 70px;
       }
+      /* Disable the blue tap highlight everywhere */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus outline on your buttons/links */
+.mobile-nav-btn:focus,
+.mobile-nav-link:focus,
+.nav-link:focus {
+  outline: none;
+}
     </style>
   </head>
   <body>
@@ -1213,6 +1224,26 @@ document.addEventListener('click', (e) => {
     mobileNavContainer.classList.remove('open');
   }
 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileNavBtn = document.getElementById('mobileNavBtn');
+    const mobileNavContainer = document.getElementById('mobileNavContainer');
+
+    mobileNavBtn.addEventListener('click', (e) => {
+      e.stopPropagation();                 // extra safety
+      mobileNavContainer.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (mobileNavBtn.contains(e.target)) return;
+      if (
+        mobileNavContainer.classList.contains('open') &&
+        !mobileNavContainer.contains(e.target)
+      ) {
+        mobileNavContainer.classList.remove('open');
+      }
+    });
+  });
     </script>
   </body>
 </html>
