@@ -64,6 +64,36 @@
         -webkit-text-fill-color: transparent;
       }
 
+      /* Ensure proper responsiveness on mobile */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Fullscreen preloader overlay */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;              /* cover full viewport width */
+  height: 100vh;             /* cover full viewport height */
+  background: #222;          /* dark background for tech feel */
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* center children (the triangle) */
+  z-index: 9999;             /* on top of everything */
+}
+
+/* Triangle shape using CSS clip-path */
+.triangle {
+  width: 100px;              /* base width */
+  aspect-ratio: 1;           /* keep it equilateral */
+  background: #1abc9c;       /* bright teal accent color */
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  /* Optional: add a subtle shadow for depth */
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
       .device-image {
   width: 300px;
   height: 200px;
@@ -506,6 +536,11 @@
     </style>
   </head>
   <body>
+    <!-- Preloader overlay -->
+<div id="preloader">
+  <div class="triangle"></div>
+</div>
+
     <header class="header">
       <h1 class="device-title">Xiaomi Pad 6<br />Custom ROM Hub</h1>
       <img class="device-image" src="/img/XiaomiPad6.png" alt="Pad 6" />
@@ -1197,6 +1232,38 @@
         </div>
       </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+
+    <script>
+// Wait for the entire page to load
+window.addEventListener('load', () => {
+  // Create a GSAP timeline
+  const tl = gsap.timeline({
+    // When the timeline completes, remove the preloader
+    onComplete: () => {
+      document.getElementById('preloader').remove();
+    }
+  });
+
+  // Rotate the triangle 3 full turns over ~3 seconds
+  tl.to('.triangle', {
+    duration: 3,
+    rotate: 360 * 3,
+    ease: "power2.inOut"
+  });
+
+  // Fade out and slide up the preloader over 1 second
+  tl.to('#preloader', {
+    duration: 1,
+    opacity: 0,
+    y: "-100%",
+    ease: "power2.out"
+  }, ">"); // ">" makes this start immediately after the rotation
+
+  // The content (#main-content) will now be visible underneath.
+});
+    </script>
 
     <script>
   // 1. Scroll animations
