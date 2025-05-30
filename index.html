@@ -65,13 +65,47 @@
       }
 
       .device-image {
-        width: 300px;
-        height: 200px;
-        background: #333;
-        border-radius: 15px;
-        box-shadow: 0 0 30px rgba(108, 92, 231, 0.4);
-        object-fit: cover;
-      }
+  width: 300px;
+  height: 200px;
+  background: #333;
+  border-radius: 15px;
+  object-fit: cover;
+  /* New outline effects below */
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 0 0 1px rgba(168, 165, 230, 0.3),
+    0 0 15px rgba(108, 92, 231, 0.6),
+    0 0 30px rgba(108, 92, 231, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.device-image::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20px; /* Slightly larger than container */
+  background: linear-gradient(
+    45deg,
+    rgba(108, 92, 231, 0.2),
+    rgba(168, 165, 230, 0.1),
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.device-image:hover {
+  box-shadow: 
+    0 0 0 1px rgba(168, 165, 230, 0.5),
+    0 0 25px rgba(108, 92, 231, 0.8),
+    0 0 45px rgba(108, 92, 231, 0.6);
+  transform: scale(1.02);
+}
 
       .warning {
         background: #ff475722;
