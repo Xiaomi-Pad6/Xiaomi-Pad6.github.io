@@ -1357,7 +1357,7 @@ html, body {
                 onComplete: () => {
                     gsap.to(preloader, {
                         opacity: 0,
-                        duration: 0.3,
+                        duration: 0.15,
                         ease: "power1.inOut",
                         onComplete: () => {
                             preloader.style.display = 'none';
@@ -1365,16 +1365,16 @@ html, body {
                     });
                 }
             })
-            .staggerTo(tiles, 0.3, { // Duration of each tile's animation
+            .staggerTo(tiles, 0.15, { // Duration of each tile's animation
                 scale: 1,
                 opacity: 1,
                 ease: "power2.out",
-            }, 0.005) // Stagger delay between tiles (controls wave speed)
-            .staggerTo(tiles, 0.3, { // Duration of each tile's animation
+            }, 0.003) // Stagger delay between tiles (controls wave speed)
+            .staggerTo(tiles, 0.15, { // Duration of each tile's animation
                 scale: 0,
                 opacity: 0,
                 ease: "power2.in",
-            }, 0.005, "+=0.2"); // Start this part 0.2s after the previous stagger sequence finishes
+            }, 0.003, "+=0.1"); // Start this part 0.2s after the previous stagger sequence finishes
         });
         // ===== End New Preloader JavaScript =====
     </script> 
