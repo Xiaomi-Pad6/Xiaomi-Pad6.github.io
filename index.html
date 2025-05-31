@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xiaomi Pad 6 Custom ROM Hub</title>
+    <link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #6c5ce7;
+        --secondary: #a8a5e6;
+        --accent: #ff7675;
+        --dark: #000000;
+        --light: #dfe6e9;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background: var(--dark);
+        color: var(--light);
+        line-height: 1.6;
+        padding-bottom: 3rem;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.8);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, var(--primary), transparent);
+        z-index: -1;
+      }
+
+      .device-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Ensure proper responsiveness on mobile */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+      
+        /* ===== New Preloader Styles ===== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--dark); /* Using site's dark color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1; /* Start visible, GSAP will handle fade out */
+            overflow: hidden; 
+        }
+
+        #tile-grid-container {
+            display: grid;
+            gap: 2px; /* Small gap between tiles */
+        }
+
+        .preloader-tile {
+            background-color: var(--primary); /* Use site's primary color */
+            opacity: 0;
+            transform: scale(0);
+            width: 100%; /* Fill grid cell */
+            height: 100%;
+            border-radius: 3px; /* Slightly rounded corners */
+        }
+        /* ===== End New Preloader Styles ===== */
+
+      .device-image {
+  width: 300px;
+  height: 200px;
+  background: #333;
+  border-radius: 15px;
+  object-fit: cover;
+  /* New outline effects below */
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 0 0 1px rgba(168, 165, 230, 0.3),
+    0 0 15px rgba(108, 92, 231, 0.6),
+    0 0 30px rgba(108, 92, 231, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.device-image::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 20px; /* Slightly larger than container */
+  background: linear-gradient(
+    45deg,
+    rgba(108, 92, 231, 0.2),
+    rgba(168, 165, 230, 0.1),
+    transparent 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.device-image:hover {
+  box-shadow: 
+    0 0 0 1px rgba(168, 165, 230, 0.5),
+    0 0 25px rgba(108, 92, 231, 0.8),
+    0 0 45px rgba(108, 92, 231, 0.6);
+  transform: scale(1.02);
+}
+
+      .warning {
+        background: #ff475722;
+        border-left: 4px solid var(--accent);
+        padding: 1.5rem;
+        margin: 2rem;
+        border-radius: 5px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse { /* This pulse is for the warning, keep it */
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+       /* Original image styling */
+        .rom-image {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+          border-radius: 8px 8px 0 0; /* Rounded top only */
+          margin-bottom: 0.5rem; /* Reduced space below image */
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Updated badge positioning */
+        .badge {
+          display: inline-block;
+          margin: -1.25rem 0 1rem 1rem; /* Top | Right | Bottom | Left */
+          position: relative;
+          z-index: 1;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+      .section-title {
+        font-family: "Orbitron", sans-serif;
+        color: var(--primary);
+        margin: 3rem 2rem 1.5rem;
+        padding: 1rem 2rem;
+        border-left: 5px solid var(--accent);
+      }
+
+      .rom-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 0 2rem;
+      }
+
+      .rom-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+
+      .rom-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .official {
+        background: var(--primary);
+      }
+      .unofficial {
+        background: #e67e22;
+      }
+      .hyperos {
+        background: #8e44ad;
+      }
+      .ported {
+        background: #27ae60;
+      }
+      .recovery {
+        background: #f1c40f;
+        color: #000;
+      }
+      .linux {
+        background: #3498db;
+      }
+      .kernel {
+        background: #e74c3c;
+      }
+
+      .links a {
+        display: block;
+        color: var(--secondary);
+        text-decoration: none;
+        margin: 0.5rem 0;
+        transition: color 0.3s;
+      }
+
+      .links a:hover {
+        color: var(--accent);
+      }
+
+      table {
+        width: 100%;
+        margin: 2rem;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      th {
+        background: var(--primary);
+      }
+
+      code {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+
+      .note {
+        background: #0984e322;
+        padding: 1.5rem;
+        margin: 2rem;
+        border-radius: 5px;
+        border-left: 4px solid #0984e3;
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .device-image {
+          margin-top: 2rem;
+        }
+
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+      /* ===== Updated Links Styles ===== */
+      .links a {
+        display: flex;
+        align-items: center;
+        color: var(--secondary);
+        text-decoration: none;
+        margin: 0.5rem 0;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: rgba(108, 92, 231, 0.1);
+        gap: 0.8rem;
+      }
+
+      /* Hover Effect */
+      .links a:hover {
+        color: var(--accent);
+        transform: translateX(10px);
+        background: rgba(108, 92, 231, 0.2);
+        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+      }
+
+      /* Click Effect */
+      .links a:active {
+        transform: scale(0.95);
+        background: rgba(108, 92, 231, 0.3);
+      }
+
+      /* Animated Underline */
+      .links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.3s ease;
+      }
+
+      .links a:hover::after {
+        width: 100%;
+      }
+
+      /* Icon Animation */
+      .links a i {
+        transition: transform 0.3s ease;
+      }
+
+      .links a:hover i {
+        transform: translateY(-3px);
+      }
+
+      /* ===== Mobile Adjustments Only ===== */
+      @media (max-width: 768px) {
+        .links a {
+          padding: 1rem;
+          margin: 0.8rem 0;
+        }
+
+        .header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .device-image {
+          margin-top: 2rem;
+        }
+
+        table {
+          display: block;
+          overflow-x: auto;
+        }
+      }
+      .navbar {
+        background: rgba(0, 0, 0, 0.9);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 0.5rem 1rem;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--primary);
+      }
+      
+      .nav-container {
+        display: flex;
+        max-width: 1400px;
+        margin: 0 auto;
+        overflow-x: auto;
+        padding: 0.5rem 0;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      
+      .nav-container::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+      }
+      
+      .nav-link {
+        color: var(--light);
+        text-decoration: none;
+        padding: 0.8rem 1.2rem;
+        margin: 0 0.2rem;
+        border-radius: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        background: rgba(108, 92, 231, 0.1);
+        border: 1px solid transparent;
+      }
+      
+      .nav-link:hover {
+        background: rgba(108, 92, 231, 0.3);
+        border-color: var(--primary);
+      }
+      
+      .nav-link.active {
+        background: var(--primary);
+        color: white;
+      }
+
+.mobile-nav-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  z-index: 1000;
+  border: none;
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-btn:hover {
+  transform: scale(1.1);
+  background: #7d6ce9;
+}
+
+.mobile-nav-container {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-container.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-decoration: none;
+  font-family: 'Road Rage', cursive;
+  font-size: 0.9rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  border: 1px solid var(--primary);
+}
+
+.mobile-nav-link:hover {
+  transform: scale(1.1) translateX(-5px);
+  background: var(--primary);
+}
+
+.mobile-nav-link span {
+  position: absolute;
+  right: 60px;
+  background: rgba(0, 0, 0, 0.9);
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transform: translateX(10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  border: 1px solid var(--primary);
+}
+
+.mobile-nav-link:hover span {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+  
+  .mobile-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+} 
+      /* Add scroll padding for anchor links */
+      html {
+        scroll-padding-top: 70px;
+      }
+      /* Disable the blue tap highlight everywhere */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove default focus outline on your buttons/links */
+.mobile-nav-btn:focus,
+.mobile-nav-link:focus,
+.nav-link:focus {
+  outline: none;
+}
+    </style>
+  </head>
+  <body>
+    
+<!-- New Preloader Structure -->
+<div id="preloader">
+    <!-- Tiles will be generated here by JavaScript -->
+</div>
+
+    <header class="header">
+      <h1 class="device-title">Xiaomi Pad 6<br />Custom ROM Hub</h1>
+      <img class="device-image" src="/img/XiaomiPad6.png" alt="Pad 6" />
+    </header>
+
+<!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#active-roms" class="nav-link">Active ROMs</a>
+        <a href="#eol" class="nav-link">EOL</a>
+        <a href="#hyperos" class="nav-link">HyperOS</a>
+        <a href="#port" class="nav-link">Port</a>
+        <a href="#recovery" class="nav-link">Recovery</a>
+        <a href="#linux" class="nav-link">Linux</a>
+        <a href="#kernel" class="nav-link">Kernel</a>
+      </div>
+    </nav>
+    
+<button class="mobile-nav-btn" id="mobileNavBtn">
+  <i class="fas fa-bars"></i>
+</button>
+
+<div class="mobile-nav-container" id="mobileNavContainer">
+  <a href="#" class="mobile-nav-link active">
+    <i class="fas fa-home"></i>
+    <span>Home</span>
+  </a>
+  <a href="#active-roms" class="mobile-nav-link">
+    <i class="fas fa-bolt"></i>
+    <span>Active ROMs</span>
+  </a>
+  <a href="#eol" class="mobile-nav-link">
+    <i class="fas fa-history"></i>
+    <span>EOL</span>
+  </a>
+  <a href="#hyperos" class="mobile-nav-link">
+    <i class="fas fa-layer-group"></i>
+    <span>HyperOS</span>
+  </a>
+  <a href="#port" class="mobile-nav-link">
+    <i class="fas fa-exchange-alt"></i>
+    <span>Port</span>
+  </a>
+  <a href="#recovery" class="mobile-nav-link">
+    <i class="fas fa-tools"></i>
+    <span>Recovery</span>
+  </a>
+  <a href="#linux" class="mobile-nav-link">
+    <i class="fab fa-linux"></i>
+    <span>Linux</span>
+  </a>
+  <a href="#kernel" class="mobile-nav-link">
+    <i class="fas fa-microchip"></i>
+    <span>Kernel</span>
+  </a>
+</div>
+
+    <div class="warning">
+      ⚠️ Always backup your data before flashing any ROM. Follow instructions
+      carefully!
+    </div>
+    <!-- Regularly Updated Roms -->
+    <h2 class="section-title" id="active-roms">Active Roms</h2>
+    <div class="rom-grid">
+      <!-- RisingOS Revived -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Rising.jpg" alt="Rising">
+        <span class="badge official">Official</span>
+        <h3>RisingOS Revived</h3>
+        <p>v7.0-Persis · @CuriousNom</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/risingos-revived/files/7.x/CORE/pipa/RisingOS_Revived-7.0-250507-1933-CORE-OFFICIAL-pipa-ota.zip/download"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://raw.githubusercontent.com/RisingOS-Revived/official_devices/refs/heads/fifteen/OTA/changelogs/pipa.txt"
+            target="_blank"
+            >📝 Changelog</a
+          >
+          <a
+            href="https://github.com/RisingOS-Revived/official_devices/blob/fifteen/OTA/guide/pipa.md"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://t.me/RomCentralHub" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- AxionAOSP -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Axion.jpg" alt="axion">
+        <span class="badge official">Official</span>
+        <h3>AxionAOSP</h3>
+        <p>v1.4 · @aerniq</p>
+        <div class="links">
+          <a href="https://t.me/AxionAOSPUpdates/156" target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://github.com/rmuxnet/Axion-PIPA/blob/main/README.md"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://t.me/rmuxminions" target="_blank">👥 Support</a>
+          <a href="https://t.me/aerniqq/2" target="_blank">☕ Donate</a>
+        </div>
+      </div>
+
+      <!-- PixelOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/PixelOS.jpg" alt="pixel">
+        <span class="badge official">Official</span>
+        <h3>PixelOS</h3>
+        <p>Latest · @Megalodonzs</p>
+        <div class="links">
+          <a href="https://pixelos.net/download/pipa" target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://pixelos.net/download/pipa" target="_blank"
+            >📝 Changelog</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- Project Matrixx -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Matrixx.jpg" alt="matrixx">
+        <span class="badge official">Official</span>
+        <h3>Project Matrixx</h3>
+        <p>Lemma v11.2.0 · @CuriousNom</p>
+        <div class="links">
+          <a
+            href="https://www.projectmatrixx.org/downloads/pipa"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://www.projectmatrixx.org/downloads/pipa"
+            target="_blank"
+            >📝 Changelog</a
+          >
+          <a href="https://t.me/romcentralgallery/443" target="_blank"
+            >📑 Notes</a
+          >
+          <a href="https://t.me/RomCentralHub" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- Project InfinityX -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/InfinityX.jpg" alt="infinityx">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>Project InfinityX</h3>
+        <p>2.8 · @glitch_wraith</p>
+        <div class="links">
+          <a href="https://t.me/dump_cloud_001/47" target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://t.me/dump_cloud_001/48" target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/214?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/mipad6" target="_blank">👥 Support</a>
+          <a href="https://t.me/mipad6roms" target="_blank">📢 Channel</a>
+        </div>
+      </div>
+
+      <!-- ProjectPixelage -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Pixelage.png" alt="pixelage">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>ProjectPixelage</h3>
+        <p>2.8 · @oko_123 & @aerniq</p>
+        <div class="links">
+          <a
+            href="https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250512-1758.zip"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://ota.awoo.fun/flashable/20250512_recovery/"
+            target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+          <a href="https://ko-fi.com/jaxthewolf" target="_blank">🍺 Donate</a>
+        </div>
+      </div>
+
+      <!-- Evolution X -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Evox.jpg" alt="evox">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>Evolution X</h3>
+        <p>10.5 · @Atom_Yr</p>
+        <div class="links">
+          <a href="https://gofile.io/d/UiIkLX" target="_blank">📥 Download</a>
+          <a
+            href="https://github.com/instanceready/evox-pipa-release/blob/main/README.md"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://t.me/crdroid_pipa_atom/26" target="_blank"
+            >📸 Screenshots</a
+          >
+        </div>
+      </div>
+
+      <!-- VOLTAGE OS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Voltage.jpg" alt="voltage">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>VOLTAGE OS</h3>
+        <p>V4.4 · @glitch_wraith</p>
+        <div class="links">
+          <a href="https://t.me/dump_cloud_001/72" target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://github.com/glitch-wraith/VoltageOS-PIPA/releases"
+            target="_blank"
+            >📥 GitHub</a
+          >
+          <a href="https://t.me/dump_cloud_001/72" target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/282?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a
+            href="https://telegra.ph/Instructions-for-flashing-custom-rom-pipa-05-13"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- CrDroid -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/CrDroid.jpg" alt="crdroid">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>CrDroid</h3>
+        <p>11.5 · @Atom_Yr</p>
+        <div class="links">
+          <a href="https://gofile.io/d/cWVlkn" target="_blank">📥 GApps</a>
+          <a href="https://gofile.io/d/PGnrK7" target="_blank">📥 Vanilla</a>
+          <a
+            href="https://github.com/instanceready/cr-pipa-releases/blob/main/README.md"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://t.me/crdroid_pipa_atom/13" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://buymeacoffee.com/yuvaraj" target="_blank"
+            >☕ Donate</a
+          >
+        </div>
+      </div>
+
+      <!-- LineageOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/LineageOs.jpg" alt="lineage">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>LineageOS</h3>
+        <p>22.2 · @tu4wkl (Tuki)</p>
+        <div class="links">
+          <a
+            href="https://drive.google.com/drive/folders/1gRXBWFDi11W_KIzBzRMQmvDHf0G5Dv0j"
+            target="_blank"
+            >📥 Drive</a
+          >
+          <a href="https://t.me/tukisshit/160" target="_blank">📥 Telegram</a>
+          <a
+            href="https://github.com/pachdomenic/Lineage_OTA/releases/tag/lineage-22.2-20250415-UNOFFICIAL-Tuki-pipa"
+            target="_blank"
+            >📥 Github</a
+          >
+          <a href="https://t.me/tukiupdates" target="_blank">📢 Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Abandoned roms -->
+    <h2 class="section-title" id="eol">EOL</h2>
+    <div class="rom-grid">
+      <!-- HorizonDroid -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/HorizonDroid.jpg" alt="horizondroid">
+        <span class="badge official">Official</span>
+        <h3>HorizonDroid</h3>
+        <p>V5.2 · @glitch_wraith</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/horizondroid-pipa/files/"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://sourceforge.net/projects/horizondroid-pipa/files/24-04-2025/"
+            target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/262?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- LMODroid -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/LmoDroid.jpg" alt="lmo">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>LMODroid</h3>
+        <p>v6.1 · @ai94iq</p>
+        <div class="links">
+          <a
+            href="https://github.com/ai94iq/pipa-releases/releases/tag/LMODroid-6.1-20250315"
+            target="_blank"
+            >📥 Github</a
+          >
+          <a
+            href="https://github.com/ai94iq/pipa-releases?tab=readme-ov-file#installation-guide"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://buymeacoffee.com/ai94iq" target="_blank"
+            >☕ Donate</a
+          >
+        </div>
+      </div>
+
+      <!-- SomethingOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Something.jpg" alt="something">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>SomethingOS</h3>
+        <p>2.0 · @glitch_wraith</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/somethingospipa/files/FastbootRom/"
+            target="_blank"
+            >📥 Fastboot</a
+          >
+          <a
+            href="https://sourceforge.net/projects/somethingospipa/files/RecoveryRom/"
+            target="_blank"
+            >📥 Recovery</a
+          >
+          <a href="https://t.me/royal_labs/192?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/XiaomiPad6Updates" target="_blank"
+            >📢 Channel</a
+          >
+        </div>
+      </div>
+
+      <!-- CalyxOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Calyx.jpg" alt="calyx">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>CalyxOS</h3>
+        <p>6.3.2 · @ai94iq</p>
+        <div class="links">
+          <a
+            href="https://github.com/ai94iq/pipa-calyxos-releases/releases/tag/CalyxOS-6.3.2-20250130"
+            target="_blank"
+            >📥 Github</a
+          >
+          <a
+            href="https://github.com/ai94iq/pipa-calyxos-releases?tab=readme-ov-file#installation-guide"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a href="https://buymeacoffee.com/ai94iq" target="_blank"
+            >☕ Donate</a
+          >
+        </div>
+      </div>
+
+      <!-- Derpfest -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Derpfest.jpg" alt="Derp">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>Derpfest</h3>
+        <p>v15.1 · @glitch_wraith</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/pipa-derpfest/files/"
+            target="_blank"
+            >📥 Sourceforge</a
+          >
+          <a href="https://pixeldrain.com/u/LC4z1zdd" target="_blank"
+            >📥 PixelDrain</a
+          >
+          <a
+            href="https://sourceforge.net/projects/pipa-derpfest/files/Derpfest%20Recovery/"
+            target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://github.com/royal-jaat/Pipa-Release" target="_blank"
+            >📖 Guide</a
+          >
+        </div>
+      </div>
+
+      <!-- Bliss -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Bliss.jpg" alt="bliss">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>Bliss</h3>
+        <p>V18.5 · @glitch_wraith</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/blissospipa/files/"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://sourceforge.net/projects/blissospipa/files/22-04-2025/"
+            target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/226?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- GenesisOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Genesis.png" alt="genesis">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>GenesisOS</h3>
+        <p>V4.2 · @glitch_wraith</p>
+        <div class="links">
+          <a
+            href="https://sourceforge.net/projects/genesisospipa/files/"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://sourceforge.net/projects/genesisospipa/files/22-04-2025/"
+            target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/243?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+
+      <!-- The Clover Project -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Clover.jpg" alt="clover">
+        <span class="badge unofficial">Unofficial</span>
+        <h3>The Clover Project</h3>
+        <p>V2.5 · @glitch_wraith</p>
+        <div class="links">
+          <a href="https://t.me/royal_labs/276" target="_blank">📥 Download</a>
+          <a href="https://t.me/dump_cloud_001/34" target="_blank"
+            >🛠️ Recovery</a
+          >
+          <a href="https://t.me/royal_labs/274?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/XiaomiPad6Global" target="_blank">👥 Support</a>
+        </div>
+      </div>
+    </div>
+    <!-- HyperOS-Based ROMs -->
+    <h2 class="section-title" id="hyperos">HyperOS-Based ROMs</h2>
+    <div class="rom-grid">
+      <!-- RavenOS -->
+      <div class="rom-card">
+        <span class="badge hyperos">HyperOS</span>
+        <h3>RavenOS</h3>
+        <p>V1.0.15.0 · @bharatgojiya</p>
+        <div class="links">
+          <a
+            href="https://drive.google.com/file/d/1-3HU5TyG3y3mUXb6NL2pBvufv5EJjKpc/view?usp=drivesdk"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://telegra.ph/RavenOS-Features-02-13" target="_blank"
+            >✨ Features</a
+          >
+          <a href="https://t.me/RavenOSBuilds/3/1?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/RavenOSBuilds" target="_blank">👥 Support</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ported ROMs -->
+    <h2 class="section-title" id="port">Ported ROMs</h2>
+    <div class="rom-grid">
+      <!-- ColorOS Port -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/ColorOS.jpg" alt="coloros">
+        <span class="badge ported">Ported</span>
+        <h3>ColorOS Port</h3>
+        <p>Latest · Multiple</p>
+        <div class="links">
+          <a href="https://t.me/pipacoloros" target="_blank">📥 Files</a>
+          <a
+            href="https://drive.google.com/file/d/1xOV8H69U3W-4pU2TN3TwgCZaSTKDdrh1/view?usp=sharing"
+            target="_blank"
+            >📥 ROM</a
+          >
+        </div>
+      </div>
+
+      <!-- ColorOS 15 -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/ColorOS.jpg" alt="color">
+        <span class="badge ported">Ported</span>
+        <h3>ColorOS 15</h3>
+        <p>C.1.0.5 · @ShuiLan_News</p>
+        <div class="links">
+          <a
+            href="https://tiantianqwqalist.top/d/123%E4%BA%91%E7%9B%98/%E5%A4%A9%E5%A4%A9%E7%9A%84%E8%B5%84%E6%BA%90%E7%AB%99/%E5%B0%8F%E7%B1%B3%E5%B9%B3%E6%9D%BF%206/ColorOS%2015.0.0.701%20%E5%AE%89%E5%8D%9315/pipa_XiaomiPad6_ColorOS15.0.0.701_15.0.zip?sign=BU-GR65nfYVicNTzkLpUTzTk2APDXfnpWpC9GX05Vug=:0"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://t.me/ShuiLan_News/1778?single" target="_blank"
+            >📸 Screenshots</a
+          >
+          <a href="https://t.me/ShuiLan_News" target="_blank">📢 Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Recoveries -->
+    <h2 class="section-title" id="recovery">Custom Recoveries</h2>
+    <div class="rom-grid">
+      <!-- TWRP -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/TWRP.jpg" alt="twrp">
+        <span class="badge recovery">Recovery</span>
+        <h3>TWRP</h3>
+        <p>3.7.1_12 · @aerniq</p>
+        <div class="links">
+          <a href="https://t.me/pipacancer/60" target="_blank">📥 Telegram</a>
+          <a
+            href="https://github.com/rmuxnet/android_device_xiaomi_pipa_twrp/releases/download/fewk/twrp-last.img"
+            target="_blank"
+            >📥 Github</a
+          >
+          <a href="https://rmuxnet.github.io/twrp_pipa/" target="_blank"
+            >📖 Written Guide</a
+          >
+          <a href="https://t.me/pipacancer/39" target="_blank"
+            >🎬 Video Guide</a
+          >
+          <a href="http://rmux.zya.me/" target="_blank">☕ Donate</a>
+        </div>
+      </div>
+
+      <!-- Orange Fox -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Orangefox.jpg" alt="orangefox">
+        <span class="badge recovery">Recovery</span>
+        <h3>Orange Fox</h3>
+        <p>R11.3 · @CuriousNom</p>
+        <div class="links">
+          <a
+            href="https://github.com/CuriousNom/OrangeFox-Action-Builder/releases/tag/15132943677"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://t.me/rchnewgallery/67" target="_blank"
+            >📖 Flash Guide</a
+          >
+          <a href="https://t.me/RomCentralHub" target="_blank">👥 Support</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linux Distributions -->
+    <h2 class="section-title" id="linux">Linux Distributions</h2>
+    <div class="rom-grid">
+      <!-- Arch Linux -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/ArchLinux.png" alt="archlinux">
+        <span class="badge linux">Linux</span>
+        <h3>Arch Linux</h3>
+        <p>ARM64 · @domin746826 & @aerniq</p>
+        <div class="links">
+          <a href="https://t.me/pipacancer/113?single" target="_blank"
+            >📥 Download</a
+          >
+          <a href="https://t.me/xiaomi_pipa/13074" target="_blank"
+            >📖 Full Guide</a
+          >
+          <a
+            href="https://raw.githubusercontent.com/BrickTM-mainline/pipa/refs/heads/main/scripts/setup.sh"
+            target="_blank"
+            >⚙️ Setup Script</a
+          >
+        </div>
+      </div>
+
+      <!-- postmarketOS -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/PostMarketOS.png" alt="postmarket">
+        <span class="badge linux">Linux</span>
+        <h3>postmarketOS</h3>
+        <p>ARM64 · @labnixxiz</p>
+        <div class="links">
+          <a
+            href="https://github.com/pipa-project/postmarketos-builds/actions"
+            target="_blank"
+            >📥 Builds</a
+          >
+        </div>
+      </div>
+
+      <!-- Fedora -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Fedora.png" alt="fedora">
+        <span class="badge linux">Linux</span>
+        <h3>Fedora</h3>
+        <p>42 · @themojoman</p>
+        <div class="links">
+          <a href="https://github.com/themojoman/xiaomi-pipa" target="_blank"
+            >📥 Download</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Kernels -->
+    <h2 class="section-title" id="kernel">Custom Kernels</h2>
+    <div class="rom-grid">
+      <!-- Rμxne -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/Ruxne.jpg" alt="ruxne">
+        <span class="badge kernel">Kernel</span>
+        <h3>Rμxne</h3>
+        <p>4.19.325 · @aerniq</p>
+        <div class="links">
+          <a href="https://t.me/pipacancer/92" target="_blank">📥 Download</a>
+          <a
+            href="https://github.com/rmuxnet/android_kernel_xiaomi_sm8250/blob/axksu/README.md"
+            target="_blank"
+            >📖 Guide</a
+          >
+          <a
+            href="https://xdaforums.com/t/kernel-rmxne-kernel-xiaomi-pad-6.4733318/post-90083384"
+            target="_blank"
+            >📝 XDA Post</a
+          >
+          <a href="https://t.me/aerniqq/2" target="_blank">☕ Donate</a>
+        </div>
+      </div>
+
+      <!-- BloodReaper+ -->
+      <div class="rom-card">
+        <img class="rom-image" src="/img/BloodReaper.jpg" alt="bloodreaper">
+        <span class="badge kernel">Kernel</span>
+        <h3>BloodReaper+</h3>
+        <p>4.19.332 · @CuriousNom</p>
+        <div class="links">
+          <a
+            href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5"
+            target="_blank"
+            >📥 Download</a
+          >
+          <a
+            href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5"
+            target="_blank"
+            >📝 Changelog</a
+          >
+          <a href="https://t.me/rchnewgallery/38" target="_blank">📖 Guide</a>
+          <a href="https://t.me/RomCentralHub" target="_blank">👥 Support</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include GSAP library -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // ===== New Preloader JavaScript =====
+        document.addEventListener("DOMContentLoaded", function() {
+            const preloader = document.getElementById('preloader');
+            if (!preloader) return;
+
+            // Clear any existing content (e.g., from old preloader if HTML wasn't fully cleaned)
+            preloader.innerHTML = ''; 
+
+            const TILE_SIZE_DESKTOP = 30; // Tile size for larger screens
+            const TILE_SIZE_MOBILE = 20;  // Tile size for smaller screens
+            const GAP_SIZE = 2;
+
+            // Determine tile size based on viewport width
+            const TILE_SIZE = window.innerWidth > 768 ? TILE_SIZE_DESKTOP : TILE_SIZE_MOBILE;
+
+            const numCols = Math.ceil(window.innerWidth / (TILE_SIZE + GAP_SIZE));
+            const numRows = Math.ceil(window.innerHeight / (TILE_SIZE + GAP_SIZE));
+
+            const tileGridContainer = document.createElement('div');
+            tileGridContainer.id = 'tile-grid-container';
+            // Center the grid if it's slightly smaller than viewport due to rounding
+            tileGridContainer.style.width = `${numCols * (TILE_SIZE + GAP_SIZE) - GAP_SIZE}px`;
+            tileGridContainer.style.height = `${numRows * (TILE_SIZE + GAP_SIZE) - GAP_SIZE}px`;
+
+            tileGridContainer.style.gridTemplateColumns = `repeat(${numCols}, ${TILE_SIZE}px)`;
+            tileGridContainer.style.gridTemplateRows = `repeat(${numRows}, ${TILE_SIZE}px)`;
+            
+            preloader.appendChild(tileGridContainer);
+
+            const tiles = [];
+            for (let i = 0; i < numRows * numCols; i++) {
+                const tile = document.createElement('div');
+                tile.classList.add('preloader-tile');
+                tileGridContainer.appendChild(tile);
+                tiles.push(tile);
+            }
+
+            // Shuffle tiles for a more random appearance/disappearance effect
+            for (let i = tiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            }
+
+            gsap.timeline({
+                onComplete: () => {
+                    gsap.to(preloader, {
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power1.inOut",
+                        onComplete: () => {
+                            preloader.style.display = 'none';
+                        }
+                    });
+                }
+            })
+            .staggerTo(tiles, 0.3, { // Duration of each tile's animation
+                scale: 1,
+                opacity: 1,
+                ease: "power2.out",
+            }, 0.005) // Stagger delay between tiles (controls wave speed)
+            .staggerTo(tiles, 0.3, { // Duration of each tile's animation
+                scale: 0,
+                opacity: 0,
+                ease: "power2.in",
+            }, 0.005, "+=0.2"); // Start this part 0.2s after the previous stagger sequence finishes
+        });
+        // ===== End New Preloader JavaScript =====
+    </script> 
+
+    <script>
+  // 1. Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  });
+
+  document.querySelectorAll(".rom-card, table, .note").forEach((el) => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(20px)";
+    el.style.transition = "opacity 0.5s, transform 0.5s";
+    observer.observe(el);
+  });
+
+  // 2. Navigation highlighting
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.section-title');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= (sectionTop - 100)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        // default to top if no section yet
+        if (link.getAttribute('href') === '#' && current === '') {
+          link.classList.add('active');
+        }
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  });
+
+  // 3. Mobile-nav toggle & outside-click
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn  = document.getElementById('mobileNavBtn');
+    const menu = document.getElementById('mobileNavContainer');
+
+    // Toggle open/close
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();    // prevent this click from bubbling up
+      menu.classList.toggle('open');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (btn.contains(e.target)) return;  // ignore clicks on the button
+      if (menu.classList.contains('open') && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  });
+    </script>
+  </body>
+</html>
