@@ -164,14 +164,6 @@ html, body {
             animation: pulse 1.5s infinite alternate;
         }
         
-        .progress-text {
-            margin-top: 2rem;
-            font-family: 'Roboto', sans-serif;
-            color: #dfe6e9;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-        
         .progress-bar {
             width: 300px;
             height: 8px;
@@ -700,7 +692,6 @@ html, body {
                 <div class="processor-core"></div>
             </div>
         </div>
-        <div class="progress-text">Loading ROMs <span id="progress-percent">0%</span></div>
         <div class="progress-bar">
             <div class="progress-fill" id="progress-fill"></div>
         </div>
@@ -1436,7 +1427,6 @@ html, body {
             // Simulate loading progress
             let progress = 0;
             const progressFill = document.getElementById('progress-fill');
-            const progressPercent = document.getElementById('progress-percent');
             const hint = document.querySelector('.hint');
             const hints = [
                 "Preparing recovery environment...",
@@ -1452,7 +1442,6 @@ html, body {
                 if (progress > 100) progress = 100;
                 
                 progressFill.style.width = `${progress}%`;
-                progressPercent.textContent = `${Math.floor(progress)}%`;
                 
                 // Update hint every 15% progress
                 if (progress % 15 < 1) {
