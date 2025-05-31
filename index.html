@@ -70,54 +70,179 @@ html, body {
   padding: 0;
 }
 
-/* Loader overlay covering the full screen */
-#preloader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-/* Base style for all shapes */
-.shape {
-  position: absolute;
-  opacity: 0.9;
-  filter: blur(8px);    /* glow blur */
-}
-
-/* First circle (green) in center */
-.circle {
-  width: 100px; height: 100px;
-  background-color: #0f0;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #0f0;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Square (orange), slightly offset */
-.square {
-  width: 120px; height: 120px;
-  background-color: #f80;
-  box-shadow: 0 0 20px #f80;
-  top: 40%; left: 60%;
-  transform: translate(-50%, -50%);
-}
-
-/* Second circle (blue), offset opposite */
-.circle2 {
-  width: 80px; height: 80px;
-  background-color: #08f;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #08f;
-  top: 60%; left: 40%;
-  transform: translate(-50%, -50%);
-}
+      
+        /* Modern Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0; 
+            left: 0;
+            width: 100vw; 
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        
+        .preloader-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #6c5ce7, #a8a5e6, #ff7675);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+        }
+        
+        .loader-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        
+        .circuit-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top: 3px solid #6c5ce7;
+            animation: spin 1.5s linear infinite;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+        }
+        
+        .circuit-loader:nth-child(2) {
+            border-top: 3px solid #ff7675;
+            animation: spin 1.8s linear infinite reverse;
+            width: 85%;
+            height: 85%;
+            top: 7.5%;
+            left: 7.5%;
+        }
+        
+        .circuit-loader:nth-child(3) {
+            border-top: 3px solid #a8a5e6;
+            animation: spin 2.2s linear infinite;
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+        }
+        
+        .processor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.3);
+        }
+        
+        .processor-core {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #6c5ce7, #a8a5e6);
+            border-radius: 8px;
+            animation: pulse 1.5s infinite alternate;
+        }
+        
+        .progress-text {
+            margin-top: 2rem;
+            font-family: 'Roboto', sans-serif;
+            color: #dfe6e9;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        
+        .progress-bar {
+            width: 300px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 1rem auto 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6c5ce7, #a8a5e6, #ff7675);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: #6c5ce7;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+                width: 4px;
+                height: 4px;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 0.7; }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+                width: 8px;
+                height: 8px;
+            }
+        }
+        
+        .hint {
+            position: absolute;
+            bottom: 2rem;
+            color: rgba(223, 230, 233, 0.5);
+            font-size: 0.9rem;
+            text-align: center;
+            width: 100%;
+        }
 
       .device-image {
   width: 300px;
@@ -562,10 +687,25 @@ html, body {
   </head>
   <body>
     
+<!-- Modern Preloader -->
 <div id="preloader">
-  <div class="shape circle"></div>
-  <div class="shape square"></div>
-  <div class="shape circle2"></div>
+    <div class="particles" id="particles"></div>
+    <div class="preloader-content">
+        <div class="logo-text">Xiaomi Pad 6</div>
+        <div class="loader-container">
+            <div class="circuit-loader"></div>
+            <div class="circuit-loader"></div>
+            <div class="circuit-loader"></div>
+            <div class="processor">
+                <div class="processor-core"></div>
+            </div>
+        </div>
+        <div class="progress-text">Loading ROMs <span id="progress-percent">0%</span></div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="hint">Initializing custom ROM environment...</div>
+    </div>
 </div>
 
     <header class="header">
@@ -1261,44 +1401,80 @@ html, body {
     </div>
 
     <!-- Include GSAP library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Create a GSAP timeline for sequencing animations
-  var tl = gsap.timeline({defaults: {ease: "power1.inOut"}});
 
-  // Pulse the first circle (scale up and down)
-  tl.to(".circle", {
-    scale: 1.5, 
-    duration: 0.6, 
-    repeat: 1, 
-    yoyo: true
-  });
-  // Rotate the square
-  tl.to(".square", {
-    rotation: 45, 
-    duration: 0.6
-  }, ">"); 
-  // Pulse the second circle
-  tl.to(".circle2", {
-    scale: 1.5, 
-    duration: 0.6, 
-    repeat: 1, 
-    yoyo: true
-  }, ">");
-  // Fade out and slide the entire preloader away
-  tl.to("#preloader", {
-    opacity: 0, 
-    y: -50, 
-    duration: 0.8,
-    delay: 0.5,
-    onComplete: function(){
-      // Remove the loader from the DOM
-      document.getElementById("preloader").style.display = "none";
-    }
-  });
-});
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position and size
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random color from gradient
+                const colors = ['#6c5ce7', '#a8a5e6', '#ff7675'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random size
+                const size = 2 + Math.random() * 6;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random animation delay and duration
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.animationDuration = `${5 + Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Simulate loading progress
+            let progress = 0;
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const hint = document.querySelector('.hint');
+            const hints = [
+                "Preparing recovery environment...",
+                "Verifying device compatibility...",
+                "Loading kernel modules...",
+                "Initializing ROM database...",
+                "Optimizing system resources...",
+                "Finalizing boot sequence..."
+            ];
+            
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 8;
+                if (progress > 100) progress = 100;
+                
+                progressFill.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.floor(progress)}%`;
+                
+                // Update hint every 15% progress
+                if (progress % 15 < 1) {
+                    hint.textContent = hints[Math.floor(progress/15) % hints.length];
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Animate preloader out
+                    gsap.to("#preloader", {
+                        opacity: 0,
+                        duration: 0.8,
+                        delay: 0.3,
+                        onComplete: function() {
+                            document.getElementById("preloader").style.display = "none";
+                        }
+                    });
+                }
+            }, 150);
+        });
+    </script> 
 
     <script>
   // 1. Scroll animations
