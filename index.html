@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xiaomi Pad 6 Custom ROM Hub</title>
     <link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
-  rel="stylesheet"
-/>
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -17,15 +17,50 @@
         --primary: #6c5ce7;
         --secondary: #a8a5e6;
         --accent: #ff7675;
-        --dark: #000000;
+        --dark: #121212; /* Softer dark background */
         --light: #dfe6e9;
+        --card-bg: rgba(255, 255, 255, 0.07); /* Slightly more opaque card bg */
+        --card-border: rgba(255, 255, 255, 0.1);
+
+        /* Border Radius Variables */
+        --radius-small: 4px;
+        --radius-medium: 8px;
+        --radius-card: 12px; /* Standardized card radius */
+        --radius-image: 15px;
+        --radius-pill: 30px;
+        --radius-circle: 50%;
       }
 
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent; /* Moved from bottom */
       }
+
+      html {
+        scroll-padding-top: 80px; /* Adjusted for potentially taller sticky nav */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: var(--primary) var(--dark); /* Firefox */
+      }
+
+      /* Custom Scrollbar for Webkit Browsers */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.2);
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: var(--primary);
+        border-radius: var(--radius-pill);
+        border: 2px solid var(--dark);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--secondary);
+      }
+
 
       body {
         font-family: "Roboto", sans-serif;
@@ -39,318 +74,292 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2rem;
-        background: rgba(0, 0, 0, 0.8);
+        padding: 2.5rem 2rem; /* Increased padding a bit */
+        background: rgba(0, 0, 0, 0.7); /* Slightly less opaque */
         position: relative;
         overflow: hidden;
+        border-bottom: 1px solid rgba(var(--primary), 0.3);
       }
 
       .header::after {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, var(--primary), transparent);
+        top: -50%; /* Adjust for spread */
+        left: -30%; /* Adjust for spread */
+        width: 150%; /* Larger to encompass area */
+        height: 150%; /* Larger to encompass area */
+        background: radial-gradient(circle at 0% 0%, 
+          rgba(108, 92, 231, 0.3),  /* --primary with alpha */
+          transparent 60% /* Softer transition */
+        );
         z-index: -1;
+        opacity: 0.7; /* Soften the overall effect */
       }
 
       .device-title {
         font-family: "Orbitron", sans-serif;
-        font-size: 2.5rem;
+        font-size: 2.8rem; /* Slightly larger */
+        font-weight: 700;
         background: linear-gradient(45deg, var(--primary), var(--secondary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+      }
+        
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--dark); 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1; 
+        overflow: hidden; 
       }
 
-      /* Ensure proper responsiveness on mobile */
-html, body {
-  margin: 0;
-  padding: 0;
-}
+      #tile-grid-container {
+        display: grid;
+        gap: 2px; 
+      }
 
-      
-        /* ===== New Preloader Styles ===== */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--dark); /* Using site's dark color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 1; /* Start visible, GSAP will handle fade out */
-            overflow: hidden; 
-        }
-
-        #tile-grid-container {
-            display: grid;
-            gap: 2px; /* Small gap between tiles */
-        }
-
-        .preloader-tile {
-            background-color: var(--primary); /* Use site's primary color */
-            opacity: 0;
-            transform: scale(0);
-            width: 100%; /* Fill grid cell */
-            height: 100%;
-            border-radius: 3px; /* Slightly rounded corners */
-        }
-        /* ===== End New Preloader Styles ===== */
+      .preloader-tile {
+        background-color: var(--primary); 
+        opacity: 0;
+        transform: scale(0);
+        width: 100%; 
+        height: 100%;
+        border-radius: 3px; 
+      }
 
       .device-image {
-  width: 300px;
-  height: 200px;
-  background: #333;
-  border-radius: 15px;
-  object-fit: cover;
-  /* New outline effects below */
-  position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 
-    0 0 0 1px rgba(168, 165, 230, 0.3),
-    0 0 15px rgba(108, 92, 231, 0.6),
-    0 0 30px rgba(108, 92, 231, 0.4);
-  transition: all 0.3s ease;
-  z-index: 1;
-}
+        width: 300px;
+        height: 200px;
+        background: #222; /* Darker placeholder */
+        border-radius: var(--radius-image);
+        object-fit: cover;
+        position: relative;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+          /* 0 0 0 1px rgba(168, 165, 230, 0.2), Subtle edge */
+          0 0 20px rgba(108, 92, 231, 0.5), /* Main glow */
+          0 0 35px rgba(108, 92, 231, 0.3); /* Outer diffuse glow */
+        transition: all 0.3s ease;
+        z-index: 1;
+      }
 
-.device-image::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 20px; /* Slightly larger than container */
-  background: linear-gradient(
-    45deg,
-    rgba(108, 92, 231, 0.2),
-    rgba(168, 165, 230, 0.1),
-    transparent 70%
-  );
-  z-index: -1;
-  pointer-events: none;
-}
+      .device-image::after {
+        content: "";
+        position: absolute;
+        top: -4px; /* Adjusted for new border-radius */
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: calc(var(--radius-image) + 2px); /* Match parent + border */
+        background: linear-gradient(
+          45deg,
+          rgba(108, 92, 231, 0.15),
+          rgba(168, 165, 230, 0.05),
+          transparent 60%
+        );
+        z-index: -1;
+        pointer-events: none;
+      }
 
-.device-image:hover {
-  box-shadow: 
-    0 0 0 1px rgba(168, 165, 230, 0.5),
-    0 0 25px rgba(108, 92, 231, 0.8),
-    0 0 45px rgba(108, 92, 231, 0.6);
-  transform: scale(1.02);
-}
+      .device-image:hover {
+        box-shadow: 
+          /* 0 0 0 1px rgba(168, 165, 230, 0.4), */
+          0 0 30px rgba(108, 92, 231, 0.7),
+          0 0 50px rgba(108, 92, 231, 0.5);
+        transform: scale(1.03);
+      }
 
       .warning {
-        background: #ff475722;
+        background: rgba(255, 71, 87, 0.15); /* Slightly adjusted opacity */
         border-left: 4px solid var(--accent);
         padding: 1.5rem;
         margin: 2rem;
-        border-radius: 5px;
-        animation: pulse 2s infinite;
+        border-radius: var(--radius-medium);
+        animation: pulse 2.5s infinite; /* Slightly slower pulse */
       }
 
-      @keyframes pulse { /* This pulse is for the warning, keep it */
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.02);
-        }
-        100% {
-          transform: scale(1);
-        }
+      @keyframes pulse { 
+        0% { box-shadow: 0 0 5px rgba(255, 71, 87, 0.2); transform: scale(1); }
+        50% { box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); transform: scale(1.015); }
+        100% { box-shadow: 0 0 5px rgba(255, 71, 87, 0.2); transform: scale(1); }
       }
 
-       /* Original image styling */
-        .rom-image {
-          width: 100%;
-          height: 180px;
-          object-fit: cover;
-          border-radius: 8px 8px 0 0; /* Rounded top only */
-          margin-bottom: 0.5rem; /* Reduced space below image */
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+      .rom-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: var(--radius-card) var(--radius-card) 0 0; /* Match card radius */
+        margin-bottom: 0.5rem; 
+        border-bottom: 1px solid var(--card-border);
+      }
+      
+      .badge { /* General badge style first */
+        display: inline-block;
+        padding: 0.4rem 1rem; /* Slightly more padding */
+        border-radius: var(--radius-pill);
+        font-size: 0.75rem; /* Slightly smaller, more refined */
+        font-weight: 500;
+        margin: -1.5rem 0 1rem 1rem; /* Positioning for overlap */
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--light); /* Default light text for dark/colored backgrounds */
+      }
+      /* Individual badge colors */
+      .official   { background: var(--primary); }
+      .unofficial { background: #e67e22; }
+      .hyperos    { background: #8e44ad; }
+      .ported     { background: #27ae60; }
+      .recovery   { background: #f1c40f; color: var(--dark); } /* Keep dark text for yellow */
+      .linux      { background: #3498db; }
+      .kernel     { background: #e74c3c; }
 
-        /* Updated badge positioning */
-        .badge {
-          display: inline-block;
-          margin: -1.25rem 0 1rem 1rem; /* Top | Right | Bottom | Left */
-          position: relative;
-          z-index: 1;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
 
       .section-title {
         font-family: "Orbitron", sans-serif;
+        font-weight: 500;
         color: var(--primary);
-        margin: 3rem 2rem 1.5rem;
-        padding: 1rem 2rem;
+        margin: 3.5rem 2rem 2rem; /* Increased bottom margin */
+        padding: 1rem 1.5rem; /* Adjusted padding */
         border-left: 5px solid var(--accent);
+        background: rgba(var(--primary-rgb, 108, 92, 231), 0.05); /* Faint background using primary */
+        border-bottom: 1px solid rgba(var(--primary-rgb, 108, 92, 231), 0.1);
+        border-radius: var(--radius-small);
       }
 
-      .rom-grid {
+      .rom-grid, .developer-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 2rem;
         margin: 0 2rem;
       }
+       .developer-grid {
+         margin-bottom: 3rem;
+       }
 
-      .rom-card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
+      .rom-card, .developer-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-card);
         padding: 1.5rem;
         transition: transform 0.3s, box-shadow 0.3s;
         cursor: pointer;
-        display: flex; /* Added for better internal layout control */
-        flex-direction: column; /* Added */
+        display: flex; 
+        flex-direction: column; 
+        border: 1px solid var(--card-border); /* Consistent border */
       }
       
-      .rom-card .links { /* Ensure links div is pushed to bottom if content varies */
+      .rom-card .links, .developer-card .links { 
           margin-top: auto;
       }
 
-
-      .rom-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+      .rom-card:hover, .developer-card:hover {
+        transform: translateY(-8px); /* More lift */
+        box-shadow: 0 12px 35px rgba(108, 92, 231, 0.25); /* Enhanced shadow */
+      }
+      
+      .rom-card h3, .developer-card h3 { /* Card Titles */
+        color: var(--light); /* Brighter titles */
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      .developer-card h3 {
+         color: var(--primary); /* Keep developer specific color if intended */
+         font-family: "Orbitron", sans-serif;
+         margin-bottom: 1rem;
       }
 
-      .badge {
-        display: inline-block;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
+      .rom-card p {
+        font-size: 0.9rem; /* Slightly larger dev text */
+        color: var(--secondary);
         margin-bottom: 1rem;
       }
 
-      .official {
-        background: var(--primary);
-      }
-      .unofficial {
-        background: #e67e22;
-      }
-      .hyperos {
-        background: #8e44ad;
-      }
-      .ported {
-        background: #27ae60;
-      }
-      .recovery {
-        background: #f1c40f;
-        color: #000;
-      }
-      .linux {
-        background: #3498db;
-      }
-      .kernel {
-        background: #e74c3c;
-      }
-
-      /* Links styling is updated below, keeping this for reference or specific non-updated links */
-      /* .links a {
-        display: block;
-        color: var(--secondary);
-        text-decoration: none;
-        margin: 0.5rem 0;
-        transition: color 0.3s;
-      }
-
-      .links a:hover {
-        color: var(--accent);
-      } */
 
       table {
-        width: 100%;
+        width: calc(100% - 4rem); /* Account for margin */
         margin: 2rem;
         border-collapse: collapse;
-        background: rgba(255, 255, 255, 0.05);
+        background: var(--card-bg);
+        border-radius: var(--radius-medium);
+        overflow: hidden; /* To make border-radius work with th */
+        border: 1px solid var(--card-border);
       }
 
-      th,
-      td {
-        padding: 1rem;
+      th, td {
+        padding: 1.2rem 1rem; /* Adjusted padding */
         text-align: left;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid var(--card-border);
       }
-
+      td {
+        color: var(--secondary);
+      }
       th {
         background: var(--primary);
+        color: var(--light);
+        font-weight: 500;
       }
 
       code {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 0.2rem 0.4rem;
-        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.5); /* Darker code background */
+        padding: 0.2rem 0.5rem;
+        border-radius: var(--radius-small);
         font-family: monospace;
+        font-size: 0.9em;
+        border: 1px solid rgba(255,255,255,0.1);
       }
 
       .note {
-        background: #0984e322;
+        background: rgba(9, 132, 227, 0.1); /* Adjusted opacity */
         padding: 1.5rem;
         margin: 2rem;
-        border-radius: 5px;
+        border-radius: var(--radius-medium);
         border-left: 4px solid #0984e3;
       }
 
-      @media (max-width: 768px) {
-        .header {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .device-image {
-          margin-top: 2rem;
-        }
-
-        table {
-          display: block;
-          overflow-x: auto;
-        }
-      }
-      /* ===== Updated Links Styles ===== */
       .links a {
         display: flex;
         align-items: center;
         color: var(--secondary);
         text-decoration: none;
-        margin: 0.5rem 0;
+        margin: 0.6rem 0; /* Increased margin slightly */
         padding: 0.8rem 1.2rem;
-        border-radius: 8px;
+        border-radius: var(--radius-medium); /* Use variable */
         position: relative;
         overflow: hidden;
         transition: all 0.3s ease;
         background: rgba(108, 92, 231, 0.1);
-        gap: 0.8rem; /* Increased gap for better icon spacing */
+        gap: 0.8rem; 
       }
 
-      .links a i { /* Style for icons within links */
-        font-size: 0.9em; /* Adjust icon size if needed */
-        width: 1.2em; /* Ensure consistent width for alignment */
+      .links a i { 
+        font-size: 0.9em; 
+        width: 1.2em; 
         text-align: center;
         transition: transform 0.3s ease;
       }
 
-
-      /* Hover Effect */
       .links a:hover {
         color: var(--accent);
-        transform: translateX(10px);
+        transform: translateX(5px); /* Subtler shift */
         background: rgba(108, 92, 231, 0.2);
-        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.15); /* Softer shadow */
       }
 
-      /* Click Effect */
       .links a:active {
-        transform: scale(0.95);
+        transform: scale(0.96) translateX(2px); /* Adjusted active state */
         background: rgba(108, 92, 231, 0.3);
       }
 
-      /* Animated Underline */
       .links a::after {
         content: "";
         position: absolute;
@@ -359,47 +368,30 @@ html, body {
         width: 0;
         height: 2px;
         background: var(--accent);
-        transition: width 0.3s ease;
+        transition: width 0.4s ease; /* Slightly slower underline */
       }
 
       .links a:hover::after {
         width: 100%;
       }
 
-      /* Icon Animation (already present, good) */
       .links a:hover i {
-        transform: translateY(-3px);
+        transform: translateY(-2px) scale(1.05); /* More dynamic icon animation */
+      }
+      
+      .developer-card .links a {
+         justify-content: center;
       }
 
-      /* ===== Mobile Adjustments Only ===== */
-      @media (max-width: 768px) {
-        .links a {
-          padding: 1rem;
-          margin: 0.8rem 0;
-        }
-
-        .header {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .device-image {
-          margin-top: 2rem;
-        }
-
-        table {
-          display: block;
-          overflow-x: auto;
-        }
-      }
       .navbar {
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(18, 18, 18, 0.85); /* Match body bg, with transparency */
         position: sticky;
         top: 0;
         z-index: 100;
         padding: 0.5rem 1rem;
         backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--primary);
+        -webkit-backdrop-filter: blur(10px); /* Safari */
+        border-bottom: 1px solid rgba(var(--primary-rgb,108,92,231),0.3);
       }
       
       .nav-container {
@@ -408,193 +400,193 @@ html, body {
         margin: 0 auto;
         overflow-x: auto;
         padding: 0.5rem 0;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
       }
       
       .nav-container::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+        display: none; 
       }
       
       .nav-link {
         color: var(--light);
         text-decoration: none;
-        padding: 0.8rem 1.2rem;
-        margin: 0 0.2rem;
-        border-radius: 30px;
+        padding: 0.8rem 1.3rem; /* Increased padding */
+        margin: 0 0.3rem; /* Increased margin */
+        border-radius: var(--radius-pill);
         font-family: 'Roboto', sans-serif;
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.9rem; /* Slightly smaller for more items */
         letter-spacing: 0.5px;
         text-transform: uppercase;
         white-space: nowrap;
         transition: all 0.3s ease;
-        background: rgba(108, 92, 231, 0.1);
+        background: transparent; /* Default transparent */
         border: 1px solid transparent;
       }
       
       .nav-link:hover {
-        background: rgba(108, 92, 231, 0.3);
-        border-color: var(--primary);
+        background: rgba(108, 92, 231, 0.2);
+        color: var(--light);
+        border-color: rgba(var(--primary-rgb,108,92,231),0.5);
       }
       
       .nav-link.active {
         background: var(--primary);
         color: white;
+        box-shadow: 0 0 10px rgba(var(--primary-rgb,108,92,231),0.5);
+        border-color: var(--primary);
       }
 
-.mobile-nav-btn {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: white;
-  z-index: 1000;
-  border: none;
-  box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.mobile-nav-btn:hover {
-  transform: scale(1.1);
-  background: #7d6ce9;
-}
-
-.mobile-nav-container {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
-  transition: all 0.3s ease;
-}
-
-.mobile-nav-container.open {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
-}
-
-.mobile-nav-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  text-decoration: none;
-  font-family: 'Road Rage', cursive;
-  font-size: 0.9rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-  border: 1px solid var(--primary);
-}
-
-.mobile-nav-link:hover {
-  transform: scale(1.1) translateX(-5px);
-  background: var(--primary);
-}
-
-.mobile-nav-link span {
-  position: absolute;
-  right: 60px;
-  background: rgba(0, 0, 0, 0.9);
-  padding: 5px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  transform: translateX(10px);
-  opacity: 0;
-  transition: all 0.3s ease;
-  pointer-events: none;
-  border: 1px solid var(--primary);
-}
-
-.mobile-nav-link:hover span {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    display: none;
-  }
-  
-  .mobile-nav-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-} 
-      /* Add scroll padding for anchor links */
-      html {
-        scroll-padding-top: 70px;
+      .mobile-nav-btn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: var(--radius-circle);
+        background: var(--primary);
+        color: white;
+        z-index: 1000;
+        border: none;
+        box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
       }
-      /* Disable the blue tap highlight everywhere */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
 
-/* Remove default focus outline on your buttons/links */
-.mobile-nav-btn:focus,
-.mobile-nav-link:focus,
-.nav-link:focus {
-  outline: none;
-}
+      .mobile-nav-btn:hover {
+        transform: scale(1.1);
+        background: #7d6ce9; /* Darken primary on hover */
+      }
+      .mobile-nav-btn:focus, .mobile-nav-link:focus, .nav-link:focus {
+        outline: none;
+      }
 
-/* Developer Profiles Section */
-.developer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 0 2rem 3rem 2rem; /* Added bottom margin */
-}
+      .mobile-nav-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
 
-.developer-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 1.5rem;
-  text-align: center;
-  border: 1px solid rgba(108, 92, 231, 0.2); /* Subtle border */
-}
+      .mobile-nav-container.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
 
-.developer-card h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
-  font-family: "Orbitron", sans-serif;
-}
+      .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: var(--radius-circle);
+        background: rgba(30, 30, 30, 0.9); /* Slightly darker than body */
+        color: white;
+        text-decoration: none;
+        /* font-family: 'Road Rage', cursive; REMOVED - use Roboto */
+        font-size: 0.9rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+        border: 1px solid var(--primary);
+      }
+      .mobile-nav-link.active { /* Style for active mobile link */
+        background: var(--primary);
+        color: white;
+      }
 
-.developer-card .links a { /* Re-use existing link styling */
-  justify-content: center; /* Center icon and text for these cards */
-}
+      .mobile-nav-link:hover {
+        transform: scale(1.1) translateX(-5px);
+        background: var(--primary);
+      }
 
+      .mobile-nav-link span { /* Tooltip text */
+        position: absolute;
+        right: 60px;
+        background: rgba(30, 30, 30, 0.95);
+        padding: 6px 12px;
+        border-radius: var(--radius-pill);
+        white-space: nowrap;
+        transform: translateX(10px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        border: 1px solid var(--primary);
+        font-family: "Roboto", sans-serif; /* Ensure Roboto */
+        font-size: 0.8rem;
+      }
+
+      .mobile-nav-link:hover span {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      @media (max-width: 768px) {
+        html, body { overflow-x: hidden; } /* Prevent horizontal scroll on mobile from animations */
+
+        .header {
+          flex-direction: column;
+          text-align: center;
+          padding: 2rem 1rem;
+        }
+        .device-title {
+          font-size: 2.2rem;
+        }
+        .device-image {
+          margin-top: 2rem;
+          width: 240px; /* Smaller image on mobile */
+          height: 160px;
+        }
+        .warning, .note, .section-title {
+          margin-left: 1rem;
+          margin-right: 1rem;
+        }
+        .rom-grid, .developer-grid {
+          margin-left: 1rem;
+          margin-right: 1rem;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust minmax for mobile */
+        }
+        table {
+          display: block;
+          overflow-x: auto;
+          width: calc(100% - 2rem); /* Account for mobile margin */
+          margin-left: 1rem;
+          margin-right: 1rem;
+        }
+        .navbar { display: none; }
+        .mobile-nav-btn {
+          display: flex; /* Changed from flex to block for consistency */
+          align-items: center;
+          justify-content: center;
+        }
+        .links a { /* Ensure links are tappable on mobile */
+          padding: 1rem;
+          margin: 0.8rem 0;
+        }
+      }
     </style>
   </head>
   <body>
     
-<!-- New Preloader Structure -->
-<div id="preloader">
-    <!-- Tiles will be generated here by JavaScript -->
-</div>
+    <div id="preloader">
+        <!-- Tiles will be generated here by JavaScript -->
+    </div>
 
     <header class="header">
       <h1 class="device-title">Xiaomi Pad 6<br />Custom ROM Hub</h1>
-      <img class="device-image" src="/img/XiaomiPad6.png" alt="Pad 6" />
+      <img class="device-image" src="/img/XiaomiPad6.png" alt="Xiaomi Pad 6 Tablet" />
     </header>
 
-<!-- Navigation Bar -->
     <nav class="navbar">
       <div class="nav-container">
         <a href="#" class="nav-link active">Home</a>
@@ -605,163 +597,123 @@ html, body {
         <a href="#recovery" class="nav-link">Recovery</a>
         <a href="#linux" class="nav-link">Linux</a>
         <a href="#kernel" class="nav-link">Kernel</a>
-        <a href="#developer-profiles" class="nav-link">Developers</a> <!-- Added nav link -->
+        <a href="#developer-profiles" class="nav-link">Developers</a>
       </div>
     </nav>
     
-<button class="mobile-nav-btn" id="mobileNavBtn">
-  <i class="fas fa-bars"></i>
-</button>
+    <button class="mobile-nav-btn" id="mobileNavBtn">
+      <i class="fas fa-bars"></i>
+    </button>
 
-<div class="mobile-nav-container" id="mobileNavContainer">
-  <a href="#" class="mobile-nav-link active">
-    <i class="fas fa-home"></i>
-    <span>Home</span>
-  </a>
-  <a href="#active-roms" class="mobile-nav-link">
-    <i class="fas fa-bolt"></i>
-    <span>Active ROMs</span>
-  </a>
-  <a href="#eol" class="mobile-nav-link">
-    <i class="fas fa-history"></i>
-    <span>EOL</span>
-  </a>
-  <a href="#hyperos" class="mobile-nav-link">
-    <i class="fas fa-layer-group"></i>
-    <span>HyperOS</span>
-  </a>
-  <a href="#port" class="mobile-nav-link">
-    <i class="fas fa-exchange-alt"></i>
-    <span>Port</span>
-  </a>
-  <a href="#recovery" class="mobile-nav-link">
-    <i class="fas fa-tools"></i>
-    <span>Recovery</span>
-  </a>
-  <a href="#linux" class="mobile-nav-link">
-    <i class="fab fa-linux"></i>
-    <span>Linux</span>
-  </a>
-  <a href="#kernel" class="mobile-nav-link">
-    <i class="fas fa-microchip"></i>
-    <span>Kernel</span>
-  </a>
-  <a href="#developer-profiles" class="mobile-nav-link"> <!-- Added mobile nav link -->
-    <i class="fas fa-code-branch"></i>
-    <span>Developers</span>
-  </a>
-</div>
+    <div class="mobile-nav-container" id="mobileNavContainer">
+      <a href="#" class="mobile-nav-link active">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="#active-roms" class="mobile-nav-link">
+        <i class="fas fa-bolt"></i>
+        <span>Active ROMs</span>
+      </a>
+      <a href="#eol" class="mobile-nav-link">
+        <i class="fas fa-history"></i>
+        <span>EOL</span>
+      </a>
+      <a href="#hyperos" class="mobile-nav-link">
+        <i class="fas fa-layer-group"></i>
+        <span>HyperOS</span>
+      </a>
+      <a href="#port" class="mobile-nav-link">
+        <i class="fas fa-exchange-alt"></i>
+        <span>Port</span>
+      </a>
+      <a href="#recovery" class="mobile-nav-link">
+        <i class="fas fa-tools"></i>
+        <span>Recovery</span>
+      </a>
+      <a href="#linux" class="mobile-nav-link">
+        <i class="fab fa-linux"></i>
+        <span>Linux</span>
+      </a>
+      <a href="#kernel" class="mobile-nav-link">
+        <i class="fas fa-microchip"></i>
+        <span>Kernel</span>
+      </a>
+      <a href="#developer-profiles" class="mobile-nav-link">
+        <i class="fas fa-code-branch"></i> <!-- Changed icon for devs to branch -->
+        <span>Developers</span>
+      </a>
+    </div>
 
     <div class="warning">
       ⚠️ Always backup your data before flashing any ROM. Follow instructions
-      carefully!
+      carefully! Flashing custom software may void your warranty.
     </div>
-    <!-- Regularly Updated Roms -->
+
     <h2 class="section-title" id="active-roms">Active Roms</h2>
     <div class="rom-grid">
-      <!-- RisingOS Revived -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Rising.jpg" alt="Rising">
+        <img class="rom-image" src="/img/Rising.jpg" alt="RisingOS Logo">
         <span class="badge official">Official</span>
         <h3>RisingOS Revived</h3>
         <p>v7.0-Persis · @CuriousNom</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/risingos-revived/files/7.x/CORE/pipa/RisingOS_Revived-7.0-250507-1933-CORE-OFFICIAL-pipa-ota.zip/download"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://raw.githubusercontent.com/RisingOS-Revived/official_devices/refs/heads/fifteen/OTA/changelogs/pipa.txt"
-            target="_blank"
-            ><i class="fas fa-list-alt"></i> Changelog</a
-          >
-          <a
-            href="https://github.com/RisingOS-Revived/official_devices/blob/fifteen/OTA/guide/pipa.md"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
+          <a href="https://sourceforge.net/projects/risingos-revived/files/7.x/CORE/pipa/RisingOS_Revived-7.0-250507-1933-CORE-OFFICIAL-pipa-ota.zip/download" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://raw.githubusercontent.com/RisingOS-Revived/official_devices/refs/heads/fifteen/OTA/changelogs/pipa.txt" target="_blank"><i class="fas fa-list-alt"></i> Changelog</a>
+          <a href="https://github.com/RisingOS-Revived/official_devices/blob/fifteen/OTA/guide/pipa.md" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
           <a href="https://t.me/RomCentralHub" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
-      <!-- AxionAOSP -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Axion.jpg" alt="axion">
+        <img class="rom-image" src="/img/Axion.jpg" alt="AxionAOSP Logo">
         <span class="badge official">Official</span>
         <h3>AxionAOSP</h3>
         <p>v1.4 · @aerniq</p>
         <div class="links">
-          <a href="https://t.me/AxionAOSPUpdates/156" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://github.com/rmuxnet/Axion-PIPA/blob/main/README.md"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
+          <a href="https://t.me/AxionAOSPUpdates/156" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://github.com/rmuxnet/Axion-PIPA/blob/main/README.md" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
           <a href="https://t.me/rmuxminions" target="_blank"><i class="fas fa-users"></i> Support</a>
           <a href="https://t.me/aerniqq/2" target="_blank"><i class="fab fa-telegram-plane"></i> Donate</a>
         </div>
       </div>
-
+      
       <!-- PixelOS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/PixelOS.jpg" alt="pixel">
+        <img class="rom-image" src="/img/PixelOS.jpg" alt="PixelOS Logo">
         <span class="badge official">Official</span>
         <h3>PixelOS</h3>
         <p>Latest · @Megalodonzs</p>
         <div class="links">
-          <a href="https://pixelos.net/download/pipa" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://pixelos.net/download/pipa" target="_blank"  <!-- Assuming changelog is on the same page -->
-            ><i class="fas fa-list-alt"></i> Changelog</a
-          >
+          <a href="https://pixelos.net/download/pipa" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://pixelos.net/download/pipa" target="_blank"><i class="fas fa-list-alt"></i> Changelog</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
       <!-- Project Matrixx -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Matrixx.jpg" alt="matrixx">
+        <img class="rom-image" src="/img/Matrixx.jpg" alt="Project Matrixx Logo">
         <span class="badge official">Official</span>
         <h3>Project Matrixx</h3>
         <p>Lemma v11.2.0 · @CuriousNom</p>
         <div class="links">
-          <a
-            href="https://www.projectmatrixx.org/downloads/pipa"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://www.projectmatrixx.org/downloads/pipa"  <!-- Assuming changelog is on the same page -->
-            target="_blank"
-            ><i class="fas fa-list-alt"></i> Changelog</a
-          >
-          <a href="https://t.me/romcentralgallery/443" target="_blank"
-            ><i class="fas fa-sticky-note"></i> Notes</a
-          >
+          <a href="https://www.projectmatrixx.org/downloads/pipa" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://www.projectmatrixx.org/downloads/pipa" target="_blank"><i class="fas fa-list-alt"></i> Changelog</a>
+          <a href="https://t.me/romcentralgallery/443" target="_blank"><i class="fas fa-sticky-note"></i> Notes</a>
           <a href="https://t.me/RomCentralHub" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
       <!-- Project InfinityX -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/InfinityX.jpg" alt="infinityx">
+        <img class="rom-image" src="/img/InfinityX.jpg" alt="Project InfinityX Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>Project InfinityX</h3>
         <p>2.8 · @glitch_wraith</p>
         <div class="links">
-          <a href="https://t.me/dump_cloud_001/47" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://t.me/dump_cloud_001/48" target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/214?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://t.me/dump_cloud_001/47" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://t.me/dump_cloud_001/48" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/214?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/mipad6" target="_blank"><i class="fas fa-users"></i> Support</a>
           <a href="https://t.me/mipad6roms" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
         </div>
@@ -769,21 +721,13 @@ html, body {
 
       <!-- ProjectPixelage -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Pixelage.png" alt="pixelage">
+        <img class="rom-image" src="/img/Pixelage.png" alt="ProjectPixelage Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>ProjectPixelage</h3>
         <p>2.8 · @oko_123 & @aerniq</p>
         <div class="links">
-          <a
-            href="https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250512-1758.zip"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://ota.awoo.fun/flashable/20250512_recovery/"
-            target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
+          <a href="https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250512-1758.zip" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://ota.awoo.fun/flashable/20250512_recovery/" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
           <a href="https://ko-fi.com/jaxthewolf" target="_blank"><i class="fas fa-coffee"></i> Donate</a>
         </div>
@@ -791,502 +735,307 @@ html, body {
 
       <!-- Evolution X -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Evox.jpg" alt="evox">
+        <img class="rom-image" src="/img/Evox.jpg" alt="Evolution X Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>Evolution X</h3>
         <p>10.5 · @Atom_Yr</p>
         <div class="links">
           <a href="https://gofile.io/d/UiIkLX" target="_blank"><i class="fas fa-download"></i> Download</a>
-          <a
-            href="https://github.com/instanceready/evox-pipa-release/blob/main/README.md"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
-          <a href="https://t.me/crdroid_pipa_atom/26" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://github.com/instanceready/evox-pipa-release/blob/main/README.md" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
+          <a href="https://t.me/crdroid_pipa_atom/26" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
         </div>
       </div>
 
       <!-- VOLTAGE OS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Voltage.jpg" alt="voltage">
+        <img class="rom-image" src="/img/Voltage.jpg" alt="VOLTAGE OS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>VOLTAGE OS</h3>
         <p>V4.4 · @glitch_wraith</p>
         <div class="links">
-          <a href="https://t.me/dump_cloud_001/72" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://github.com/glitch-wraith/VoltageOS-PIPA/releases"
-            target="_blank"
-            ><i class="fab fa-github"></i> GitHub</a
-          >
-          <a href="https://t.me/dump_cloud_001/72" target="_blank" <!-- Assuming recovery is with download -->
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/282?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
-          <a
-            href="https://telegra.ph/Instructions-for-flashing-custom-rom-pipa-05-13"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
+          <a href="https://t.me/dump_cloud_001/72" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://github.com/glitch-wraith/VoltageOS-PIPA/releases" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://t.me/dump_cloud_001/72" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/282?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
+          <a href="https://telegra.ph/Instructions-for-flashing-custom-rom-pipa-05-13" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
       <!-- CrDroid -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/CrDroid.jpg" alt="crdroid">
+        <img class="rom-image" src="/img/CrDroid.jpg" alt="CrDroid Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>CrDroid</h3>
         <p>11.5 · @Atom_Yr</p>
         <div class="links">
           <a href="https://gofile.io/d/cWVlkn" target="_blank"><i class="fas fa-download"></i> GApps</a>
           <a href="https://gofile.io/d/PGnrK7" target="_blank"><i class="fas fa-download"></i> Vanilla</a>
-          <a
-            href="https://github.com/instanceready/cr-pipa-releases/blob/main/README.md"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
-          <a href="https://t.me/crdroid_pipa_atom/13" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
-          <a href="https://buymeacoffee.com/yuvaraj" target="_blank"
-            ><i class="fas fa-coffee"></i> Donate</a
-          >
+          <a href="https://github.com/instanceready/cr-pipa-releases/blob/main/README.md" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
+          <a href="https://t.me/crdroid_pipa_atom/13" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
+          <a href="https://buymeacoffee.com/yuvaraj" target="_blank"><i class="fas fa-coffee"></i> Donate</a>
         </div>
       </div>
 
       <!-- LineageOS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/LineageOs.jpg" alt="lineage">
+        <img class="rom-image" src="/img/LineageOs.jpg" alt="LineageOS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>LineageOS</h3>
         <p>22.2 · @tu4wkl (Tuki)</p>
         <div class="links">
-          <a
-            href="https://drive.google.com/drive/folders/1gRXBWFDi11W_KIzBzRMQmvDHf0G5Dv0j"
-            target="_blank"
-            ><i class="fab fa-google-drive"></i> Drive</a
-          >
+          <a href="https://drive.google.com/drive/folders/1gRXBWFDi11W_KIzBzRMQmvDHf0G5Dv0j" target="_blank"><i class="fab fa-google-drive"></i> Drive</a>
           <a href="https://t.me/tukisshit/160" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram File</a>
-          <a
-            href="https://github.com/pachdomenic/Lineage_OTA/releases/tag/lineage-22.2-20250415-UNOFFICIAL-Tuki-pipa"
-            target="_blank"
-            ><i class="fab fa-github"></i> Github</a
-          >
+          <a href="https://github.com/pachdomenic/Lineage_OTA/releases/tag/lineage-22.2-20250415-UNOFFICIAL-Tuki-pipa" target="_blank"><i class="fab fa-github"></i> Github</a>
           <a href="https://t.me/tukiupdates" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
         </div>
       </div>
     </div>
 
-    <!-- Abandoned roms -->
-    <h2 class="section-title" id="eol">EOL</h2>
-    <div class="rom-grid">
+    <h2 class="section-title" id="eol">EOL (End of Life)</h2>
+     <div class="rom-grid">
       <!-- HorizonDroid -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/HorizonDroid.jpg" alt="horizondroid">
+        <img class="rom-image" src="/img/HorizonDroid.jpg" alt="HorizonDroid Logo">
         <span class="badge official">Official</span>
         <h3>HorizonDroid</h3>
         <p>V5.2 · @glitch_wraith</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/horizondroid-pipa/files/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://sourceforge.net/projects/horizondroid-pipa/files/24-04-2025/"
-            target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/262?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://sourceforge.net/projects/horizondroid-pipa/files/" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://sourceforge.net/projects/horizondroid-pipa/files/24-04-2025/" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/262?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
       <!-- LMODroid -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/LmoDroid.jpg" alt="lmo">
+        <img class="rom-image" src="/img/LmoDroid.jpg" alt="LMODroid Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>LMODroid</h3>
         <p>v6.1 · @ai94iq</p>
         <div class="links">
-          <a
-            href="https://github.com/ai94iq/pipa-releases/releases/tag/LMODroid-6.1-20250315"
-            target="_blank"
-            ><i class="fab fa-github"></i> Github</a
-          >
-          <a
-            href="https://github.com/ai94iq/pipa-releases?tab=readme-ov-file#installation-guide"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
-          <a href="https://buymeacoffee.com/ai94iq" target="_blank"
-            ><i class="fas fa-coffee"></i> Donate</a
-          >
+          <a href="https://github.com/ai94iq/pipa-releases/releases/tag/LMODroid-6.1-20250315" target="_blank"><i class="fab fa-github"></i> Github</a>
+          <a href="https://github.com/ai94iq/pipa-releases?tab=readme-ov-file#installation-guide" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
+          <a href="https://buymeacoffee.com/ai94iq" target="_blank"><i class="fas fa-coffee"></i> Donate</a>
         </div>
       </div>
 
-      <!-- SomethingOS -->
-      <div class="rom-card">
-        <img class="rom-image" src="/img/Something.jpg" alt="something">
+       <!-- Add other EOL ROMs similarly -->
+       <div class="rom-card">
+        <img class="rom-image" src="/img/Something.jpg" alt="SomethingOS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>SomethingOS</h3>
         <p>2.0 · @glitch_wraith</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/somethingospipa/files/FastbootRom/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Fastboot ROM</a
-          >
-          <a
-            href="https://sourceforge.net/projects/somethingospipa/files/RecoveryRom/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Recovery ROM</a
-          >
-          <a href="https://t.me/royal_labs/192?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
-          <a href="https://t.me/XiaomiPad6Updates" target="_blank"
-            ><i class="fas fa-bullhorn"></i> Channel</a
-          >
+          <a href="https://sourceforge.net/projects/somethingospipa/files/FastbootRom/" target="_blank"><i class="fas fa-download"></i> Fastboot ROM</a>
+          <a href="https://sourceforge.net/projects/somethingospipa/files/RecoveryRom/" target="_blank"><i class="fas fa-download"></i> Recovery ROM</a>
+          <a href="https://t.me/royal_labs/192?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
+          <a href="https://t.me/XiaomiPad6Updates" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
         </div>
       </div>
 
-      <!-- CalyxOS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Calyx.jpg" alt="calyx">
+        <img class="rom-image" src="/img/Calyx.jpg" alt="CalyxOS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>CalyxOS</h3>
         <p>6.3.2 · @ai94iq</p>
         <div class="links">
-          <a
-            href="https://github.com/ai94iq/pipa-calyxos-releases/releases/tag/CalyxOS-6.3.2-20250130"
-            target="_blank"
-            ><i class="fab fa-github"></i> Github</a
-          >
-          <a
-            href="https://github.com/ai94iq/pipa-calyxos-releases?tab=readme-ov-file#installation-guide"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
-          <a href="https://buymeacoffee.com/ai94iq" target="_blank"
-            ><i class="fas fa-coffee"></i> Donate</a
-          >
+          <a href="https://github.com/ai94iq/pipa-calyxos-releases/releases/tag/CalyxOS-6.3.2-20250130" target="_blank"><i class="fab fa-github"></i> Github</a>
+          <a href="https://github.com/ai94iq/pipa-calyxos-releases?tab=readme-ov-file#installation-guide" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
+          <a href="https://buymeacoffee.com/ai94iq" target="_blank"><i class="fas fa-coffee"></i> Donate</a>
         </div>
       </div>
 
-      <!-- Derpfest -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Derpfest.jpg" alt="Derp">
+        <img class="rom-image" src="/img/Derpfest.jpg" alt="Derpfest Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>Derpfest</h3>
         <p>v15.1 · @glitch_wraith</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/pipa-derpfest/files/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Sourceforge</a
-          >
-          <a href="https://pixeldrain.com/u/LC4z1zdd" target="_blank"
-            ><i class="fas fa-download"></i> PixelDrain</a
-          >
-          <a
-            href="https://sourceforge.net/projects/pipa-derpfest/files/Derpfest%20Recovery/"
-            target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://github.com/royal-jaat/Pipa-Release" target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
+          <a href="https://sourceforge.net/projects/pipa-derpfest/files/" target="_blank"><i class="fas fa-download"></i> Sourceforge</a>
+          <a href="https://pixeldrain.com/u/LC4z1zdd" target="_blank"><i class="fas fa-download"></i> PixelDrain</a>
+          <a href="https://sourceforge.net/projects/pipa-derpfest/files/Derpfest%20Recovery/" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://github.com/royal-jaat/Pipa-Release" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
         </div>
       </div>
 
-      <!-- Bliss -->
-      <div class="rom-card">
-        <img class="rom-image" src="/img/Bliss.jpg" alt="bliss">
+       <div class="rom-card">
+        <img class="rom-image" src="/img/Bliss.jpg" alt="Bliss OS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>Bliss</h3>
         <p>V18.5 · @glitch_wraith</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/blissospipa/files/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://sourceforge.net/projects/blissospipa/files/22-04-2025/"
-            target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/226?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://sourceforge.net/projects/blissospipa/files/" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://sourceforge.net/projects/blissospipa/files/22-04-2025/" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/226?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
-      <!-- GenesisOS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Genesis.png" alt="genesis">
+        <img class="rom-image" src="/img/Genesis.png" alt="GenesisOS Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>GenesisOS</h3>
         <p>V4.2 · @glitch_wraith</p>
         <div class="links">
-          <a
-            href="https://sourceforge.net/projects/genesisospipa/files/"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://sourceforge.net/projects/genesisospipa/files/22-04-2025/"
-            target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/243?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://sourceforge.net/projects/genesisospipa/files/" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://sourceforge.net/projects/genesisospipa/files/22-04-2025/" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/243?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
 
-      <!-- The Clover Project -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Clover.jpg" alt="clover">
+        <img class="rom-image" src="/img/Clover.jpg" alt="The Clover Project Logo">
         <span class="badge unofficial">Unofficial</span>
         <h3>The Clover Project</h3>
         <p>V2.5 · @glitch_wraith</p>
         <div class="links">
           <a href="https://t.me/royal_labs/276" target="_blank"><i class="fas fa-download"></i> Download</a>
-          <a href="https://t.me/dump_cloud_001/34" target="_blank"
-            ><i class="fas fa-tools"></i> Recovery</a
-          >
-          <a href="https://t.me/royal_labs/274?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://t.me/dump_cloud_001/34" target="_blank"><i class="fas fa-tools"></i> Recovery</a>
+          <a href="https://t.me/royal_labs/274?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/XiaomiPad6Global" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
     </div>
-    <!-- HyperOS-Based ROMs -->
+
     <h2 class="section-title" id="hyperos">HyperOS-Based ROMs</h2>
     <div class="rom-grid">
-      <!-- RavenOS -->
       <div class="rom-card">
+        <!-- Missing image for RavenOS, using a generic placeholder style -->
+        <div class="rom-image" style="background-image: linear-gradient(45deg, var(--hyperos), var(--primary)); display:flex; align-items:center; justify-content:center; font-size: 2rem; color: white;">HS</div>
         <span class="badge hyperos">HyperOS</span>
         <h3>RavenOS</h3>
         <p>V1.0.15.0 · @bharatgojiya</p>
         <div class="links">
-          <a
-            href="https://drive.google.com/file/d/1-3HU5TyG3y3mUXb6NL2pBvufv5EJjKpc/view?usp=drivesdk"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://telegra.ph/RavenOS-Features-02-13" target="_blank"
-            ><i class="fas fa-star"></i> Features</a
-          >
-          <a href="https://t.me/RavenOSBuilds/3/1?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://drive.google.com/file/d/1-3HU5TyG3y3mUXb6NL2pBvufv5EJjKpc/view?usp=drivesdk" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://telegra.ph/RavenOS-Features-02-13" target="_blank"><i class="fas fa-star"></i> Features</a>
+          <a href="https://t.me/RavenOSBuilds/3/1?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/RavenOSBuilds" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
     </div>
 
-    <!-- Ported ROMs -->
     <h2 class="section-title" id="port">Ported ROMs</h2>
     <div class="rom-grid">
-      <!-- ColorOS Port -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/ColorOS.jpg" alt="coloros">
+        <img class="rom-image" src="/img/ColorOS.jpg" alt="ColorOS Logo">
         <span class="badge ported">Ported</span>
         <h3>ColorOS Port</h3>
         <p>Latest · Multiple</p>
         <div class="links">
           <a href="https://t.me/pipacoloros" target="_blank"><i class="fas fa-folder-open"></i> Files</a>
-          <a
-            href="https://drive.google.com/file/d/1xOV8H69U3W-4pU2TN3TwgCZaSTKDdrh1/view?usp=sharing"
-            target="_blank"
-            ><i class="fas fa-download"></i> ROM</a
-          >
+          <a href="https://drive.google.com/file/d/1xOV8H69U3W-4pU2TN3TwgCZaSTKDdrh1/view?usp=sharing" target="_blank"><i class="fas fa-download"></i> ROM</a>
         </div>
       </div>
 
-      <!-- ColorOS 15 -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/ColorOS.jpg" alt="color">
+        <img class="rom-image" src="/img/ColorOS.jpg" alt="ColorOS 15 Logo"> <!-- Re-used image, update if available -->
         <span class="badge ported">Ported</span>
         <h3>ColorOS 15</h3>
         <p>C.1.0.5 · @ShuiLan_News</p>
         <div class="links">
-          <a
-            href="https://tiantianqwqalist.top/d/123%E4%BA%91%E7%9B%98/%E5%A4%A9%E5%A4%A9%E7%9A%84%E8%B5%84%E6%BA%90%E7%AB%99/%E5%B0%8F%E7%B1%B3%E5%B9%B3%E6%9D%BF%206/ColorOS%2015.0.0.701%20%E5%AE%89%E5%8D%9315/pipa_XiaomiPad6_ColorOS15.0.0.701_15.0.zip?sign=BU-GR65nfYVicNTzkLpUTzTk2APDXfnpWpC9GX05Vug=:0"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://t.me/ShuiLan_News/1778?single" target="_blank"
-            ><i class="fas fa-camera-retro"></i> Screenshots</a
-          >
+          <a href="https://tiantianqwqalist.top/d/123%E4%BA%91%E7%9B%98/%E5%A4%A9%E5%A4%A9%E7%9A%84%E8%B5%84%E6%BA%90%E7%AB%99/%E5%B0%8F%E7%B1%B3%E5%B9%B3%E6%9D%BF%206/ColorOS%2015.0.0.701%20%E5%AE%89%E5%8D%9315/pipa_XiaomiPad6_ColorOS15.0.0.701_15.0.zip?sign=BU-GR65nfYVicNTzkLpUTzTk2APDXfnpWpC9GX05Vug=:0" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://t.me/ShuiLan_News/1778?single" target="_blank"><i class="fas fa-camera-retro"></i> Screenshots</a>
           <a href="https://t.me/ShuiLan_News" target="_blank"><i class="fas fa-bullhorn"></i> Channel</a>
         </div>
       </div>
     </div>
 
-    <!-- Custom Recoveries -->
     <h2 class="section-title" id="recovery">Custom Recoveries</h2>
     <div class="rom-grid">
-      <!-- TWRP -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/TWRP.jpg" alt="twrp">
+        <img class="rom-image" src="/img/TWRP.jpg" alt="TWRP Logo">
         <span class="badge recovery">Recovery</span>
         <h3>TWRP</h3>
         <p>3.7.1_12 · @aerniq</p>
         <div class="links">
           <a href="https://t.me/pipacancer/60" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram File</a>
-          <a
-            href="https://github.com/rmuxnet/android_device_xiaomi_pipa_twrp/releases/download/fewk/twrp-last.img"
-            target="_blank"
-            ><i class="fab fa-github"></i> Github</a
-          >
-          <a href="https://rmuxnet.github.io/twrp_pipa/" target="_blank"
-            ><i class="fas fa-book-open"></i> Written Guide</a
-          >
-          <a href="https://t.me/pipacancer/39" target="_blank"
-            ><i class="fas fa-video"></i> Video Guide</a
-          >
+          <a href="https://github.com/rmuxnet/android_device_xiaomi_pipa_twrp/releases/download/fewk/twrp-last.img" target="_blank"><i class="fab fa-github"></i> Github</a>
+          <a href="https://rmuxnet.github.io/twrp_pipa/" target="_blank"><i class="fas fa-book-open"></i> Written Guide</a>
+          <a href="https://t.me/pipacancer/39" target="_blank"><i class="fas fa-video"></i> Video Guide</a>
           <a href="http://rmux.zya.me/" target="_blank"><i class="fas fa-heart"></i> Donate</a>
         </div>
       </div>
 
-      <!-- Orange Fox -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Orangefox.jpg" alt="orangefox">
+        <img class="rom-image" src="/img/Orangefox.jpg" alt="Orange Fox Recovery Logo">
         <span class="badge recovery">Recovery</span>
         <h3>Orange Fox</h3>
         <p>R11.3 · @CuriousNom</p>
         <div class="links">
-          <a
-            href="https://github.com/CuriousNom/OrangeFox-Action-Builder/releases/tag/15132943677"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://t.me/rchnewgallery/67" target="_blank"
-            ><i class="fas fa-book-open"></i> Flash Guide</a
-          >
+          <a href="https://github.com/CuriousNom/OrangeFox-Action-Builder/releases/tag/15132943677" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://t.me/rchnewgallery/67" target="_blank"><i class="fas fa-book-open"></i> Flash Guide</a>
           <a href="https://t.me/RomCentralHub" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
     </div>
 
-    <!-- Linux Distributions -->
     <h2 class="section-title" id="linux">Linux Distributions</h2>
     <div class="rom-grid">
-      <!-- Arch Linux -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/ArchLinux.png" alt="archlinux">
+        <img class="rom-image" src="/img/ArchLinux.png" alt="Arch Linux Logo">
         <span class="badge linux">Linux</span>
         <h3>Arch Linux</h3>
         <p>ARM64 · @domin746826 & @aerniq</p>
         <div class="links">
-          <a href="https://t.me/pipacancer/113?single" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a href="https://t.me/xiaomi_pipa/13074" target="_blank"
-            ><i class="fas fa-book-open"></i> Full Guide</a
-          >
-          <a
-            href="https://raw.githubusercontent.com/BrickTM-mainline/pipa/refs/heads/main/scripts/setup.sh"
-            target="_blank"
-            ><i class="fas fa-code"></i> Setup Script</a
-          >
+          <a href="https://t.me/pipacancer/113?single" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://t.me/xiaomi_pipa/13074" target="_blank"><i class="fas fa-book-open"></i> Full Guide</a>
+          <a href="https://raw.githubusercontent.com/BrickTM-mainline/pipa/refs/heads/main/scripts/setup.sh" target="_blank"><i class="fas fa-code"></i> Setup Script</a>
         </div>
       </div>
 
-      <!-- postmarketOS -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/PostMarketOS.png" alt="postmarket">
+        <img class="rom-image" src="/img/PostMarketOS.png" alt="postmarketOS Logo">
         <span class="badge linux">Linux</span>
         <h3>postmarketOS</h3>
         <p>ARM64 · @labnixxiz</p>
         <div class="links">
-          <a
-            href="https://github.com/pipa-project/postmarketos-builds/actions"
-            target="_blank"
-            ><i class="fas fa-download"></i> Builds</a
-          >
+          <a href="https://github.com/pipa-project/postmarketos-builds/actions" target="_blank"><i class="fas fa-download"></i> Builds</a>
         </div>
       </div>
 
-      <!-- Fedora -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Fedora.png" alt="fedora">
+        <img class="rom-image" src="/img/Fedora.png" alt="Fedora Linux Logo">
         <span class="badge linux">Linux</span>
         <h3>Fedora</h3>
         <p>42 · @themojoman</p>
         <div class="links">
-          <a href="https://github.com/themojoman/xiaomi-pipa" target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
+          <a href="https://github.com/themojoman/xiaomi-pipa" target="_blank"><i class="fas fa-download"></i> Download</a>
         </div>
       </div>
     </div>
 
-    <!-- Custom Kernels -->
     <h2 class="section-title" id="kernel">Custom Kernels</h2>
     <div class="rom-grid">
-      <!-- Rμxne -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/Ruxne.jpg" alt="ruxne">
+        <img class="rom-image" src="/img/Ruxne.jpg" alt="Rμxne Kernel Logo">
         <span class="badge kernel">Kernel</span>
         <h3>Rμxne</h3>
         <p>4.19.325 · @aerniq</p>
         <div class="links">
           <a href="https://t.me/pipacancer/92" target="_blank"><i class="fas fa-download"></i> Download</a>
-          <a
-            href="https://github.com/rmuxnet/android_kernel_xiaomi_sm8250/blob/axksu/README.md"
-            target="_blank"
-            ><i class="fas fa-book-open"></i> Guide</a
-          >
-          <a
-            href="https://xdaforums.com/t/kernel-rmxne-kernel-xiaomi-pad-6.4733318/post-90083384"
-            target="_blank"
-            ><i class="fas fa-external-link-alt"></i> XDA Post</a
-          >
+          <a href="https://github.com/rmuxnet/android_kernel_xiaomi_sm8250/blob/axksu/README.md" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
+          <a href="https://xdaforums.com/t/kernel-rmxne-kernel-xiaomi-pad-6.4733318/post-90083384" target="_blank"><i class="fas fa-external-link-alt"></i> XDA Post</a>
           <a href="https://t.me/aerniqq/2" target="_blank"><i class="fab fa-telegram-plane"></i> Donate</a>
         </div>
       </div>
 
-      <!-- BloodReaper+ -->
       <div class="rom-card">
-        <img class="rom-image" src="/img/BloodReaper.jpg" alt="bloodreaper">
+        <img class="rom-image" src="/img/BloodReaper.jpg" alt="BloodReaper+ Kernel Logo">
         <span class="badge kernel">Kernel</span>
         <h3>BloodReaper+</h3>
         <p>4.19.332 · @CuriousNom</p>
         <div class="links">
-          <a
-            href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5"
-            target="_blank"
-            ><i class="fas fa-download"></i> Download</a
-          >
-          <a
-            href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5"
-            target="_blank"
-            ><i class="fas fa-list-alt"></i> Changelog</a
-          >
+          <a href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5" target="_blank"><i class="fas fa-download"></i> Download</a>
+          <a href="https://github.com/Matrixx-Devices/android_kernel_xiaomi_pipa/releases/tag/v1.5" target="_blank"><i class="fas fa-list-alt"></i> Changelog</a>
           <a href="https://t.me/rchnewgallery/38" target="_blank"><i class="fas fa-book-open"></i> Guide</a>
           <a href="https://t.me/RomCentralHub" target="_blank"><i class="fas fa-users"></i> Support</a>
         </div>
       </div>
     </div>
     
-    <!-- Developer Profiles -->
     <h2 class="section-title" id="developer-profiles">Developer Profiles</h2>
     <div class="developer-grid">
       <div class="developer-card">
@@ -1305,24 +1054,18 @@ html, body {
       </div>
     </div>
 
-
-    <!-- Include GSAP library -->
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        // ===== New Preloader JavaScript =====
+        // Preloader JavaScript
         document.addEventListener("DOMContentLoaded", function() {
             const preloader = document.getElementById('preloader');
             if (!preloader) return;
 
-            // Clear any existing content (e.g., from old preloader if HTML wasn't fully cleaned)
             preloader.innerHTML = ''; 
 
-            const TILE_SIZE_DESKTOP = 30; // Tile size for larger screens
-            const TILE_SIZE_MOBILE = 20;  // Tile size for smaller screens
+            const TILE_SIZE_DESKTOP = 30;
+            const TILE_SIZE_MOBILE = 20;
             const GAP_SIZE = 2;
-
-            // Determine tile size based on viewport width
             const TILE_SIZE = window.innerWidth > 768 ? TILE_SIZE_DESKTOP : TILE_SIZE_MOBILE;
 
             const numCols = Math.ceil(window.innerWidth / (TILE_SIZE + GAP_SIZE));
@@ -1330,10 +1073,8 @@ html, body {
 
             const tileGridContainer = document.createElement('div');
             tileGridContainer.id = 'tile-grid-container';
-            // Center the grid if it's slightly smaller than viewport due to rounding
             tileGridContainer.style.width = `${numCols * (TILE_SIZE + GAP_SIZE) - GAP_SIZE}px`;
             tileGridContainer.style.height = `${numRows * (TILE_SIZE + GAP_SIZE) - GAP_SIZE}px`;
-
             tileGridContainer.style.gridTemplateColumns = `repeat(${numCols}, ${TILE_SIZE}px)`;
             tileGridContainer.style.gridTemplateRows = `repeat(${numRows}, ${TILE_SIZE}px)`;
             
@@ -1347,7 +1088,6 @@ html, body {
                 tiles.push(tile);
             }
 
-            // Shuffle tiles for a more random appearance/disappearance effect
             for (let i = tiles.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
@@ -1357,134 +1097,131 @@ html, body {
                 onComplete: () => {
                     gsap.to(preloader, {
                         opacity: 0,
-                        duration: 0.15,
+                        duration: 0.2, // Faster fade out of preloader itself
                         ease: "power1.inOut",
                         onComplete: () => {
                             preloader.style.display = 'none';
+                            document.body.style.overflow = ''; // Restore scroll
                         }
                     });
                 }
             })
-            .staggerTo(tiles, 0.15, { // Duration of each tile's animation
+            .staggerTo(tiles, 0.1, { // Faster tile appearance
                 scale: 1,
                 opacity: 1,
                 ease: "power2.out",
-            }, 0.003) // Stagger delay between tiles (controls wave speed)
-            .staggerTo(tiles, 0.15, { // Duration of each tile's animation
+            }, 0.0025) // Slightly faster stagger 
+            .staggerTo(tiles, 0.1, { // Faster tile disappearance
                 scale: 0,
                 opacity: 0,
                 ease: "power2.in",
-            }, 0.003, "+=0.1"); // Start this part 0.2s after the previous stagger sequence finishes
+            }, 0.0025, "+=0.05"); // Shorter pause
+
+            // Prevent body scroll during preloader
+            // document.body.style.overflow = 'hidden'; // You might want this if preloader is very long
         });
-        // ===== End New Preloader JavaScript =====
-    </script> 
 
-    <script>
-  // 1. Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = "translateY(0)";
-      }
-    });
-  });
+        // Scroll animations & Nav highlighting & Mobile Nav
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Scroll animations
+            const animatedElements = document.querySelectorAll(".rom-card, table, .note, .developer-card, .section-title");
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = "translateY(0)";
+                        observer.unobserve(entry.target); // Optional: stop observing after animation
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
 
-  document.querySelectorAll(".rom-card, table, .note, .developer-card").forEach((el) => { // Added .developer-card
-    el.style.opacity = 0;
-    el.style.transform = "translateY(20px)";
-    el.style.transition = "opacity 0.5s, transform 0.5s";
-    observer.observe(el);
-  });
+            animatedElements.forEach((el) => {
+                el.style.opacity = 0;
+                el.style.transform = "translateY(30px)"; // Slightly more pronounced initial offset
+                el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+                observer.observe(el);
+            });
 
-  // 2. Navigation highlighting
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.section-title'); // This now includes developer-profiles
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      let bottomMostSectionReached = false;
-
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        // Check if section is visible or has been passed
-        if (pageYOffset >= (sectionTop - 100)) { // 100 is an offset, adjust as needed
-          current = section.getAttribute('id');
-        }
-        // Check if we've scrolled to the bottom of the page and the last section is active
-        if ( (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 50) { // 50px tolerance for bottom
-             if (section.id === 'developer-profiles') { // Or whatever your last section id is
-                bottomMostSectionReached = true;
-             }
-        }
-      });
-      
-      if (bottomMostSectionReached) {
-          current = 'developer-profiles'; // Force last section to be active if at bottom
-      }
+            // 2. Navigation highlighting
+            const sections = document.querySelectorAll('.section-title');
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const homeLinkDesktop = document.querySelector('.nav-link[href="#"]');
+            const homeLinkMobile = document.querySelector('.mobile-nav-link[href="#"]');
 
 
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        const href = link.getAttribute('href');
-        if (href === '#' && current === '') { // Home link when at the very top
-          link.classList.add('active');
-        } else if (href === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
-  });
+            function updateActiveNav() {
+                let current = '';
+                const headerHeight = document.querySelector('.navbar')?.offsetHeight || 70; // Navbar height + a bit
+                
+                // Check for top of page for Home
+                if (window.pageYOffset < sections[0].offsetTop - headerHeight - 100 ) { // Give more space to home
+                     current = '';
+                } else {
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (pageYOffset >= sectionTop - headerHeight - 50 ) { // Adjusted offset for sticky nav
+                            current = section.getAttribute('id');
+                        }
+                    });
+                }
+                
+                // If scrolled to the very bottom, ensure the last nav item is active.
+                if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100) { // 100px tolerance
+                    current = sections[sections.length - 1].getAttribute('id');
+                }
 
-  // 3. Mobile-nav toggle & outside-click
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn  = document.getElementById('mobileNavBtn');
-    const menu = document.getElementById('mobileNavContainer');
-    const mobileNavLinks = document.querySelectorAll('#mobileNavContainer a');
 
-
-    // Toggle open/close
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();    // prevent this click from bubbling up
-      menu.classList.toggle('open');
-       // Toggle icon on button
-      const icon = btn.querySelector('i');
-      if (menu.classList.contains('open')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-      } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (btn.contains(e.target)) return;  // ignore clicks on the button
-      if (menu.classList.contains('open') && !menu.contains(e.target)) {
-        menu.classList.remove('open');
-        const icon = btn.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
-    });
-
-    // Close menu when a link is clicked
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (menu.classList.contains('open')) {
-                menu.classList.remove('open');
-                const icon = btn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href === '#' && current === '') {
+                        link.classList.add('active');
+                    } else if (href === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
             }
+            
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav(); // Initial call
+
+            // 3. Mobile-nav toggle & outside-click
+            const btn = document.getElementById('mobileNavBtn');
+            const menu = document.getElementById('mobileNavContainer');
+            const mobileNavLinks = document.querySelectorAll('#mobileNavContainer a');
+            const icon = btn.querySelector('i');
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+                if (menu.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+                    menu.classList.remove('open');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menu.classList.contains('open')) {
+                        menu.classList.remove('open');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
         });
-    });
-  });
     </script>
-  </body>
-</html>
   </body>
 </html>
