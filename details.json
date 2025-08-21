@@ -7,7 +7,8 @@
         "download": "https://drive.google.com/drive/folders/1l-iQy3GsPU5zC4Ba9Ceo2_xJwQyyA8EE?usp=drive_link",
         "mirror": "https://t.me/tukisshit/178",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z4hYZ8GImx77LfVx2tIfs7boeDz4Rk6ikLKGmsiBxaOlnAS4MztuUWU&s=10",
-        "android_version": "Android 15"
+        "android_version": "Android 15",
+          "status": "unofficial"
     },
     {
         "name": "Project Infinity-X 3.1",
@@ -17,26 +18,62 @@
         "download": "https://drive.google.com/open?id=1O2EHyb5KNbcXPJQdYLwIOB9wpK63zoyH",
         "mirror": "https://t.me/PAD6Repo/359",
         "image": "https://raw.githubusercontent.com/ProjectInfinity-X/.github/main/profile/Infinity.png",
-        "android_version": "Android 16"
+        "android_version": "Android 16",
+          "status": "unofficial"
     },
     {
-        "name": "Derpfest ",
+        "name": "Derpfest 16.0 ",
         "maintainer": "Glitch Wraith",
         "support_group": "https://t.me/the_usual_suspects_777",
         "post_link": "https://t.me/mipad6/115626",
         "download": "https://sourceforge.net/projects/derpfest/files/pipa/04aug25/",
         "mirror": "https://t.me/dump_cloud_001/161",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
-        "android_version": "Android 16"
+        "android_version": "Android 16",
+          "status": "official"
     },
     {
-        "name": "MistOS",
+        "name": "MistOS 4.0",
         "maintainer": "Glitch Wraith",
         "support_group": "https://t.me/the_usual_suspects_777",
         "post_link": "https://t.me/XiaomiPad6Global/299818",
         "download": "https://gofile.io/d/ZU9K06",
         "mirror": "https://t.me/dump_cloud_001/159?single",
-        "image": "https://github.com/Project-Mist-OS/manifest/blob/15-wip/assets/Banner.png",
-        "android_version": "Android 16"
-    }
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKM7QhSbE4EH3pp8HylfoJyqPgnEW5WxMT_rhpq3MszI1RrHjRvu48_RY&s=10",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
+    {
+        "name": "EvolutionX 11.0",
+        "maintainer": "Mufasa",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/PAD6Repo/343",
+        "download": "https://gofile.io/d/qhjRCs",
+        "mirror": "https://pixeldrain.com/u/mJCUTTTo",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSY874EOoM-INnUz4KHSw9YxbXrD3gTJZuKsht9fsFFNDV-N2zF-9_O96W&s=10",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
+    {
+        "name": "AxionOS 2.0",
+        "maintainer": "Mufasa",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/PAD6Repo/258",
+        "download": "https://gofile.io/d/znycIh",
+        "mirror": "https://t.me/PAD6Repo/259",
+        "image": "https://avatars.githubusercontent.com/u/197447202?s=200&v=4",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
+    {
+        "name": "VoltageOS",
+        "maintainer": "Numaan",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/mipad6/111639",
+        "download": "https://t.me/PAD6Repo/78",
+        "mirror": "https://t.me/PAD6Repo/78",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyYthwbZjUWRVtc1OY58tV7XdnctbCZEq2NNg7gBCkquDqO_oMyhSZxbw3&s=10",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
 ]
