@@ -1,14 +1,13 @@
 [
     {
-        "name": "LineageOS 22.2",
-        "maintainer": "@tu4wkl",
-        "support_group": "https://t.me/mipad6",
-        "post_link": "https://t.me/mipad6/117851",
-        "download": "https://drive.google.com/drive/folders/1l-iQy3GsPU5zC4Ba9Ceo2_xJwQyyA8EE?usp=drive_link",
-        "mirror": "https://t.me/tukisshit/178",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z4hYZ8GImx77LfVx2tIfs7boeDz4Rk6ikLKGmsiBxaOlnAS4MztuUWU&s=10",
-        "android_version": "Android 15",
-          "status": "unofficial"
+        "maintainer": "Glitch Wraith",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/mipad6/115626",
+        "download": "https://sourceforge.net/projects/derpfest/files/pipa/04aug25/",
+        "mirror": "https://t.me/dump_cloud_001/161",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
+        "android_version": "Android 16",
+          "status": "official"
     },
     {
         "name": "Project Infinity-X 3.1",
@@ -22,15 +21,16 @@
           "status": "unofficial"
     },
     {
-        "name": "Derpfest 16.0 ",
-        "maintainer": "Glitch Wraith",
-        "support_group": "https://t.me/the_usual_suspects_777",
-        "post_link": "https://t.me/mipad6/115626",
-        "download": "https://sourceforge.net/projects/derpfest/files/pipa/04aug25/",
-        "mirror": "https://t.me/dump_cloud_001/161",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
-        "android_version": "Android 16",
-          "status": "official"
+        "name": "LineageOS 22.2",
+        "maintainer": "@tu4wkl",
+        "support_group": "https://t.me/mipad6",
+        "post_link": "https://t.me/mipad6/117851",
+        "download": "https://drive.google.com/drive/folders/1l-iQy3GsPU5zC4Ba9Ceo2_xJwQyyA8EE?usp=drive_link",
+        "mirror": "https://t.me/tukisshit/178",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z4hYZ8GImx77LfVx2tIfs7boeDz4Rk6ikLKGmsiBxaOlnAS4MztuUWU&s=10",
+        "android_version": "Android 15",
+          "status": "unofficial"
+        
     },
     {
         "name": "MistOS 4.0",
