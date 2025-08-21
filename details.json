@@ -1,0 +1,42 @@
+[
+    {
+        "name": "LineageOS 20",
+        "maintainer": "Alex Doe",
+        "support_group": "t.me/lineageospipa",
+        "post_link": "t.me/lineageospipa/125",
+        "download": "https://download.lineageos.org/pipa",
+        "mirror": "https://mirror.codefox.org/lineageos/pipa",
+        "image": "img/lineageos.png",
+        "android_version": "Android 13"
+    },
+    {
+        "name": "Pixel Experience Plus",
+        "maintainer": "Jane Smith",
+        "support_group": "t.me/pepipa",
+        "post_link": "t.me/pepipa/89",
+        "download": "https://download.pixelexperience.org/pipa",
+        "mirror": "https://mirror.pixelexperience.org/pipa",
+        "image": "img/pixelexperience.png",
+        "android_version": "Android 13"
+    },
+    {
+        "name": "ArrowOS",
+        "maintainer": "Robert Johnson",
+        "support_group": "t.me/arrowospipa",
+        "post_link": "t.me/arrowospipa/142",
+        "download": "https://download.arrowos.net/pipa",
+        "mirror": "https://mirror.arrowos.net/pipa",
+        "image": "img/arrowos.png",
+        "android_version": "Android 13"
+    },
+    {
+        "name": "crDroid",
+        "maintainer": "Emily Chen",
+        "support_group": "t.me/crdroidpipa",
+        "post_link": "t.me/crdroidpipa/76",
+        "download": "https://download.crdroid.net/pipa",
+        "mirror": "https://mirror.crdroid.net/pipa",
+        "image": "img/crdroid.png",
+        "android_version": "Android 13"
+    }
+]
