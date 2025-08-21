@@ -10,33 +10,33 @@
         "android_version": "Android 15"
     },
     {
-        "name": "Pixel Experience Plus",
-        "maintainer": "Jane Smith",
-        "support_group": "t.me/pepipa",
-        "post_link": "t.me/pepipa/89",
-        "download": "https://download.pixelexperience.org/pipa",
-        "mirror": "https://mirror.pixelexperience.org/pipa",
-        "image": "img/pixelexperience.png",
-        "android_version": "Android 13"
+        "name": "Project Infinity-X 3.1",
+        "maintainer": "Mufasa",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/PAD6Repo/358",
+        "download": "https://drive.google.com/open?id=1O2EHyb5KNbcXPJQdYLwIOB9wpK63zoyH",
+        "mirror": "https://t.me/PAD6Repo/359",
+        "image": "https://raw.githubusercontent.com/ProjectInfinity-X/.github/main/profile/Infinity.png",
+        "android_version": "Android 16"
     },
     {
-        "name": "ArrowOS",
-        "maintainer": "Robert Johnson",
-        "support_group": "t.me/arrowospipa",
-        "post_link": "t.me/arrowospipa/142",
-        "download": "https://download.arrowos.net/pipa",
-        "mirror": "https://mirror.arrowos.net/pipa",
-        "image": "img/arrowos.png",
-        "android_version": "Android 13"
+        "name": "Derpfest ",
+        "maintainer": "Glitch Wraith",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/mipad6/115626",
+        "download": "https://sourceforge.net/projects/derpfest/files/pipa/04aug25/",
+        "mirror": "https://t.me/dump_cloud_001/161",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
+        "android_version": "Android 16"
     },
     {
-        "name": "crDroid",
-        "maintainer": "Emily Chen",
-        "support_group": "t.me/crdroidpipa",
-        "post_link": "t.me/crdroidpipa/76",
-        "download": "https://download.crdroid.net/pipa",
-        "mirror": "https://mirror.crdroid.net/pipa",
-        "image": "img/crdroid.png",
-        "android_version": "Android 13"
+        "name": "MistOS",
+        "maintainer": "Glitch Wraith",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/XiaomiPad6Global/299818",
+        "download": "https://gofile.io/d/ZU9K06",
+        "mirror": "https://t.me/dump_cloud_001/159?single",
+        "image": "https://github.com/Project-Mist-OS/manifest/blob/15-wip/assets/Banner.png",
+        "android_version": "Android 16"
     }
 ]
