@@ -4,472 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xiaomi Pad 6 Custom ROMs | pipa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #ff6700;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #ff6700;
-        }
-
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            flex: 1;
-            padding-right: 40px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
-            transform: perspective(800px) rotateY(-10deg);
-            border-radius: 10px;
-            transition: transform 0.5s;
-        }
-
-        .hero-image img:hover {
-            transform: perspective(800px) rotateY(0);
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            margin-bottom: 20px;
-            color: #222;
-        }
-
-        .tagline {
-            font-size: 1.5rem;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #ff6700;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 103, 0, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 103, 0, 0.4);
-            background: #ff8533;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin: 60px 0 40px;
-            color: #222;
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: #ff6700;
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-
-        .specs {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin: 40px 0;
-            animation: slideUp 1s ease-out;
-        }
-
-        .spec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .spec-item {
-            text-align: center;
-            padding: 25px;
-            border-radius: 10px;
-            background: #f8f9fa;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .spec-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .spec-item i {
-            font-size: 2.5rem;
-            color: #ff6700;
-            margin-bottom: 15px;
-        }
-
-        .spec-item h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .benefit-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-
-        .benefit-card i {
-            font-size: 2.5rem;
-            color: #ff6700;
-            margin-bottom: 20px;
-        }
-
-        .benefit-card h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .roms-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .rom-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .rom-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .rom-image {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .rom-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .rom-card:hover .rom-image img {
-            transform: scale(1.05);
-        }
-
-        .rom-status {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-official {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .status-unofficial {
-            background: #f44336;
-            color: white;
-        }
-
-        .rom-content {
-            padding: 25px;
-        }
-
-        .rom-name {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: #222;
-        }
-
-        .rom-maintainer {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .rom-links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .rom-links a {
-            color: #ff6700;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .rom-links a:hover {
-            color: #ff8533;
-        }
-
-        .community {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin: 40px 0;
-        }
-
-        .community-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .community-card {
-            text-align: center;
-            padding: 25px;
-            border-radius: 10px;
-            background: #f8f9fa;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .community-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .community-card i {
-            font-size: 2.5rem;
-            color: #0088cc;
-            margin-bottom: 15px;
-        }
-
-        .community-card h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .community-card a {
-            color: #ff6700;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
-            color: #666;
-        }
-
-        .error {
-            text-align: center;
-            padding: 40px;
-            color: #f44336;
-            background: #ffebee;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        footer {
-            background: #222;
-            color: white;
-            padding: 60px 0 30px;
-            margin-top: 80px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: #ff6700;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-        }
-
-        .credits {
-            color: #ff6700;
-            font-weight: 500;
-            margin-top: 10px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @media (max-width: 900px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-content {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tagline {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .nav-links {
-                display: none;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .roms-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .spec-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -483,6 +22,7 @@
                     <li><a href="#overview">Overview</a></li>
                     <li><a href="#benefits">Benefits</a></li>
                     <li><a href="#roms">ROMs</a></li>
+                    <li><a href="#community">Community</a></li>
                 </ul>
             </nav>
         </div>
@@ -492,11 +32,11 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Xiaomi Pad 6</h1>
-                <p class="tagline">Unlock the Full Potential of Your Xiaomi Pad 6 with Custom ROMs</p>
-                <a href="#roms" class="btn">Download Latest ROM</a>
+                <p class="tagline">Unlock the Full Potential of Your Device with Custom ROMs.</p>
+                <a href="#roms" class="btn">Explore ROMs</a>
             </div>
             <div class="hero-image">
-                <img src="img/Pad6.png" alt="Xiaomi Pad 6">
+                <img src="assets/images/Pad6.png" alt="Xiaomi Pad 6">
             </div>
         </section>
 
@@ -504,31 +44,11 @@
             <h2 class="section-title">Device Overview</h2>
             <div class="specs">
                 <div class="spec-grid">
-                    <div class="spec-item">
-                        <i class="fas fa-microchip"></i>
-                        <h3>Processor</h3>
-                        <p>Snapdragon 870</p>
-                    </div>
-                    <div class="spec-item">
-                        <i class="fas fa-memory"></i>
-                        <h3>RAM</h3>
-                        <p>6/8 GB LPDDR5</p>
-                    </div>
-                    <div class="spec-item">
-                        <i class="fas fa-expand"></i>
-                        <h3>Display</h3>
-                        <p>11" 144Hz WQHD+</p>
-                    </div>
-                    <div class="spec-item">
-                        <i class="fas fa-hdd"></i>
-                        <h3>Storage</h3>
-                        <p>128/256 GB UFS 3.1</p>
-                    </div>
-                    <div class="spec-item">
-                        <i class="fas fa-battery-full"></i>
-                        <h3>Battery</h3>
-                        <p>8840 mAh</p>
-                    </div>
+                    <div class="spec-item"><i class="fas fa-microchip"></i><h3>Processor</h3><p>Snapdragon 870</p></div>
+                    <div class="spec-item"><i class="fas fa-memory"></i><h3>RAM</h3><p>6/8 GB LPDDR5</p></div>
+                    <div class="spec-item"><i class="fas fa-expand"></i><h3>Display</h3><p>11" 144Hz WQHD+</p></div>
+                    <div class="spec-item"><i class="fas fa-hdd"></i><h3>Storage</h3><p>128/256 GB UFS 3.1</p></div>
+                    <div class="spec-item"><i class="fas fa-battery-full"></i><h3>Battery</h3><p>8840 mAh</p></div>
                 </div>
             </div>
         </section>
@@ -536,26 +56,22 @@
         <section id="benefits">
             <h2 class="section-title">Why Custom ROMs?</h2>
             <div class="benefits">
-                <div class="benefit-card">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <h3>Improved Performance</h3>
-                    <p>Custom ROMs are optimized for better performance, providing a smoother and faster experience compared to stock firmware.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-battery-three-quarters"></i>
-                    <h3>Longer Battery Life</h3>
-                    <p>With better resource management and removal of bloatware, custom ROMs can significantly improve battery life.</p>
-                </div>
-                <div class="benefit-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Latest Android Features</h3>
-                    <p>Get the newest Android versions and features before official releases, without waiting for manufacturer updates.</p>
-                </div>
+                <div class="benefit-card"><i class="fas fa-tachometer-alt"></i><h3>Improved Performance</h3><p>Optimized for a smoother, faster experience compared to stock firmware.</p></div>
+                <div class="benefit-card"><i class="fas fa-battery-three-quarters"></i><h3>Longer Battery Life</h3><p>Better resource management and no bloatware for significant battery gains.</p></div>
+                <div class="benefit-card"><i class="fas fa-sparkles"></i><h3>Latest Android Features</h3><p>Get the newest Android versions and features without waiting for official updates.</p></div>
             </div>
         </section>
 
         <section id="roms">
             <h2 class="section-title">Available ROMs</h2>
+            
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="All">All</button>
+                <button class="filter-btn" data-filter="Android 16">Android 16</button>
+                <button class="filter-btn" data-filter="Android 15">Android 15</button>
+            </div>
+
             <div class="roms-container">
                 <div class="loading">
                     <i class="fas fa-spinner fa-spin"></i> Loading ROMs...
@@ -565,119 +81,32 @@
 
         <section id="community">
             <h2 class="section-title">Join Our Community</h2>
-            <div class="community">
-                <div class="community-grid">
-                    <div class="community-card">
-                        <i class="fab fa-telegram"></i>
-                        <h3>The Usual Suspects</h3>
-                        <a href="https://t.me/the_usual_suspects_777" target="_blank">Join Channel</a>
-                    </div>
-                    <div class="community-card">
-                        <i class="fab fa-telegram"></i>
-                        <h3>PAD6 Repo</h3>
-                        <a href="https://t.me/PAD6Repo" target="_blank">Join Channel</a>
-                    </div>
-                    <div class="community-card">
-                        <i class="fab fa-telegram"></i>
-                        <h3>Royal Labs</h3>
-                        <a href="https://t.me/royal_labs" target="_blank">Join Channel</a>
-                    </div>
-                    <div class="community-card">
-                        <i class="fab fa-telegram"></i>
-                        <h3>Xiaomi Pad 6 Global</h3>
-                        <a href="https://t.me/XiaomiPad6Global" target="_blank">Join Group</a>
-                    </div>
-                    <div class="community-card">
-                        <i class="fab fa-telegram"></i>
-                        <h3>Mi Pad 6</h3>
-                        <a href="https://t.me/mipad6" target="_blank">Join Group</a>
-                    </div>
-                </div>
+            <div class="community-grid">
+                <div class="community-card"><i class="fab fa-telegram"></i><h3>The Usual Suspects</h3><a href="https://t.me/the_usual_suspects_777" target="_blank">Join Channel</a></div>
+                <div class="community-card"><i class="fab fa-telegram"></i><h3>PAD6 Repo</h3><a href="https://t.me/PAD6Repo" target="_blank">Join Channel</a></div>
+                <div class="community-card"><i class="fab fa-telegram"></i><h3>Xiaomi Pad 6 Global</h3><a href="https://t.me/XiaomiPad6Global" target="_blank">Join Group</a></div>
+                <div class="community-card"><i class="fab fa-telegram"></i><h3>Mi Pad 6</h3><a href="https://t.me/mipad6" target="_blank">Join Group</a></div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Important Notes</h3>
-                    <p>Custom ROMs may void your warranty. Always backup your data before flashing. Flash at your own risk.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Resources</h3>
-                    <p>• Installation Guide • Soon</p>
-                </div>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Important Notes</h3>
+                <p>Installing custom ROMs may void your warranty. Always back up your data before proceeding. You are responsible for any changes to your device.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
-                <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01">Mufasa</a> and <a href="https://glitchwraith.vercel.app/">Glitch Wraith</a></p>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <p>• Installation Guide (Coming Soon)</p>
             </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
+            <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank">Glitch Wraith</a></p>
         </div>
     </footer>
 
-    <script>
-        // Function to fetch ROM data from JSON file
-        async function fetchROMData() {
-            try {
-                const response = await fetch('details.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const romsData = await response.json();
-                return romsData;
-            } catch (error) {
-                console.error('Error fetching ROM data:', error);
-                throw error;
-            }
-        }
-
-        // Function to generate ROM cards
-        function generateRomCards(romsData) {
-            const romsContainer = document.querySelector('.roms-container');
-            romsContainer.innerHTML = ''; // Clear loading message
-            
-            romsData.forEach(rom => {
-                const romCard = document.createElement('div');
-                romCard.className = 'rom-card';
-                
-                romCard.innerHTML = `
-                    <div class="rom-image">
-                        <img src="${rom.image}" alt="${rom.name}">
-                        <span class="rom-status status-${rom.status}">${rom.status}</span>
-                    </div>
-                    <div class="rom-content">
-                        <h3 class="rom-name">${rom.name}</h3>
-                        <p class="rom-maintainer"><strong>Maintainer:</strong> ${rom.maintainer}</p>
-                        <p class="rom-maintainer"><strong>Android:</strong> ${rom.android_version}</p>
-                        <div class="rom-links">
-                            <a href="${rom.download}" target="_blank"><i class="fas fa-download"></i> Download</a>
-                            <a href="${rom.mirror}" target="_blank"><i class="fas fa-link"></i> Mirror</a>
-                            <a href="${rom.post_link}" target="_blank"><i class="fab fa-telegram"></i> Post</a>
-                            <a href="${rom.support_group}" target="_blank"><i class="fab fa-telegram"></i> Support</a>
-                        </div>
-                    </div>
-                `;
-                
-                romsContainer.appendChild(romCard);
-            });
-        }
-
-        // Load ROM data when page loads
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const romsData = await fetchROMData();
-                generateRomCards(romsData);
-            } catch (error) {
-                const romsContainer = document.querySelector('.roms-container');
-                romsContainer.innerHTML = `
-                    <div class="error">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>Failed to load ROM data. Please check if details.json exists.</p>
-                    </div>
-                `;
-            }
-        });
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>
