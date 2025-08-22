@@ -76,5 +76,60 @@
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyYthwbZjUWRVtc1OY58tV7XdnctbCZEq2NNg7gBCkquDqO_oMyhSZxbw3&s=10",
         "android_version": "Android 16",
           "status": "unofficial"
-    }
+    },
+    {
+        "name": "CrDroid 11.6",
+        "maintainer": "Atomyr",
+        "support_group": "https://t.me/XiaomiPad6Global",
+        "post_link": "https://t.me/XiaomiPad6Global/258548",
+        "download": "https://graph.org/Cr-pipa-may22-gapps-05-22",
+        "mirror": "https://gofile.io/d/cWVlkn",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQptdrozY8vVdbiTN6rI8Y2a3uPnGAj1WXIqsQuk7As5IrmS_QmtoR9_Hen&s=10",
+        "android_version": "Android 15",
+          "status": "unofficial"
+    },
+    {
+        "name": "A16-beta-3 port",
+        "maintainer": "JV Sandhu",
+        "support_group": "https://t.me/XiaomiPad6Global/300258",
+        "post_link": "https://t.me/XiaomiPad6Global/300258",
+        "download": "https://drive.google.com/file/d/1D0O8FVMNPcoO_51MY8F-RXYQjw-JBA3F/view?usp=drive_link",
+        "mirror": "https://drive.google.com/file/d/1D0O8FVMNPcoO_51MY8F-RXYQjw-JBA3F/view?usp=drive_link",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT52d9PnbftspIfZJUjHCM-7NxkZ82fx3rMoCJNIJltRg1kQLO-jSrhSg4&s=10",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
+    {
+        "name": "LunarisAOSP",
+        "maintainer": "Aryan",
+        "support_group": "https://t.me/XiaomiPad6Global",
+        "post_link": "https://t.me/XiaomiPad6Global/306814",
+        "download": "https://www.pling.com/p/2313192/",
+        "mirror": "https://www.pling.com/p/2313192/",
+        "image": "https://mi.fiime.cn/static/upload/2025/08/06/202508068281944d93b7e9b.jpg",
+        "android_version": "Android 16",
+          "status": "official"
+    },
+    {
+        "name": "CherishOS V6.0",
+        "maintainer": "Glitch Wraith",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "qhttps://t.me/XiaomiPad6Updates/204",
+        "download": "https://pixeldrain.com/u/e7RYJYGn",
+        "mirror": "https://t.me/dump_cloud_001/164",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROmaxEqeaAEKB33C6PIQ6GZ1z1L7mN-Ijuqg&s",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
+    {
+        "name": "Project Pixelage 2.8 ",
+        "maintainer": " @oko_123 & @aerniq",
+        "support_group": "https://t.me/the_usual_suspects_777",
+        "post_link": "https://t.me/XiaomiPad6Updates/208",
+        "download": "https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250819-1725.zip",
+        "mirror": "https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250819-1725.zip",
+        "image": "https://raw.githubusercontent.com/ProjectPixelage/pixelage_changelog/15/pixelage_a15.png",
+        "android_version": "Android 16",
+          "status": "unofficial"
+    },
 ]
