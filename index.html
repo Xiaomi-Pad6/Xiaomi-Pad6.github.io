@@ -18,10 +18,17 @@
                     <i class="fas fa-tablet-alt"></i>
                     <span>Xiaomi Pad 6 ROMs</span>
                 </div>
+
+                <!-- Mobile hamburger -->
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
                 <ul class="nav-links">
                     <li><a href="#overview">Overview</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
                     <li><a href="#roms">ROMs</a></li>
+                    <li><a href="#kernels">Kernels</a></li>
+                    <li><a href="#recoveries">Recoveries</a></li>
                     <li><a href="#community">Community</a></li>
                 </ul>
             </nav>
@@ -65,16 +72,35 @@
         <section id="roms">
             <h2 class="section-title">Available ROMs</h2>
             
-            <!-- Filter Controls -->
+            <!-- Filter Controls: removed "All" button per request -->
             <div class="filter-controls">
-                <button class="filter-btn active" data-filter="All">All</button>
-                <button class="filter-btn" data-filter="Android 16">Android 16</button>
+                <button class="filter-btn active" data-filter="Android 16">Android 16</button>
                 <button class="filter-btn" data-filter="Android 15">Android 15</button>
             </div>
 
             <div class="roms-container">
                 <div class="loading">
                     <i class="fas fa-spinner fa-spin"></i> Loading ROMs...
+                </div>
+            </div>
+        </section>
+
+        <!-- New Kernels section (cards will be injected here) -->
+        <section id="kernels">
+            <h2 class="section-title">Kernels</h2>
+            <div class="kernels-container">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading Kernels...
+                </div>
+            </div>
+        </section>
+
+        <!-- New Recoveries section -->
+        <section id="recoveries">
+            <h2 class="section-title">Recoveries</h2>
+            <div class="recoveries-container">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading Recoveries...
                 </div>
             </div>
         </section>
@@ -96,10 +122,7 @@
                 <h3>Important Notes</h3>
                 <p>Installing custom ROMs may void your warranty. Always back up your data before proceeding. You are responsible for any changes to your device.</p>
             </div>
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <p>• Installation Guide (Coming Soon)</p>
-            </div>
+            <!-- Resources section was removed as requested -->
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>

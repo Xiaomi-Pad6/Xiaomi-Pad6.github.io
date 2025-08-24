@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Testing Web lode",
+    "maintainer": "Koyi nhi",
+    "version": "1.2",
+    "image": "assets/images/kernel-pipa.jpg",
+    "download": "https://example.com/pipa-kernel-v1.2.zip",
+    "mirror": "https://mirror.example.com/pipa-kernel-v1.2.zip"
+  },
+  {
+    "name": "Performance lega?",
+    "maintainer": "Redlight",
+    "version": "2025.07",
+    "image": "assets/images/kernel-speed.jpg",
+    "download": "https://example.com/perf-kernel.zip",
+    "mirror": "https://mirror.example.com/perf-kernel.zip"
+  }
+]

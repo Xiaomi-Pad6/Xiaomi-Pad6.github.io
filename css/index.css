@@ -33,13 +33,23 @@ header {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
     position: sticky; top: 0; z-index: 100;
 }
-nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; position: relative; }
 .logo { display: flex; align-items: center; font-weight: 700; font-size: 1.5rem; color: var(--primary-color); }
 .logo i { margin-right: 10px; }
 .nav-links { display: flex; list-style: none; }
 .nav-links li { margin-left: 35px; }
 .nav-links a { font-weight: 500; transition: color 0.3s; }
 .nav-links a:hover { color: var(--primary-hover); }
+
+/* Mobile toggle button (hidden on large screens) */
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--dark-color);
+}
 
 /* --- HERO SECTION --- */
 .hero { display: flex; align-items: center; padding: 80px 0; }
@@ -143,6 +153,23 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
 .rom-btn.download { background: var(--primary-color); color: white; }
 .rom-btn.download:hover { background: var(--primary-hover); }
 
+/* --- KERNEL & RECOVERY CARDS (reuse layout but no android/gapps tags) --- */
+.kr-card {
+    background: white; border-radius: var(--border-radius); overflow: hidden;
+    box-shadow: var(--card-shadow); transition: all 0.4s ease;
+    opacity: 0; transform: translateY(20px);
+    display: none;
+}
+.kr-card.visible { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); }
+.kr-image { height: 180px; overflow: hidden; }
+.kr-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.kr-card:hover .kr-image img { transform: scale(1.03); }
+
+.kr-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.kr-name { font-size: 1.3rem; margin-bottom: 8px; }
+.kr-details { color: #666; margin-bottom: 14px; font-size: 0.9rem; }
+.kr-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
+
 /* --- FOOTER --- */
 footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margin-top: 80px; }
 .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
@@ -166,8 +193,16 @@ footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margi
 }
 
 @media (max-width: 600px) {
-    .nav-links { display: none; }
+    /* Show hamburger and hide inline nav links */
+    .nav-toggle { display: block; }
+    .nav-links { display: none; position: absolute; top: 70px; right: 20px; background: white; width: calc(100% - 40px); border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); flex-direction: column; padding: 15px; z-index: 200; }
+    .nav-links.open { display: flex; }
+    .nav-links li { margin: 12px 0; }
+    .nav-links a { display: block; padding: 10px 12px; border-radius: 8px; color: var(--dark-color); }
+    .nav-links a:hover { background: var(--light-gray); color: var(--primary-color); }
+
     h1 { font-size: 2.2rem; }
     .section-title { font-size: 2rem; }
     .roms-container { grid-template-columns: 1fr; }
+    .kr-card, .rom-card { margin: 0 auto; width: 100%; }
 }
