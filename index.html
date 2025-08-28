@@ -9,6 +9,120 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional CSS for new sections - keeping original theme */
+        .search-container {
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #ff6b35;
+            border-radius: 25px;
+            padding: 12px 20px;
+        }
+
+        .search-bar i {
+            color: #ff6b35;
+            margin-right: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #666;
+        }
+
+        .clear-search {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .clear-search:hover {
+            color: #ff6b35;
+        }
+
+        .donate-text {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .donate-subtext {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .donate-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .donate-card {
+            background: white;
+            border: 2px solid #ff6b35;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .donate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+        }
+
+        .donate-card i {
+            font-size: 3rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .donate-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .donate-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .donate-btn {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .donate-btn:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -29,6 +143,7 @@
                     <li><a href="#roms">ROMs</a></li>
                     <li><a href="#kernels">Kernels</a></li>
                     <li><a href="#recoveries">Recoveries</a></li>
+                    <li><a href="#donate">Support</a></li>
                     <li><a href="#community">Community</a></li>
                 </ul>
             </nav>
@@ -72,6 +187,17 @@
         <section id="roms">
             <h2 class="section-title">Available ROMs</h2>
             
+            <!-- ROM Search Bar -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="rom-search" placeholder="Search ROMs by name, developer, or Android version...">
+                    <button class="clear-search" id="clear-search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
             <!-- Filter Controls: removed "All" button per request -->
             <div class="filter-controls">
                 <button class="filter-btn active" data-filter="Android 16">Android 16</button>
@@ -105,6 +231,33 @@
             </div>
         </section>
 
+        <!-- Donate/Support Section -->
+        <section id="donate">
+            <h2 class="section-title">Support Our Work</h2>
+            <p class="donate-text">Your support helps us maintain and improve this ROM repository for the community.</p>
+            <p class="donate-subtext">Every contribution makes a difference in keeping this project alive and updated.</p>
+            <div class="donate-options">
+                <div class="donate-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>UPI Payment</h3>
+                    <p>Quick and easy payment via UPI</p>
+                    <button class="donate-btn" id="upi-donate">Donate via UPI</button>
+                </div>
+                <div class="donate-card">
+                    <i class="fas fa-coffee"></i>
+                    <h3>Buy Me a Coffee</h3>
+                    <p>Support with a coffee donation</p>
+                    <button class="donate-btn" id="coffee-donate">Buy Coffee</button>
+                </div>
+                <div class="donate-card">
+                    <i class="fab fa-paypal"></i>
+                    <h3>PayPal</h3>
+                    <p>Secure donation via PayPal</p>
+                    <button class="donate-btn" id="paypal-donate">Donate PayPal</button>
+                </div>
+            </div>
+        </section>
+
         <section id="community">
             <h2 class="section-title">Join Our Community</h2>
             <div class="community-grid">
@@ -131,5 +284,34 @@
     </footer>
 
     <script src="js/index.js"></script>
+    <script>
+        // Basic search functionality
+        document.getElementById('rom-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Add your search logic here
+            console.log('Searching for:', searchTerm);
+        });
+
+        document.getElementById('clear-search').addEventListener('click', function() {
+            document.getElementById('rom-search').value = '';
+            // Clear search results
+        });
+
+        // Donation button events
+        document.getElementById('upi-donate').addEventListener('click', function() {
+            // Add UPI payment logic
+            alert('UPI payment functionality to be implemented');
+        });
+
+        document.getElementById('coffee-donate').addEventListener('click', function() {
+            // Add Buy Me a Coffee logic
+            alert('Buy Me a Coffee functionality to be implemented');
+        });
+
+        document.getElementById('paypal-donate').addEventListener('click', function() {
+            // Add PayPal logic
+            alert('PayPal donation functionality to be implemented');
+        });
+    </script>
 </body>
 </html>
