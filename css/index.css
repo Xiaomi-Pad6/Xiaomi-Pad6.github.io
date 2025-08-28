@@ -114,22 +114,24 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
     background: white; border-radius: var(--border-radius); overflow: hidden;
     box-shadow: var(--card-shadow); transition: all 0.4s ease;
     opacity: 0; transform: translateY(20px);
-    display: none;
+    display: none; /* Hidden by default, JS will manage visibility */
 }
 .rom-card.visible { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); }
-.rom-image { height: 200px; overflow: hidden; position: relative; }
+.rom-image {
+    height: 200px; overflow: hidden; position: relative;
+}
 .rom-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .rom-card:hover .rom-image img { transform: scale(1.05); }
 
-.rom-tags { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; z-index: 4; }
+.rom-tags { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; }
 .rom-tag {
     padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
     color: white; backdrop-filter: blur(5px);
 }
-.status-official { background: rgba(76, 175, 80, 0.9); }
-.status-unofficial { background: rgba(244, 67, 54, 0.9); }
-.build-type-gapps { background: rgba(33, 150, 243, 0.9); }
-.build-type-vanilla { background: rgba(158, 158, 158, 0.9); }
+.status-official { background: rgba(76, 175, 80, 0.8); }
+.status-unofficial { background: rgba(244, 67, 54, 0.8); }
+.build-type-gapps { background: rgba(33, 150, 243, 0.8); }
+.build-type-vanilla { background: rgba(158, 158, 158, 0.8); }
 
 .rom-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .rom-name { font-size: 1.6rem; margin-bottom: 5px; }
@@ -138,7 +140,7 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
 
 .rom-buttons {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 15px; margin-top: auto;
+    gap: 15px; margin-top: auto; /* Pushes buttons to the bottom */
 }
 .rom-btn {
     display: flex; align-items: center; justify-content: center;
@@ -151,7 +153,7 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
 .rom-btn.download { background: var(--primary-color); color: white; }
 .rom-btn.download:hover { background: var(--primary-hover); }
 
-/* --- KERNEL & RECOVERY CARDS --- */
+/* --- KERNEL & RECOVERY CARDS (reuse layout but no android/gapps tags) --- */
 .kr-card {
     background: white; border-radius: var(--border-radius); overflow: hidden;
     box-shadow: var(--card-shadow); transition: all 0.4s ease;
@@ -159,17 +161,9 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
     display: none;
 }
 .kr-card.visible { display: flex; flex-direction: column; opacity: 1; transform: translateY(0); }
-.kr-image { position: relative; height: 180px; overflow: hidden; }
+.kr-image { height: 180px; overflow: hidden; }
 .kr-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .kr-card:hover .kr-image img { transform: scale(1.03); }
-
-.kr-tags { position: absolute; top: 12px; left: 12px; display: flex; gap: 8px; z-index: 4; }
-.kr-tag {
-    padding: 6px 12px; border-radius: 18px;
-    color: #fff; font-weight: 600; font-size: 0.82rem;
-    backdrop-filter: blur(6px);
-}
-.kr-tag.compatibility { background: rgba(56, 142, 60, 0.9); }
 
 .kr-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
 .kr-name { font-size: 1.3rem; margin-bottom: 8px; }
@@ -191,24 +185,6 @@ footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margi
 }
 .loading, .error { text-align: center; padding: 40px; font-size: 1.2rem; color: #666; grid-column: 1 / -1; }
 
-/* --- PARALLAX & SECTION TRANSITIONS --- */
-.parallax-section { position: relative; overflow: visible; padding: 60px 0; }
-.parallax-inner {
-    transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.7s cubic-bezier(.2,.9,.2,1), opacity 0.6s ease-out;
-    will-change: transform, opacity;
-}
-.parallax-in-view .parallax-inner {
-    transform: translateY(0);
-    opacity: 1;
-}
-#roms.parallax-in-view .parallax-inner { transition-duration: 0.6s; }
-#kernels.parallax-in-view .parallax-inner { transition-duration: 0.8s; transform-origin: center top; }
-#recoveries.parallax-in-view .parallax-inner { transition-duration: 0.85s; }
-.rom-card.visible, .kr-card.visible { display:flex; opacity:1; transform: translateY(0); }
-
-/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
     .hero { flex-direction: column; text-align: center; }
     .hero-content { padding-right: 0; margin-bottom: 40px; }
@@ -217,6 +193,7 @@ footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margi
 }
 
 @media (max-width: 600px) {
+    /* Show hamburger and hide inline nav links */
     .nav-toggle { display: block; }
     .nav-links { display: none; position: absolute; top: 70px; right: 20px; background: white; width: calc(100% - 40px); border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); flex-direction: column; padding: 15px; z-index: 200; }
     .nav-links.open { display: flex; }
@@ -228,7 +205,4 @@ footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margi
     .section-title { font-size: 2rem; }
     .roms-container { grid-template-columns: 1fr; }
     .kr-card, .rom-card { margin: 0 auto; width: 100%; }
-
-    /* Disable parallax on mobile */
-    .parallax-inner { transform: none !important; transition: none !important; opacity: 1 !important; }
 }

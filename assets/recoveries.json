@@ -3,7 +3,6 @@
     "name": "TWRP tester",
     "maintainer": "CID Team",
     "version": "4.14.1",
-    "status": "unofficial",
     "image": "assets/images/twrp-pad6.jpg",
     "download": "https://example.com/twrp-pad6.img",
     "mirror": "https://mirror.example.com/twrp-pad6.img"
@@ -12,7 +11,6 @@
     "name": "Orange Cat",
     "maintainer": "OrangeDev",
     "version": "2.0",
-    "status": "unofficial",
     "image": "assets/images/orange-recovery.jpg",
     "download": "https://example.com/orange-recovery.img",
     "mirror": "https://mirror.example.com/orange-recovery.img"
