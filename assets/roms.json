@@ -189,7 +189,7 @@
         "mirror": "https://t.me/royal_labs/260",
         "image": "assets/images/horizon-droid.png",
         "android_version": "Android 15",
-          "status": "unofficial",
+          "status": "Official",
          "build_type": "Gapps"
     },
         {
@@ -201,7 +201,7 @@
         "mirror": "https://t.me/dump_cloud_001/102",
         "image": "assets/images/derpfest.jpeg",
         "android_version": "Android 15",
-          "status": "unofficial",
+          "status": "Official",
          "build_type": "Gapps"
     },
         {
