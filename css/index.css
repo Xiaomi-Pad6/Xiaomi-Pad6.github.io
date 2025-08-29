@@ -170,6 +170,261 @@ h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
 .kr-details { color: #666; margin-bottom: 14px; font-size: 0.9rem; }
 .kr-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
 
+/* --- SEARCH & DONATION STYLES --- */
+.search-container {
+    margin-bottom: 2rem;
+}
+
+.search-bar {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    padding: 12px 20px;
+}
+
+.search-bar i {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: #666;
+}
+
+.clear-search {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+
+.clear-search:hover {
+    color: var(--primary-color);
+}
+
+.clear-search.show {
+    display: block;
+}
+
+.donate-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.donate-subtext {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.donate-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.donate-card {
+    background: white;
+    border: 2px solid var(--primary-color);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.donate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 103, 0, 0.2);
+}
+
+.donate-card i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.donate-card h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.donate-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.donate-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.donate-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Search results styling */
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+}
+
+.search-results-count {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Hide items that don't match search */
+.rom-card.hidden,
+.kernel-card.hidden,
+.recovery-card.hidden,
+.rom-card.search-hidden,
+.kernel-card.search-hidden,
+.recovery-card.search-hidden {
+    display: none;
+}
+
+.highlight {
+    background-color: #ffeb3b;
+    color: #333;
+    padding: 1px 2px;
+    border-radius: 2px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #666;
+    padding: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.modal-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.qr-image {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 1rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.upi-id {
+    background: var(--light-gray);
+    padding: 15px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 2px dashed var(--primary-color);
+    color: var(--dark-color);
+}
+
+.copy-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.copy-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
 /* --- FOOTER --- */
 footer { background: var(--dark-color); color: #ccc; padding: 60px 0 30px; margin-top: 80px; }
 .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
