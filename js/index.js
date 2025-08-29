@@ -18,6 +18,40 @@ document.addEventListener('DOMContentLoaded', () => {
     return m ? m[1] : '';
   }
 
+// Mobile navigation toggle
+const navToggle = document.createElement('button');
+navToggle.className = 'nav-toggle';
+navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+document.body.appendChild(navToggle);
+
+const navOverlay = document.createElement('div');
+navOverlay.className = 'nav-overlay';
+document.body.appendChild(navOverlay);
+
+const navLinks = document.querySelector('.nav-links');
+
+navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    navToggle.innerHTML = navLinks.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+});
+
+navOverlay.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    navOverlay.classList.remove('active');
+    navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+});
+
+// Close menu when clicking on links
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        navOverlay.classList.remove('active');
+        navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+});
+
   async function fetchAllData() {
     try {
       const [romsResp, kernelsResp, recoveriesResp] = await Promise.all([
