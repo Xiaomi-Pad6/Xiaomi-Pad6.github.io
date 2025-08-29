@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterControls = document.querySelector('.filter-controls');
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
+  const scrollTopBtn = document.getElementById('scrollTop');
 
   let allRomsData = [];
   let allKernelsData = [];
@@ -282,6 +283,26 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.addEventListener('click', (e) => { if (e.target.tagName === 'A') navLinks.classList.remove('open'); });
   }
 
+  // Scroll to top functionality
+  function setupScrollTop() {
+    if (!scrollTopBtn) return;
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // init
   (async function init() {
     await fetchAllData();
@@ -292,6 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRecoveries();
     setupFilters();
     setupSearch();
+    setupScrollTop();
   })();
 
 });
