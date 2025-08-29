@@ -303,6 +303,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Scroll animations with Intersection Observer
+  function setupScrollAnimations() {
+    const sections = document.querySelectorAll('.section-title, .spec-item, .benefit-card, .search-container, .filter-controls, .donate-section, .community-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
+
   // init
   (async function init() {
     await fetchAllData();
@@ -314,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupFilters();
     setupSearch();
     setupScrollTop();
+    setupScrollAnimations();
   })();
 
 });

@@ -120,29 +120,37 @@
             </div>
         </section>
 
-        <!-- Donate/Support Section -->
-        <section id="donate">
-            <h2 class="section-title">Support Our Work</h2>
-            <p class="donate-text">Your support helps us maintain and improve this ROM repository for the community.</p>
-            <p class="donate-subtext">Every contribution makes a difference in keeping this project alive and updated.</p>
-            <div class="donate-options">
-                <div class="donate-card">
-                    <i class="fas fa-mobile-alt"></i>
+        <!-- Enhanced Donate/Support Section -->
+        <section id="donate" class="donate-section">
+            <h2 class="donate-title">Support Our Work</h2>
+            <p class="donate-subtitle">Your support helps us maintain and improve this ROM repository for the community. Every contribution makes a difference in keeping this project alive and updated.</p>
+            
+            <div class="donate-methods">
+                <div class="donate-method">
+                    <div class="donate-icon upi">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
                     <h3>UPI Payment</h3>
                     <p>Quick and easy payment via UPI</p>
-                    <button class="donate-btn" id="upi-donate">Donate via UPI</button>
+                    <button class="donate-btn" id="upi-donate">Donate</button>
                 </div>
-                <div class="donate-card">
-                    <i class="fas fa-coffee"></i>
+                
+                <div class="donate-method">
+                    <div class="donate-icon coffee">
+                        <i class="fas fa-coffee"></i>
+                    </div>
                     <h3>Buy Me a Coffee</h3>
                     <p>Support with a coffee donation</p>
-                    <button class="donate-btn" id="coffee-donate">Buy Coffee</button>
+                    <button class="donate-btn" id="coffee-donate">Donate</button>
                 </div>
-                <div class="donate-card">
-                    <i class="fab fa-paypal"></i>
+                
+                <div class="donate-method">
+                    <div class="donate-icon paypal">
+                        <i class="fab fa-paypal"></i>
+                    </div>
                     <h3>PayPal</h3>
                     <p>Secure donation via PayPal</p>
-                    <button class="donate-btn" id="paypal-donate">Donate PayPal</button>
+                    <button class="donate-btn" id="paypal-donate">Donate</button>
                 </div>
             </div>
         </section>
@@ -172,9 +180,9 @@
     </footer>
 
     <!-- Scroll to top button -->
-    <div class="scroll-top" id="scrollTop">
+    <button class="scroll-top" id="scrollTop">
         <i class="fas fa-arrow-up"></i>
-    </div>
+    </button>
 
     <script src="js/index.js"></script>
 </body>
