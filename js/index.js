@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const kernelsContainer = document.querySelector('.kernels-container');
   const recoveriesContainer = document.querySelector('.recoveries-container');
   const filterControls = document.querySelector('.filter-controls');
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const scrollTopBtn = document.getElementById('scrollTop');
 
   let allRomsData = [];
   let allKernelsData = [];
@@ -77,6 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const maint = rom.maintainer || '';
       const displayedVersion = versionNum(rom.android_version) ? `Android ${versionNum(rom.android_version)}` : (rom.android_version || '');
 
+      // Conditional extra buttons
+      const postBtn = rom.post_link ? `<a href="${rom.post_link}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
+      const supportBtn = rom.support_group ? `<a href="${rom.support_group}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
+
       romCard.innerHTML = `
         <div class="rom-image">
           <img src="${imageSrc}" alt="${rom.name || ''}" loading="lazy">
@@ -94,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="rom-buttons">
             <a href="${rom.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
             <a href="${rom.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
+            ${postBtn}
+            ${supportBtn}
           </div>
         </div>
       `;
@@ -124,8 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'kr-card';
       const imageSrc = k.image || 'assets/images/placeholder.jpg';
+      const compatibilityText = k.compatibility ? String(k.compatibility) : '';
+      const compatTag = compatibilityText ? `<span class="rom-tag build-type-vanilla">${compatibilityText}</span>` : '';
+
       card.innerHTML = `
-        <div class="kr-image"><img src="${imageSrc}" alt="${k.name||''}" loading="lazy"></div>
+        <div class="kr-image">
+          <img src="${imageSrc}" alt="${k.name||''}" loading="lazy">
+          <div class="rom-tags" style="left:14px; top:14px;">
+            ${compatTag}
+          </div>
+        </div>
         <div class="kr-content">
           <h3 class="kr-name">${k.name || 'Untitled'}</h3>
           <p class="kr-details">${k.maintainer || ''} ${k.version ? '• v' + k.version : ''}</p>
@@ -153,8 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'kr-card';
       const imageSrc = r.image || 'assets/images/placeholder.jpg';
+      const statusClass = r.status ? `status-${String(r.status).toLowerCase()}` : 'status-unofficial';
+      const statusTag = `<span class="rom-tag ${statusClass}">${r.status ? String(r.status).charAt(0).toUpperCase() + String(r.status).slice(1) : 'Unknown'}</span>`;
+
       card.innerHTML = `
-        <div class="kr-image"><img src="${imageSrc}" alt="${r.name||''}" loading="lazy"></div>
+        <div class="kr-image">
+          <img src="${imageSrc}" alt="${r.name||''}" loading="lazy">
+          <div class="rom-tags" style="left:14px; top:14px;">
+            ${statusTag}
+          </div>
+        </div>
         <div class="kr-content">
           <h3 class="kr-name">${r.name || 'Untitled'}</h3>
           <p class="kr-details">${r.maintainer || ''} ${r.version ? '• v' + r.version : ''}</p>
@@ -277,32 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // nav toggle
-  if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.addEventListener('click', (e) => { if (e.target.tagName === 'A') navLinks.classList.remove('open'); });
-  }
-
-  // Scroll to top functionality
-  function setupScrollTop() {
-    if (!scrollTopBtn) return;
-    
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 300) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    });
-    
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
   // Scroll animations with Intersection Observer
   function setupScrollAnimations() {
     const sections = document.querySelectorAll('.section-title, .spec-item, .benefit-card, .search-container, .filter-controls, .donate-section, .community-card');
@@ -333,7 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRecoveries();
     setupFilters();
     setupSearch();
-    setupScrollTop();
     setupScrollAnimations();
   })();
 

@@ -89,28 +89,8 @@ nav { display:flex; align-items:center; justify-content:space-between; padding:1
 }
 .nav-links a:hover { color:var(--primary-hover); }
 
-/* mobile toggle */
-.nav-toggle { display:none; background:none; border:0; font-size:1.2rem; cursor:pointer; color:var(--dark-color); transition: transform 0.3s var(--easing); }
-.nav-toggle:hover { transform: rotate(90deg); }
-@media (max-width: 900px) {
-    .nav-toggle { display:block; }
-    .nav-links { 
-        display:none; 
-        position:absolute; 
-        top:64px; 
-        right:16px; 
-        background:#fff; 
-        padding:12px; 
-        border-radius:12px; 
-        box-shadow:0 12px 30px rgba(0,0,0,0.12); 
-        flex-direction:column; 
-        min-width:180px; 
-        z-index:200;
-        animation: fadeIn 0.3s var(--easing);
-    }
-    .nav-links.open { display:flex; }
-    .nav-links li { margin:8px 0; }
-}
+/* hide nav-toggle permanently (navbar visible always) */
+.nav-toggle { display: none; }
 
 /* hero */
 .hero { 
@@ -436,8 +416,10 @@ h1 {
 .build-type-vanilla { background:rgba(120,120,120,0.84); }
 .rom-content { padding:20px; display:flex; flex-direction:column; gap:10px; flex:1; }
 .rom-name { font-size:1.25rem; font-weight:700; color:var(--dark-color); }
-.rom-details { color:#666; font-size:0.95rem; }
-.rom-buttons { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:auto; }
+.rom-details { color:#666; font-size:0.95rem; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+
+/* rom-buttons made responsive to fit extra buttons (Post, Support) */
+.rom-buttons { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap:10px; margin-top:auto; }
 .rom-btn { 
     padding:10px; 
     border-radius:10px; 
@@ -501,7 +483,7 @@ h1 {
     transform: scaleX(1);
 }
 .kr-card.visible { transform:none; opacity:1; display:flex; flex-direction:column; }
-.kr-image { height:180px; overflow:hidden; }
+.kr-image { height:180px; overflow:hidden; position: relative; }
 .kr-image img { width:100%; height:100%; object-fit:cover; transition:transform 0.45s var(--easing); }
 .kr-card:hover .kr-image img { transform:scale(1.03); }
 .kr-content { padding:18px; display:flex; flex-direction:column; gap:8px; flex:1; }
@@ -738,37 +720,6 @@ footer::before {
     width: 100%;
 }
 
-/* Fixed scroll to top button */
-.scroll-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--gradient-primary);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255,103,0,0.3);
-    transition: all 0.3s var(--easing);
-    opacity: 0;
-    visibility: hidden;
-    z-index: 99;
-    border: none;
-    font-size: 1.2rem;
-}
-.scroll-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-.scroll-top:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(255,103,0,0.4);
-}
-
 /* animations/responsive tweaks */
 @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
 .hero-image { animation: float 6s ease-in-out infinite; }
@@ -788,4 +739,13 @@ footer::before {
         width: 100%;
         max-width: 300px;
     }
+
+    /* On mobile keep nav links visible in a usable row/stack */
+    nav { padding: 12px 0; }
+    .nav-links {
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+    .nav-links a { padding:6px 8px; font-size:0.95rem; }
 }
