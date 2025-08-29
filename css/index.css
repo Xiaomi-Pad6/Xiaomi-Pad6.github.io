@@ -60,9 +60,6 @@ h1 { font-size:3.2rem; line-height:1.05; margin-bottom:12px; color:var(--dark-co
 .section-title { text-align:center; font-size:2.4rem; margin:56px 0 32px; color:var(--dark-color); }
 .section-title::after { content:''; display:block; width:76px; height:4px; background:var(--primary-color); margin:12px auto; border-radius:3px; }
 
-.spec-grid, .benefits, .community-grid { display:grid; gap:20px; }
-.spec-grid { grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
-
 /* filters & search */
 .search-container { margin-bottom:18px; }
 .search-bar { max-width:680px; margin:0 auto; display:flex; align-items:center; background:#fff; border-radius:999px; padding:10px 14px; border:2px solid rgba(0,0,0,0.06); }
