@@ -3,10 +3,10 @@
         "name": "Derpfest 16.0",
         "maintainer": "Glitch Wraith",
         "support_group": "https://t.me/the_usual_suspects_777",
-        "post_link": "https://t.me/XiaomiPad6Updates/209",
+        "post_link": "https://t.me/royal_labs/399",
         "download": "https://sourceforge.net/projects/derpfest/files/pipa/21aug25/",
         "mirror": "https://t.me/dump_cloud_001/190",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
+        "image": "assets/images/derpfest.jpeg",
         "android_version": "Android 16",
          "status": "official",
          "build_type": "Gapps"
@@ -18,7 +18,7 @@
         "post_link": "https://t.me/PAD6Repo/358",
         "download": "https://drive.google.com/open?id=1O2EHyb5KNbcXPJQdYLwIOB9wpK63zoyH",
         "mirror": "https://t.me/PAD6Repo/359",
-        "image": "https://raw.githubusercontent.com/ProjectInfinity-X/.github/main/profile/Infinity.png",
+        "image": "assets/images/infinityX.png",
         "android_version": "Android 16",
          "status": "unofficial",
          "build_type": "Gapps"
@@ -30,7 +30,7 @@
         "post_link": "https://t.me/mipad6/117851",
         "download": "https://drive.google.com/drive/folders/1l-iQy3GsPU5zC4Ba9Ceo2_xJwQyyA8EE?usp=drive_link",
         "mirror": "https://t.me/tukisshit/178",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Z4hYZ8GImx77LfVx2tIfs7boeDz4Rk6ikLKGmsiBxaOlnAS4MztuUWU&s=10",
+        "image": "assets/images/lineageOS.png",
         "android_version": "Android 15",
           "status": "unofficial",
         "build_type": "Vanilla"
@@ -43,7 +43,7 @@
         "post_link": "https://t.me/XiaomiPad6Global/299818",
         "download": "https://gofile.io/d/ZU9K06",
         "mirror": "https://t.me/dump_cloud_001/159?single",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKM7QhSbE4EH3pp8HylfoJyqPgnEW5WxMT_rhpq3MszI1RrHjRvu48_RY&s=10",
+        "image": "assets/images/mistOS.png",
         "android_version": "Android 16",
           "status": "unofficial",
           "build_type": "Gapps"
@@ -55,7 +55,7 @@
         "post_link": "https://t.me/PAD6Repo/343",
         "download": "https://gofile.io/d/qhjRCs",
         "mirror": "https://pixeldrain.com/u/mJCUTTTo",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSY874EOoM-INnUz4KHSw9YxbXrD3gTJZuKsht9fsFFNDV-N2zF-9_O96W&s=10",
+        "image": "assets/images/evox.jpeg",
         "android_version": "Android 16",
           "status": "unofficial",
           "build_type": "Gapps"
@@ -79,7 +79,7 @@
         "post_link": "https://t.me/mipad6/111639",
         "download": "https://t.me/PAD6Repo/78",
         "mirror": "https://t.me/PAD6Repo/78",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyYthwbZjUWRVtc1OY58tV7XdnctbCZEq2NNg7gBCkquDqO_oMyhSZxbw3&s=10",
+        "image": "assets/images/voltage.jpg",
         "android_version": "Android 15",
           "status": "unofficial",
           "build_type": "Vanilla"
@@ -91,7 +91,7 @@
         "post_link": "https://t.me/XiaomiPad6Global/258548",
         "download": "https://graph.org/Cr-pipa-may22-gapps-05-22",
         "mirror": "https://gofile.io/d/cWVlkn",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQptdrozY8vVdbiTN6rI8Y2a3uPnGAj1WXIqsQuk7As5IrmS_QmtoR9_Hen&s=10",
+        "image": "assets/images/crdroid.jpeg",
         "android_version": "Android 15",
           "status": "unofficial",
        "build_type": "Gapps"
@@ -103,7 +103,7 @@
         "post_link": "https://t.me/XiaomiPad6Global/300258",
         "download": "https://drive.google.com/file/d/1D0O8FVMNPcoO_51MY8F-RXYQjw-JBA3F/view?usp=drive_link",
         "mirror": "https://drive.google.com/file/d/1D0O8FVMNPcoO_51MY8F-RXYQjw-JBA3F/view?usp=drive_link",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT52d9PnbftspIfZJUjHCM-7NxkZ82fx3rMoCJNIJltRg1kQLO-jSrhSg4&s=10",
+        "image": "assets/images/pixelPORT.jpeg",
         "android_version": "Android 16",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -115,7 +115,7 @@
         "post_link": "https://t.me/XiaomiPad6Global/306814",
         "download": "https://www.pling.com/p/2313192/",
         "mirror": "https://www.pling.com/p/2313192/",
-        "image": "https://mi.fiime.cn/static/upload/2025/08/06/202508068281944d93b7e9b.jpg",
+        "image": "assets/images/lunarisAOSP.jpg",
         "android_version": "Android 16",
           "status": "official",
         "build_type": "Gapps"
@@ -127,7 +127,7 @@
         "post_link": "https://t.me/XiaomiPad6Updates/204",
         "download": "https://pixeldrain.com/u/e7RYJYGn",
         "mirror": "https://t.me/dump_cloud_001/164",
-        "image": "https://raw.githubusercontent.com/SomethingOS/.github/main/illustrations/15.0/default.png",
+        "image": "assets/images/cherish.png",
         "android_version": "Android 16",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -139,7 +139,7 @@
         "post_link": "https://t.me/XiaomiPad6Updates/208",
         "download": "https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250819-1725.zip",
         "mirror": "https://ota.awoo.fun/flashable/pipa/ProjectPixelage-v2.8-pipa-15.0-UNOFFICIAL-20250819-1725.zip",
-        "image": "https://raw.githubusercontent.com/ProjectPixelage/pixelage_changelog/15/pixelage_a15.png",
+        "image": "assets/images/pixelage.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -151,7 +151,7 @@
         "post_link": "https://t.me/royal_labs/182",
         "download": "https://sourceforge.net/projects/somethingospipa/files/RecoveryRom/",
         "mirror": "https://t.me/royal_labs/201",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROmaxEqeaAEKB33C6PIQ6GZ1z1L7mN-Ijuqg&s",
+        "image": "assets/images/o\somethingOS.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -163,7 +163,7 @@
         "post_link": "https://t.me/royal_labs/223",
         "download": "https://sourceforge.net/projects/blissospipa/files/",
         "mirror": "https://t.me/royal_labs/231",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVw2RtBOp9Qqkwjr9RgXsTLjfNh_R-2kHQg3d4XwZO07a5Esq-q0WAID8&s=10",
+        "image": "assets/images/blissROMS.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -175,7 +175,7 @@
         "post_link": "https://t.me/royal_labs/233",
         "download": "https://sourceforge.net/projects/genesisospipa/files/",
         "mirror": "https://t.me/royal_labs/249",
-        "image": "https://raw.githubusercontent.com/GenesisOS/.github/master/profile/BuildBanner.png",
+        "image": "assets/images/genesis.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -187,7 +187,7 @@
         "post_link": "https://t.me/royal_labs/250",
         "download": "https://sourceforge.net/projects/horizondroid-pipa/files/",
         "mirror": "https://t.me/royal_labs/260",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvVTXN3sMG4wwG8Pu6Cae1swi3NBee3BEipJ8w-BmVYtVg1_O6eJn_lzk&s=10",
+        "image": "assets/images/horizon-droid.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -199,7 +199,7 @@
         "post_link": "https://t.me/XiaomiPad6Updates/194",
         "download": "https://sourceforge.net/projects/derpfest/files/pipa/09july25/",
         "mirror": "https://t.me/dump_cloud_001/102",
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ03ctnc6vIutcDiwl4ezpMIcfiInmVd27Xtotu7i45th0zjAhQAMRsRLnJ&s=10",
+        "image": "assets/images/derpfest.jpeg",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
@@ -211,7 +211,7 @@
         "post_link": "https://t.me/PAD6Repo/11",
         "download": "https://t.me/PAD6Repo/46",
         "mirror": "https://t.me/PAD6Repo/46",
-        "image": "https://raw.githubusercontent.com/ProjectInfinity-X/.github/main/profile/Infinity.png",
+        "image": "assets/images/infinityX.png",
         "android_version": "Android 15",
           "status": "unofficial",
          "build_type": "Gapps"
