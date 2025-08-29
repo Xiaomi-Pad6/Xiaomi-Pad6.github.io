@@ -10,13 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let allKernelsData = [];
     let allRecoveriesData = [];
 
+    // Global search functionality
+    let allItems = []; // Will store all ROM, kernel, and recovery items
+    let originalHTML = {}; // Store original HTML content for highlighting
+
+    // Initialize search when page loads
+    setTimeout(collectAllItems, 1000);
+
     // Fetch multiple JSON files
     async function fetchAllData() {
         try {
             const [romsResp, kernelsResp, recoveriesResp] = await Promise.all([
-                fetch('../assets/roms.json'),
-                fetch('../assets/kernels.json'),
-                fetch('../assets/recoveries.json')
+                fetch('assets/roms.json'),
+                fetch('assets/kernels.json'),
+                fetch('assets/recoveries.json')
             ]);
 
             if (!romsResp.ok) throw new Error('Failed to fetch roms.json');
@@ -78,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
             romsContainer.appendChild(romCard);
             setTimeout(() => romCard.classList.add('visible'), index * 80);
         });
+        
+        // Refresh search after loading
+        refreshSearch();
     }
 
     // Kernel cards generator (no Android/gapps tags)
@@ -108,6 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
             kernelsContainer.appendChild(card);
             setTimeout(() => card.classList.add('visible'), index * 80);
         });
+        
+        // Refresh search after loading
+        refreshSearch();
     }
 
     // Recovery cards generator
@@ -138,6 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
             recoveriesContainer.appendChild(card);
             setTimeout(() => card.classList.add('visible'), index * 80);
         });
+        
+        // Refresh search after loading
+        refreshSearch();
     }
 
     // Setup filter button handlers
@@ -145,6 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!filterControls) return;
         filterControls.addEventListener('click', (e) => {
             if (e.target.tagName !== 'BUTTON') return;
+            
+            // If there's an active search, don't apply filter
+            const searchInput = document.getElementById('rom-search');
+            if (searchInput && searchInput.value.trim()) {
+                e.preventDefault();
+                return false;
+            }
+            
             const prev = filterControls.querySelector('.filter-btn.active');
             if (prev) prev.classList.remove('active');
             e.target.classList.add('active');
@@ -167,6 +191,272 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Search functionality
+    function collectAllItems() {
+        allItems = [];
+        
+        // Collect ROM cards
+        const romCards = document.querySelectorAll('.rom-card');
+        romCards.forEach(card => {
+            allItems.push({
+                element: card,
+                type: 'rom',
+                searchableText: getSearchableText(card)
+            });
+        });
+
+        // Collect Kernel cards
+        const kernelCards = document.querySelectorAll('.kernels-container .kr-card');
+        kernelCards.forEach(card => {
+            allItems.push({
+                element: card,
+                type: 'kernel',
+                searchableText: getSearchableText(card)
+            });
+        });
+
+        // Collect Recovery cards  
+        const recoveryCards = document.querySelectorAll('.recoveries-container .kr-card');
+        recoveryCards.forEach(card => {
+            allItems.push({
+                element: card,
+                type: 'recovery',
+                searchableText: getSearchableText(card)
+            });
+        });
+    }
+
+    function getSearchableText(card) {
+        // Extract all text content for searching
+        const title = card.querySelector('h3')?.textContent || '';
+        const details = card.querySelector('.rom-details, .kr-details')?.textContent || '';
+        
+        return `${title} ${details}`.toLowerCase();
+    }
+
+    function performSearch(searchTerm) {
+        let visibleCount = 0;
+        const resultsCounter = document.getElementById('search-results-count');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        if (!searchTerm) {
+            // Show all items and restore filter functionality
+            allItems.forEach((item) => {
+                item.element.classList.remove('hidden', 'search-hidden');
+            });
+            if (resultsCounter) resultsCounter.textContent = '';
+            
+            // Re-enable filter buttons
+            filterBtns.forEach(btn => btn.style.opacity = '1');
+            
+            // Re-apply current filter if any
+            const activeFilter = document.querySelector('.filter-btn.active');
+            if (activeFilter) {
+                const filterValue = activeFilter.getAttribute('data-filter');
+                generateRomCards(filterValue);
+            }
+            return;
+        }
+
+        // Re-collect items in case new ones were loaded
+        collectAllItems();
+
+        // When searching, disable filter buttons and show all matching items regardless of filter
+        filterBtns.forEach(btn => btn.style.opacity = '0.5');
+
+        allItems.forEach((item) => {
+            const matches = item.searchableText.includes(searchTerm);
+            
+            if (matches) {
+                // Remove both hidden classes to show item regardless of current filter
+                item.element.classList.remove('hidden', 'search-hidden');
+                visibleCount++;
+            } else {
+                // Add search-hidden class to hide non-matching items
+                item.element.classList.add('search-hidden');
+                item.element.classList.remove('hidden'); // Remove filter hidden
+            }
+        });
+
+        // Update results counter
+        if (resultsCounter) {
+            if (visibleCount === 0) {
+                resultsCounter.textContent = 'No results found';
+                resultsCounter.style.color = '#ff6700';
+            } else {
+                resultsCounter.textContent = `Found ${visibleCount} result${visibleCount > 1 ? 's' : ''} (showing all categories)`;
+                resultsCounter.style.color = '#666';
+            }
+        }
+    }
+
+    // Setup search functionality
+    function setupSearch() {
+        const searchInput = document.getElementById('rom-search');
+        const clearBtn = document.getElementById('clear-search');
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                
+                // Show/hide clear button
+                if (clearBtn) {
+                    if (searchTerm) {
+                        clearBtn.classList.add('show');
+                    } else {
+                        clearBtn.classList.remove('show');
+                    }
+                }
+                
+                performSearch(searchTerm);
+            });
+
+            // Enhanced search with Enter key support
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    // Focus on first visible result if any
+                    const firstVisible = document.querySelector('.rom-card:not(.hidden):not(.search-hidden), .kr-card:not(.hidden):not(.search-hidden)');
+                    if (firstVisible) {
+                        firstVisible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+        }
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function() {
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.focus();
+                }
+                this.classList.remove('show');
+                
+                // Re-enable filter buttons
+                filterBtns.forEach(btn => btn.style.opacity = '1');
+                
+                performSearch('');
+            });
+        }
+    }
+
+    // Setup donation functionality
+    function setupDonation() {
+        const upiBtn = document.getElementById('upi-donate');
+        const coffeeBtn = document.getElementById('coffee-donate');
+        const paypalBtn = document.getElementById('paypal-donate');
+
+        if (upiBtn) {
+            upiBtn.addEventListener('click', function() {
+                showUpiModal();
+            });
+        }
+
+        if (coffeeBtn) {
+            coffeeBtn.addEventListener('click', function() {
+                // Redirect to Buy Me a Coffee page
+                window.open('https://coff.ee/Mufasa01', '_blank');
+            });
+        }
+
+        if (paypalBtn) {
+            paypalBtn.addEventListener('click', function() {
+                // Add PayPal logic
+                alert('PayPal donation functionality to be implemented');
+            });
+        }
+    }
+
+    // UPI Modal functionality
+    function showUpiModal() {
+        // Create modal if it doesn't exist
+        let modal = document.getElementById('upi-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'upi-modal';
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeUpiModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h3 class="modal-title">UPI Payment</h3>
+                    <img src="https://raw.githubusercontent.com/gensis01/XiaomiPad6.github.io/refs/heads/master/assets/images/Screenshot_20250829_074047.jpg" 
+                         alt="UPI QR Code" class="qr-image">
+                    <div class="upi-id">UPI ID: xxxxxxx</div>
+                    <button class="copy-btn" onclick="copyUpiId()">Copy UPI ID</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeUpiModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    closeUpiModal();
+                }
+            });
+        }
+        
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    // Make functions globally available
+    window.closeUpiModal = function() {
+        const modal = document.getElementById('upi-modal');
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+    };
+
+    window.copyUpiId = function() {
+        const upiId = 'xxxxxxx'; // Replace with actual UPI ID
+        navigator.clipboard.writeText(upiId).then(function() {
+            // Show success message
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.background = '#4CAF50';
+            
+            setTimeout(function() {
+                copyBtn.textContent = originalText;
+                copyBtn.style.background = 'var(--primary-color)';
+            }, 2000);
+        }).catch(function() {
+            // Fallback for older browsers
+            alert('UPI ID: ' + upiId + '\n\nPlease copy manually.');
+        });
+    };
+
+    // Refresh search when new content is loaded
+    function refreshSearch() {
+        setTimeout(() => {
+            collectAllItems();
+            
+            // Re-run current search if there's a search term
+            const searchInput = document.getElementById('rom-search');
+            if (searchInput) {
+                const currentSearch = searchInput.value;
+                if (currentSearch) {
+                    performSearch(currentSearch.toLowerCase().trim());
+                }
+            }
+        }, 500);
+    }
+
+    // Make refreshSearch globally available
+    window.refreshSearch = refreshSearch;
+
     // Initialize
     async function init() {
         await fetchAllData();
@@ -177,6 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
         generateKernelCards();
         generateRecoveryCards();
         setupFilters();
+        setupSearch();
+        setupDonation();
     }
 
     init();
