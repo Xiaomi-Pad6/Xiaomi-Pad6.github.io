@@ -31,5 +31,16 @@
     "compatibility": "Upto A16",
     "download": "https://t.me/magictimekernel/38153/61464",
     "mirror": "https://xiaomi-pad6.github.io/404.html"
+  },
+  {
+    "name": "BlackSun",
+    "maintainer": "Rmux",
+    "version": "99",
+    "image": "assets/images/blackson.jpg",
+    "build_date": "22 July 2025",
+    "variant": "AOSP + MIUI",
+    "compatibility": "Upto A15",
+    "download": "https://t.me/rmuxminions/54950",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
   }
 ]
