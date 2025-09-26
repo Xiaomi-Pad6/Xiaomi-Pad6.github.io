@@ -54,9 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!filtered.length) {
-      romsContainer.innerHTML = `<div class="loading">No ROMs found for ${filter}.</div>`;
-      collectAllItems();
-      return;
+        // If no ROMs match the filter, try showing all of them as a fallback.
+        if (allRomsData.length > 0) {
+            filtered = allRomsData.slice();
+        } else {
+            romsContainer.innerHTML = `<div class="loading">No ROMs found.</div>`;
+            collectAllItems();
+            return;
+        }
     }
 
     filtered.forEach((rom, index) => {
@@ -74,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="rom-image">
           <img src="${imageSrc}" alt="${rom.name || ''}" loading="lazy">
           <div class="rom-tags">
-            <span class="rom-tag ${statusClass}">${rom.status ? String(rom.status).charAt(0).toUpperCase() + String(rom.status).slice(1) : 'Unknown'}</span>
+            <span class="rom-tag ${statusClass}">${rom.status ? String(rom.status).charAt(0).toUpperCase() + String(rom.status).slice(1) : 'Unofficial'}</span>
             <span class="rom-tag build-type-${String(buildType).replace(/\s+/g,'-').toLowerCase()}">${(rom.build_type || '').toUpperCase()}</span>
           </div>
         </div>
@@ -118,10 +123,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageSrc = k.image || 'assets/images/placeholder.jpg';
       const compatibilityText = k.compatibility ? String(k.compatibility) : '';
       const compatTag = compatibilityText ? `<span class="rom-tag build-type-vanilla">${compatibilityText}</span>` : '';
+      // ✨ **FIX:** Added the variant tag.
+      const variantTag = k.variant ? `<span class="rom-tag status-official">${k.variant}</span>` : '';
+
       card.innerHTML = `
         <div class="kr-image">
           <img src="${imageSrc}" alt="${k.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;">${compatTag}</div>
+          <div class="rom-tags" style="left:14px; top:14px;">
+            ${variantTag}
+            ${compatTag}
+          </div>
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${k.name || 'Untitled'}</h3>
@@ -150,12 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'kr-card';
       const imageSrc = r.image || 'assets/images/placeholder.jpg';
-      const statusClass = r.status ? `status-${String(r.status).toLowerCase()}` : 'status-unofficial';
-      const statusTag = `<span class="rom-tag ${statusClass}">${r.status ? String(r.status).charAt(0).toUpperCase() + String(r.status).slice(1) : 'Unknown'}</span>`;
+      // ✨ **FIX:** Added the post button if a post link exists.
+      const postBtn = r.post ? `<a href="${r.post}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
+
       card.innerHTML = `
         <div class="kr-image">
           <img src="${imageSrc}" alt="${r.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;">${statusTag}</div>
+          <div class="rom-tags" style="left:14px; top:14px;"></div>
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${r.name || 'Untitled'}</h3>
@@ -163,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="kr-buttons">
             <a href="${r.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
             <a href="${r.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
+            ${postBtn}
           </div>
         </div>
       `;
