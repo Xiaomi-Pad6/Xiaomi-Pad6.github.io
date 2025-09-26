@@ -36,7 +36,7 @@
     "name": "BlackSun",
     "maintainer": "Rmux",
     "version": "99",
-    "image": "assets/images/blackson.jpg",
+    "image": "assets/images/blacksun.jpg",
     "build_date": "22 July 2025",
     "variant": "AOSP + MIUI",
     "compatibility": "Upto A15",
