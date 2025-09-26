@@ -7,11 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let allRomsData = [];
   let allKernelsData = [];
   let allRecoveriesData = [];
-
-  // Global search items
   let allItems = [];
 
-  // Utility: extract numeric version (e.g. "Android 16" -> "16", "16" -> "16")
   function versionNum(v) {
     if (v == null) return '';
     const m = String(v).match(/(\d{1,2})/);
@@ -41,21 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Render ROM cards with flexible filter matching (supports "Android 16" or "16" or "all")
   function generateRomCards(filter = 'Android 16') {
     if (!romsContainer) return;
     romsContainer.innerHTML = '';
 
     const filterNum = versionNum(filter);
-
     let filtered;
     if (!filter || String(filter).toLowerCase() === 'all') {
       filtered = allRomsData.slice();
     } else if (filterNum) {
-      filtered = allRomsData.filter(r => versionNum(r.android_version) === filterNum);
+      filtered = allRomsData.filter(r => versionNum(r.android) === filterNum);
     } else {
       const lower = String(filter).toLowerCase();
-      filtered = allRomsData.filter(r => String(r.android_version || '').toLowerCase() === lower || (r.status || '').toLowerCase() === lower || (r.build_type || '').toLowerCase() === lower);
+      filtered = allRomsData.filter(r => String(r.android || '').toLowerCase() === lower || (r.status || '').toLowerCase() === lower || (r.build_type || '').toLowerCase() === lower);
     }
 
     if (!filtered.length) {
@@ -67,16 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     filtered.forEach((rom, index) => {
       const romCard = document.createElement('div');
       romCard.className = 'rom-card';
-
       const buildType = rom.build_type || 'N/A';
       const statusClass = rom.status ? `status-${String(rom.status).toLowerCase()}` : 'status-unofficial';
       const imageSrc = rom.image || 'assets/images/placeholder.jpg';
       const maint = rom.maintainer || '';
-      const displayedVersion = versionNum(rom.android_version) ? `Android ${versionNum(rom.android_version)}` : (rom.android_version || '');
-
-      // Conditional extra buttons
-      const postBtn = rom.post_link ? `<a href="${rom.post_link}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
-      const supportBtn = rom.support_group ? `<a href="${rom.support_group}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
+      const displayedVersion = versionNum(rom.android) ? `Android ${versionNum(rom.android)}` : (rom.android || '');
+      const postBtn = rom.post ? `<a href="${rom.post}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
+      const supportBtn = rom.support ? `<a href="${rom.support}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
 
       romCard.innerHTML = `
         <div class="rom-image">
@@ -100,21 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </div>
       `;
-
       romCard.dataset.name = (rom.name || '').toLowerCase();
       romCard.dataset.maintainer = (rom.maintainer || '').toLowerCase();
-      romCard.dataset.version = (versionNum(rom.android_version) || '').toLowerCase();
+      romCard.dataset.version = (versionNum(rom.android) || '').toLowerCase();
       romCard.dataset.status = (rom.status || '').toLowerCase();
       romCard.dataset.build = (rom.build_type || '').toLowerCase();
 
       romsContainer.appendChild(romCard);
       setTimeout(() => romCard.classList.add('visible'), index * 60);
     });
-
     collectAllItems();
   }
 
-  // Kernel / recovery card creators (kept simple & consistent)
   function renderKernels() {
     if (!kernelsContainer) return;
     kernelsContainer.innerHTML = '';
@@ -129,13 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageSrc = k.image || 'assets/images/placeholder.jpg';
       const compatibilityText = k.compatibility ? String(k.compatibility) : '';
       const compatTag = compatibilityText ? `<span class="rom-tag build-type-vanilla">${compatibilityText}</span>` : '';
-
       card.innerHTML = `
         <div class="kr-image">
           <img src="${imageSrc}" alt="${k.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;">
-            ${compatTag}
-          </div>
+          <div class="rom-tags" style="left:14px; top:14px;">${compatTag}</div>
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${k.name || 'Untitled'}</h3>
@@ -166,13 +152,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageSrc = r.image || 'assets/images/placeholder.jpg';
       const statusClass = r.status ? `status-${String(r.status).toLowerCase()}` : 'status-unofficial';
       const statusTag = `<span class="rom-tag ${statusClass}">${r.status ? String(r.status).charAt(0).toUpperCase() + String(r.status).slice(1) : 'Unknown'}</span>`;
-
       card.innerHTML = `
         <div class="kr-image">
           <img src="${imageSrc}" alt="${r.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;">
-            ${statusTag}
-          </div>
+          <div class="rom-tags" style="left:14px; top:14px;">${statusTag}</div>
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${r.name || 'Untitled'}</h3>
@@ -189,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     collectAllItems();
   }
 
-  // Collect items for search
   function collectAllItems() {
     allItems = [];
     document.querySelectorAll('.rom-card').forEach(card => {
@@ -206,7 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${title} ${details}`.toLowerCase();
   }
 
-  // perform search (disables filters when searching)
   function performSearch(searchTerm) {
     const q = String(searchTerm || '').toLowerCase().trim();
     const resultsCounter = document.getElementById('search-results-count');
@@ -221,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     collectAllItems();
     filterBtns.forEach(btn => btn.style.opacity = '0.5');
-
     let visible = 0;
     allItems.forEach(it => {
       const ok = it.searchableText.includes(q);
@@ -233,45 +213,39 @@ document.addEventListener('DOMContentLoaded', () => {
         it.element.classList.remove('hidden');
       }
     });
-
     if (resultsCounter) {
       if (visible === 0) {
         resultsCounter.textContent = 'No results found';
         resultsCounter.style.color = '#ff6700';
       } else {
         resultsCounter.textContent = `Found ${visible} result${visible>1?'s':''} (showing all categories)`;
-        resultsCounter.style.color = '#666';
+        resultsCounter.style.color = '#888888';
       }
     }
   }
 
-  // debounce helper
   function debounce(fn, wait = 200) {
     let t;
     return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
   }
 
-  // Setup search input (id in your HTML: rom-search)
   function setupSearch() {
     const searchInput = document.getElementById('rom-search');
     const clearBtn = document.getElementById('clear-search');
     if (!searchInput) return;
 
     const deb = debounce((v) => performSearch(v), 180);
-
     searchInput.addEventListener('input', (e) => {
       const v = e.target.value || '';
       if (clearBtn) clearBtn.classList.toggle('show', !!v.trim());
       deb(v);
     });
-
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         const first = document.querySelector('.rom-card:not(.hidden):not(.search-hidden), .kr-card:not(.hidden):not(.search-hidden)');
         if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
-
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         searchInput.value = '';
@@ -287,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filterControls.addEventListener('click', (e) => {
       if (e.target && e.target.tagName === 'BUTTON') {
         const activeSearch = document.getElementById('rom-search')?.value.trim();
-        if (activeSearch) return; // do not change filter while search active
+        if (activeSearch) return;
         const prev = filterControls.querySelector('.filter-btn.active');
         if (prev) prev.classList.remove('active');
         e.target.classList.add('active');
@@ -296,10 +270,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Scroll animations with Intersection Observer
   function setupScrollAnimations() {
-    const sections = document.querySelectorAll('.section-title, .spec-item, .benefit-card, .search-container, .filter-controls, .donate-section, .community-card');
-    
+    const sections = document.querySelectorAll('.section-title, .spec-item, .benefit-card, .search-container, .filter-controls, .donate-section, .community-card, .instructions-container');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -310,13 +282,11 @@ document.addEventListener('DOMContentLoaded', () => {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
     });
-    
     sections.forEach(section => {
       observer.observe(section);
     });
   }
 
-  // init
   (async function init() {
     await fetchAllData();
     const activeBtn = document.querySelector('.filter-btn.active');
@@ -328,5 +298,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSearch();
     setupScrollAnimations();
   })();
-
 });

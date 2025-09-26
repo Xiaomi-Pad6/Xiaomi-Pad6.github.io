@@ -18,15 +18,14 @@
                     <i class="fas fa-tablet-alt"></i>
                     <span>Xiaomi Pad 6 ROMs</span>
                 </div>
-
-                <!-- NOTE: navbar always visible (no hamburger) -->
                 <ul class="nav-links">
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#roms">ROMs</a></li>
-                    <li><a href="#kernels">Kernels</a></li>
-                    <li><a href="#recoveries">Recoveries</a></li>
-                    <li><a href="#donate">Support</a></li>
-                    <li><a href="#community">Community</a></li>
+                    <li><a href="/#overview">Overview</a></li>
+                    <li><a href="/#roms">ROMs</a></li>
+                    <li><a href="/#kernels">Kernels</a></li>
+                    <li><a href="/#recoveries">Recoveries</a></li>
+                    <li><a href="instructions.html">Instructions</a></li>
+                    <li><a href="/#donate">Support</a></li>
+                    <li><a href="/#community">Community</a></li>
                 </ul>
             </nav>
         </div>
@@ -68,84 +67,54 @@
 
         <section id="roms">
             <h2 class="section-title">Available ROMs</h2>
-
-            <!-- ROM Search Bar -->
             <div class="search-container">
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
                     <input type="text" id="rom-search" placeholder="Search ROMs, kernels, recoveries by name, developer, or Android version...">
-                    <button class="clear-search" id="clear-search">
-                        <i class="fas fa-times"></i>
-                    </button>
+                    <button class="clear-search" id="clear-search"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-
-            <!-- Search results counter -->
             <div id="search-results-count" class="search-results-count"></div>
-
-            <!-- Filter Controls -->
             <div class="filter-controls">
                 <button class="filter-btn active" data-filter="Android 16">Android 16</button>
                 <button class="filter-btn" data-filter="Android 15">Android 15</button>
             </div>
-
             <div class="roms-container">
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading ROMs...
-                </div>
+                <div class="loading"><i class="fas fa-spinner"></i>Loading ROMs...</div>
             </div>
         </section>
 
-        <!-- Kernels section -->
         <section id="kernels">
             <h2 class="section-title">Kernels</h2>
             <div class="kernels-container">
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading Kernels...
-                </div>
+                <div class="loading"><i class="fas fa-spinner"></i>Loading Kernels...</div>
             </div>
         </section>
 
-        <!-- Recoveries section -->
         <section id="recoveries">
             <h2 class="section-title">Recoveries</h2>
             <div class="recoveries-container">
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading Recoveries...
-                </div>
+                <div class="loading"><i class="fas fa-spinner"></i>Loading Recoveries...</div>
             </div>
         </section>
 
-        <!-- Enhanced Donate/Support Section -->
         <section id="donate" class="donate-section">
             <h2 class="donate-title">Support Our Work</h2>
             <p class="donate-subtitle">Your support helps us maintain and improve this ROM repository for the community. Every contribution makes a difference in keeping this project alive and updated.</p>
-
             <div class="donate-methods">
                 <div class="donate-method">
-                    <div class="donate-icon upi">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>UPI Payment</h3>
-                    <p>Quick and easy payment via UPI</p>
+                    <div class="donate-icon upi"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>UPI Payment</h3><p>Quick and easy payment via UPI</p>
                     <button class="donate-btn" id="upi-donate">Donate</button>
                 </div>
-
                 <div class="donate-method">
-                    <div class="donate-icon coffee">
-                        <i class="fas fa-coffee"></i>
-                    </div>
-                    <h3>Buy Me a Coffee</h3>
-                    <p>Support with a coffee donation</p>
+                    <div class="donate-icon coffee"><i class="fas fa-coffee"></i></div>
+                    <h3>Buy Me a Coffee</h3><p>Support with a coffee donation</p>
                     <button class="donate-btn" id="coffee-donate">Donate</button>
                 </div>
-
                 <div class="donate-method">
-                    <div class="donate-icon paypal">
-                        <i class="fab fa-paypal"></i>
-                    </div>
-                    <h3>PayPal</h3>
-                    <p>Secure donation via PayPal</p>
+                    <div class="donate-icon paypal"><i class="fab fa-paypal"></i></div>
+                    <h3>PayPal</h3><p>Secure donation via PayPal</p>
                     <button class="donate-btn" id="paypal-donate">Donate</button>
                 </div>
             </div>
@@ -174,7 +143,6 @@
             <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank">Glitch Wraith</a></p>
         </div>
     </footer>
-
     <script src="js/index.js"></script>
 </body>
 </html>
