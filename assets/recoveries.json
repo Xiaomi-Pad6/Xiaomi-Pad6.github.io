@@ -1,18 +1,20 @@
 [
   {
-    "name": "TWRP tester",
-    "maintainer": "CID Team",
-    "version": "4.14.1",
+    "name": "TWRP",
+    "maintainer": "Rmux",
+    "build_date": "01 Sept. 2025",
     "image": "assets/images/twrp.jpg",
-    "download": "https://example.com/twrp-pad6.img",
-    "mirror": "https://mirror.example.com/twrp-pad6.img"
+    "post": "https://t.me/pipacancer/60",
+    "download": "https://t.me/pipacancer/60",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
   },
   {
-    "name": "Orange Cat",
-    "maintainer": "OrangeDev",
-    "version": "2.0",
+    "name": "Orange Fox",
+    "maintainer": "CuriousNom",
+    "build_date": "20 May 2025",
     "image": "assets/images/orangefox.jpg",
-    "download": "https://example.com/orange-recovery.img",
-    "mirror": "https://mirror.example.com/orange-recovery.img"
+    "post": "https://t.me/mipad6/104597",
+    "download": "https://github.com/CuriousNom/OrangeFox-Action-Builder/releases/tag/15132943677",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
   }
 ]
