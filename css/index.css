@@ -14,6 +14,7 @@
     --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
     --gradient-dark: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
     --telegram-color: #0088cc;
+    --warning-color: #ff4d4d;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -199,12 +200,12 @@ h1 {
 }
 
 .specs { margin: 40px 0; }
-.spec-grid, .benefits, .community-grid {
+.spec-grid, .community-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 24px;
 }
-.spec-item, .benefit-card, .community-card {
+.spec-item, .community-card {
     background: var(--surface-color);
     border-radius: var(--border-radius);
     padding: 30px;
@@ -216,14 +217,14 @@ h1 {
     transform: translateY(20px);
     transition: all 0.6s var(--easing);
 }
-.spec-item.visible, .benefit-card.visible, .community-card.visible { opacity: 1; transform: translateY(0); }
-.spec-item:hover, .benefit-card:hover, .community-card:hover { transform: translateY(-5px); box-shadow: var(--card-hover-shadow); }
-.spec-item i, .benefit-card i {
+.spec-item.visible, .community-card.visible { opacity: 1; transform: translateY(0); }
+.spec-item:hover, .community-card:hover { transform: translateY(-5px); box-shadow: var(--card-hover-shadow); }
+.spec-item i {
     font-size: 2.5rem;
     color: var(--accent-color);
     margin-bottom: 15px;
 }
-.spec-item h3, .benefit-card h3, .community-card h3 { margin-bottom: 12px; color: var(--text-color); }
+.spec-item h3, .community-card h3 { margin-bottom: 12px; color: var(--text-color); }
 
 .search-container { margin-bottom:18px; opacity: 0; transform: translateY(20px); transition: all 0.6s var(--easing); }
 .search-container.visible { opacity: 1; transform: translateY(0); }
@@ -321,7 +322,7 @@ h1 {
 .rom-card:hover, .kr-card:hover { border-color: var(--accent-color); }
 .rom-card.visible, .kr-card.visible { transform:none; opacity:1; display:flex; flex-direction:column; }
 
-.rom-image { position:relative; height:200px; overflow:hidden; }
+.rom-image, .kr-image { position:relative; height:200px; overflow:hidden; }
 .rom-image img, .kr-image img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s var(--easing); }
 .rom-card:hover .rom-image img, .kr-card:hover .kr-image img { transform:scale(1.05); }
 .rom-tags { position:absolute; top:14px; left:14px; display:flex; gap:8px; z-index:2; }
@@ -333,7 +334,7 @@ h1 {
 
 .rom-content, .kr-content { padding:20px; display:flex; flex-direction:column; gap:10px; flex:1; }
 .rom-name, .kr-name { font-size:1.25rem; font-weight:700; color:var(--text-color); }
-.rom-details { color: var(--text-muted); font-size:0.95rem; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.rom-details, .kr-details { color: var(--text-muted); font-size:0.95rem; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
 
 .rom-buttons, .kr-buttons { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap:10px; margin-top:auto; }
 .rom-btn {
@@ -445,6 +446,23 @@ footer::before {
 }
 .credits a:hover::after { width: 100%; }
 
+.footer-section.warning {
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid var(--warning-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.footer-section.warning h3 {
+    color: var(--warning-color);
+    margin-bottom: 10px;
+}
+
+.footer-section.warning h3 i {
+    margin-right: 10px;
+}
+
 .instructions-container {
     background-color: var(--surface-color);
     padding: 30px;
@@ -491,7 +509,7 @@ a:focus, button:focus, input:focus { outline:3px solid rgba(0, 170, 255, 0.2); o
     .hero { flex-direction:column; text-align:center; padding:40px 0; }
     h1 { font-size:2.4rem; }
     .roms-container, .kernels-container, .recoveries-container { grid-template-columns:1fr; }
-    .spec-grid, .benefits, .community-grid { grid-template-columns: 1fr; }
+    .spec-grid { grid-template-columns: 1fr; }
     .donate-methods { flex-direction: column; align-items: center; }
     .donate-method { width: 100%; max-width: 300px; }
     nav { padding: 12px 0; }

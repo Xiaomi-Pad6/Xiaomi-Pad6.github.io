@@ -2,45 +2,45 @@
   {
     "name": "MagicTime",
     "maintainer": "TimiSong & CuriousNom",
-    "version": "99",
     "image": "assets/images/magictime.jpg",
     "build_date": "04 Aug. 2025",
     "variant": "AOSP",
     "compatibility": "Upto A16",
     "download": "https://t.me/magictimekernel/38153/61452",
-    "mirror": "https://xiaomi-pad6.github.io/404.html"
+    "mirror": "https://xiaomi-pad6.github.io/404.html",
+    "support": "https://t.me/magictimekernel"
   },
   {
     "name": "Blood Reaper",
     "maintainer": "CuriousNom",
-    "version": "99",
     "image": "assets/images/blood-reaper.jpg",
     "build_date": "17 Sep. 2025",
     "variant": "AOSP",
     "compatibility": "Upto A16",
     "download": "https://t.me/RomCentralHub/42429",
-    "mirror": "https://xiaomi-pad6.github.io/404.html"
+    "mirror": "https://xiaomi-pad6.github.io/404.html",
+    "support": "https://t.me/RomCentralHub"
   },
   {
     "name": "MagicTime",
     "maintainer": "TimiSong & CuriousNom",
-    "version": "99",
     "image": "assets/images/magictime.jpg",
     "build_date": "04 Aug. 2025",
     "variant": "MIUI",
     "compatibility": "Upto A16",
     "download": "https://t.me/magictimekernel/38153/61464",
-    "mirror": "https://xiaomi-pad6.github.io/404.html"
+    "mirror": "https://xiaomi-pad6.github.io/404.html",
+    "support": "https://t.me/magictimekernel"
   },
   {
     "name": "BlackSun",
     "maintainer": "Rmux",
-    "version": "99",
     "image": "assets/images/blacksun.jpg",
     "build_date": "22 July 2025",
     "variant": "AOSP + MIUI",
     "compatibility": "Upto A15",
     "download": "https://t.me/rmuxminions/54950",
-    "mirror": "https://xiaomi-pad6.github.io/404.html"
+    "mirror": "https://xiaomi-pad6.github.io/404.html",
+    "support": "https://xiaomi-pad6.github.io/404.html"
   }
 ]

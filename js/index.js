@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!filtered.length) {
-        // If no ROMs match the filter, try showing all of them as a fallback.
         if (allRomsData.length > 0) {
             filtered = allRomsData.slice();
         } else {
@@ -74,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const displayedVersion = versionNum(rom.android) ? `Android ${versionNum(rom.android)}` : (rom.android || '');
       const postBtn = rom.post ? `<a href="${rom.post}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
       const supportBtn = rom.support ? `<a href="${rom.support}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
+      const buildDate = rom.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${rom.build_date}</span>` : '';
 
       romCard.innerHTML = `
         <div class="rom-image">
@@ -86,8 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="rom-content">
           <h3 class="rom-name">${rom.name || 'Untitled'}</h3>
           <p class="rom-details">
-            <span>${maint}</span>
+            <span><i class="fas fa-user"></i> ${maint}</span>
             <span>${displayedVersion}</span>
+            ${buildDate}
           </p>
           <div class="rom-buttons">
             <a href="${rom.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
@@ -123,8 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const imageSrc = k.image || 'assets/images/placeholder.jpg';
       const compatibilityText = k.compatibility ? String(k.compatibility) : '';
       const compatTag = compatibilityText ? `<span class="rom-tag build-type-vanilla">${compatibilityText}</span>` : '';
-      // ✨ **FIX:** Added the variant tag.
       const variantTag = k.variant ? `<span class="rom-tag status-official">${k.variant}</span>` : '';
+      const supportBtn = k.support ? `<a href="${k.support}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
+      const buildDate = k.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${k.build_date}</span>` : '';
 
       card.innerHTML = `
         <div class="kr-image">
@@ -136,10 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${k.name || 'Untitled'}</h3>
-          <p class="kr-details">${k.maintainer || ''} ${k.version ? '• v' + k.version : ''}</p>
+          <p class="kr-details">
+            <span><i class="fas fa-user"></i> ${k.maintainer || ''}</span>
+            ${buildDate}
+          </p>
           <div class="kr-buttons">
             <a href="${k.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
             <a href="${k.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
+            ${supportBtn}
           </div>
         </div>
       `;
@@ -161,8 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const card = document.createElement('div');
       card.className = 'kr-card';
       const imageSrc = r.image || 'assets/images/placeholder.jpg';
-      // ✨ **FIX:** Added the post button if a post link exists.
-      const postBtn = r.post ? `<a href="${r.post}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
+      const postBtn = r.post ? `<a href="${r.post}" target="_blank" class="rom-btn" style="grid-column: span 2;"><i class="fas fa-file-lines"></i> Post</a>` : '';
+      const buildDate = r.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${r.build_date}</span>` : '';
 
       card.innerHTML = `
         <div class="kr-image">
@@ -171,7 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="kr-content">
           <h3 class="kr-name">${r.name || 'Untitled'}</h3>
-          <p class="kr-details">${r.maintainer || ''} ${r.version ? '• v' + r.version : ''}</p>
+          <p class="kr-details">
+            <span><i class="fas fa-user"></i> ${r.maintainer || ''}</span>
+            ${buildDate}
+          </p>
           <div class="kr-buttons">
             <a href="${r.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
             <a href="${r.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
@@ -284,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setupScrollAnimations() {
-    const sections = document.querySelectorAll('.section-title, .spec-item, .benefit-card, .search-container, .filter-controls, .donate-section, .community-card, .instructions-container');
+    const sections = document.querySelectorAll('.section-title, .spec-item, .search-container, .filter-controls, .donate-section, .community-card, .instructions-container');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
