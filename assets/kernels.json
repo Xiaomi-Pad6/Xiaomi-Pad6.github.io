@@ -1,18 +1,35 @@
 [
   {
-    "name": "Testing Web lode",
-    "maintainer": "Koyi nhi",
-    "version": "1.2",
-    "image": "assets/images/kernel-pipa.jpg",
-    "download": "https://example.com/pipa-kernel-v1.2.zip",
-    "mirror": "https://mirror.example.com/pipa-kernel-v1.2.zip"
+    "name": "MagicTime",
+    "maintainer": "TimiSong & CuriousNom",
+    "version": "99",
+    "image": "assets/images/magictime.jpg",
+    "build_date": "04 Aug. 2025",
+    "variant": "AOSP",
+    "compatibility": "Upto A16",
+    "download": "https://t.me/magictimekernel/38153/61452",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
   },
   {
-    "name": "Performance lega?",
-    "maintainer": "Redlight",
-    "version": "2025.07",
-    "image": "assets/images/kernel-speed.jpg",
-    "download": "https://example.com/perf-kernel.zip",
-    "mirror": "https://mirror.example.com/perf-kernel.zip"
+    "name": "Blood Reaper",
+    "maintainer": "CuriousNom",
+    "version": "99",
+    "image": "assets/images/blood-reaper.jpg",
+    "build_date": "17 Sep. 2025",
+    "variant": "AOSP",
+    "compatibility": "Upto A16",
+    "download": "https://t.me/RomCentralHub/42429",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
+  },
+  {
+    "name": "MagicTime",
+    "maintainer": "TimiSong & CuriousNom",
+    "version": "99",
+    "image": "assets/images/magictime.jpg",
+    "build_date": "04 Aug. 2025",
+    "variant": "MIUI",
+    "compatibility": "Upto A16",
+    "download": "https://t.me/magictimekernel/38153/61464",
+    "mirror": "https://xiaomi-pad6.github.io/404.html"
   }
 ]
