@@ -9,282 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        .nav-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s var(--easing);
-        }
-        .nav-buttons.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .nav-button {
-            background: var(--gradient-accent);
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s var(--easing);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 30px rgba(0, 170, 255, 0.15);
-            position: relative;
-            overflow: hidden;
-        }
-        .nav-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s var(--easing);
-        }
-        .nav-button:hover::before {
-            left: 100%;
-        }
-        .nav-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 36px rgba(0, 170, 255, 0.2);
-        }
-        .code-block {
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            font-family: 'Courier New', Courier, monospace;
-            color: #a7c7e7;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            position: relative;
-        }
-        .code-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gradient-accent);
-        }
-        .highlight {
-            color: var(--accent-hover);
-            font-weight: bold;
-            background-color: rgba(0, 170, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .note {
-            background: rgba(251, 191, 36, 0.1);
-            border-left: 4px solid #fbbf24;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            position: relative;
-        }
-        .note::before {
-            content: '\f071';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            color: #fbbf24;
-            font-size: 1.2rem;
-        }
-        .note p {
-            color: #fde68a;
-            margin-left: 30px;
-            margin-bottom: 0;
-        }
-        .error-section {
-            background: rgba(220, 38, 38, 0.1);
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            position: relative;
-            transition: all 0.3s var(--easing);
-        }
-        .error-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-        }
-        .error-section:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15);
-        }
-        .error-section h4 {
-            color: #ef4444;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        .error-section p {
-            color: var(--text-muted);
-            margin-bottom: 0;
-        }
-        .guide-section {
-            margin: 50px 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s var(--easing);
-        }
-        .guide-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .guide-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .guide-header i {
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-        .guide-header h3 {
-            font-size: 1.8rem;
-            color: var(--text-color);
-            margin: 0;
-        }
-        .guide-step {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            position: relative;
-            transition: all 0.3s var(--easing);
-        }
-        .guide-step:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.1);
-        }
-        .guide-step h4 {
-            color: var(--accent-color);
-            margin-bottom: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        .guide-step p {
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-        .guide-step p:last-child {
-            margin-bottom: 0;
-        }
-        .step-list {
-            list-style: none;
-            padding-left: 0;
-            counter-reset: step-counter;
-        }
-        .step-list li {
-            counter-increment: step-counter;
-            margin-bottom: 30px;
-            position: relative;
-            padding-left: 60px;
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px 25px 25px 80px;
-            transition: all 0.3s var(--easing);
-        }
-        .step-list li:hover {
-            border-color: var(--accent-color);
-            box-shadow: 0 5px 20px rgba(0, 170, 255, 0.1);
-        }
-        .step-list li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 25px;
-            top: 25px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient-accent);
-            color: #fff;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
-        }
-        .step-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            color: var(--text-color);
-        }
-        .step-content p {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .warning-note {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid #fbbf24;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 25px 0;
-            position: relative;
-        }
-        .warning-note::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-        }
-        .warning-note p {
-            color: #fde68a;
-            margin: 0;
-            font-weight: 500;
-        }
-        @media (max-width: 900px) {
-            .nav-buttons {
-                gap: 15px;
-            }
-            .nav-button {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            .guide-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            .step-list li {
-                padding: 20px 20px 20px 70px;
-            }
-            .step-list li::before {
-                left: 20px;
-                top: 20px;
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -326,10 +50,10 @@
                         <h3>Prerequisites</h3>
                     </div>
                     <div class="prerequisites">
-                        <div class="prereq-item"><h4>🔓 Unlocked Bootloader</h4><p>Your bootloader must be unlocked</p></div>
-                        <div class="prereq-item"><h4>💻 Platform Tools</h4><p>ADB and Fastboot on your PC</p></div>
-                        <div class="prereq-item"><h4>🔋 Battery Level</h4><p>At least 50% charge</p></div>
-                        <div class="prereq-item"><h4>📦 ROM Package</h4><p>Downloaded ROM and image files</p></div>
+                        <div class="prereq-item"><h4><i class="fas fa-unlock-alt"></i> Unlocked Bootloader</h4><p>Your bootloader must be unlocked</p></div>
+                        <div class="prereq-item"><h4><i class="fas fa-terminal"></i> Platform Tools</h4><p>ADB and Fastboot on your PC</p></div>
+                        <div class="prereq-item"><h4><i class="fas fa-battery-half"></i> Battery Level</h4><p>At least 50% charge</p></div>
+                        <div class="prereq-item"><h4><i class="fas fa-file-archive"></i> ROM Package</h4><p>Downloaded ROM and image files</p></div>
                     </div>
                 </div>
 
@@ -339,7 +63,7 @@
                         <h3>Required Downloads</h3>
                     </div>
                     <p style="color: var(--text-muted); margin-bottom: 15px;">Download the following files and place them in your platform tools folder:</p>
-                    <ul style="margin-left: 20px; list-style-type: '➢ '; padding-left: 20px;">
+                    <ul style="margin-left: 20px; list-style-type: '▶ '; padding-left: 20px;">
                         <li><span class="highlight">ROM package (.zip)</span></li>
                         <li><span class="highlight">boot.img</span></li>
                         <li><span class="highlight">dtbo.img</span></li>
@@ -417,53 +141,29 @@ fastboot reboot recovery</div>
                         <i class="fas fa-tools"></i>
                         <h3>Using a Custom Recovery</h3>
                     </div>
-                    
-                    <div class="guide-step">
-                        <h4><i class="fas fa-power-off"></i> 1. Booting Custom Recovery via Fastboot</h4>
-                        <p>Power off your device and boot into Fastboot mode (usually by holding Volume Down + Power).</p>
-                        <p>Connect your device to your PC via USB.</p>
-                        <p>Open a command prompt and run:</p>
-                        <div class="code-block">fastboot boot recovery.img</div>
-                        <p>This temporarily boots your device into custom recovery.</p>
-                    </div>
-
-                    <div class="guide-step">
-                        <h4><i class="fas fa-download"></i> 2. Installing Custom Recovery Permanently</h4>
-                        <p>Boot into custom recovery (if not already there).</p>
-                        <p>Navigate to Advanced in custom recovery.</p>
-                        <p>Select Install Current custom recovery and tap Install to confirm.</p>
-                        <p>Reboot by selecting Reboot > Reboot to Recovery. Custom recovery is now permanently installed on your device.</p>
-                    </div>
-
-                    <div class="guide-step">
-                        <h4><i class="fas fa-cog"></i> 3. Flashing a Kernel Using Custom Recovery</h4>
-                        <p>From the custom recovery main menu, tap Install.</p>
-                        <p>Browse and select your kernel ZIP file.</p>
-                        <p>Swipe to confirm the flash and wait for the process to finish.</p>
-                    </div>
-
-                    <div class="guide-step">
-                        <h4><i class="fas fa-usb"></i> 4. Flashing a Custom or Stock ROM via USB Drive</h4>
-                        <p><strong>Prepare the USB Drive:</strong></p>
-                        <p>Copy your rom.zip file (custom or stock) onto the USB drive.</p>
-                        <p>Connect the USB drive to your device using an OTG cable.</p>
-                        
-                        <p><strong>Format Data Partition:</strong></p>
-                        <p>In custom recovery, go to Wipe.</p>
-                        <p>Select Format Data and type yes to confirm the wipe for a clean installation environment.</p>
-                        
-                        <p><strong>Install the ROM:</strong></p>
-                        <p>Return to the custom recovery main menu and tap Install.</p>
-                        <p>Browse to your USB drive, select the rom.zip file, and swipe to confirm the installation.</p>
-                        <p>Wait until the flashing process completes.</p>
-                        
-                        <p><strong>Reboot:</strong></p>
-                        <p>Once flashing is complete, select Reboot to restart your device normally.</p>
-                    </div>
-
-                    <div class="warning-note">
-                        <p><strong>Note:</strong> Some Android versions may not support custom recoveries, so it's better to use AOSP recovery shipped with c.roms if facing any issues with c.recoveries.</p>
-                    </div>
+                    <ol class="step-list">
+                        <li>
+                            <div class="step-content">
+                                <h3>Reboot to Bootloader</h3>
+                                <p>Hold <span class="highlight">Power + Volume Down</span> buttons simultaneously to enter bootloader mode.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-content">
+                                <h3>Boot Custom Recovery</h3>
+                                <p>Open a terminal in your platform tools folder and run:</p>
+                                <div class="code-block">fastboot boot {path to recovery.img}</div>
+                                <p>This will boot custom recovery temporarily.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-content">
+                                <h3>Install Permanently</h3>
+                                <p>To install permanently, navigate to <span class="highlight">Advanced</span> in custom recovery.</p>
+                                <p>Select <span class="highlight">Install Current TWRP</span> and tap Install to confirm.</p>
+                            </div>
+                        </li>
+                    </ol>
                 </div>
 
                 <div id="errors" class="guide-section">
@@ -506,7 +206,7 @@ fastboot reboot recovery</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.section-title, .nav-buttons, .guide-section');
+            const sections = document.querySelectorAll('.section-title, .nav-buttons, .guide-section, .prereq-item, .step-list li, .error-section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
