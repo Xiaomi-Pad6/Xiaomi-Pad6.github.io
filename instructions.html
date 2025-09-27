@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom ROM Flashing Guide | Xiaomi Pad 6</title>
+    <title>Instructions | Xiaomi Pad 6</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,7 +129,7 @@
             <div class="instructions-container">
 
                 <div class="footer-section warning" style="margin-bottom: 30px;">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Important Warning</h3>
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
                     <p>Flashing custom ROMs can brick your device if done incorrectly. Proceed at your own risk and ensure you have proper backups. This process will void your warranty.</p>
                 </div>
 
@@ -151,7 +151,7 @@
                     <li><span class="highlight">firmware.zip</span> (if not included in ROM)</li>
                 </ul>
 
-                <h3 class="section-title" style="font-size: 1.8rem; text-align: left; margin: 40px 0 20px 0;">🔧 Flashing Instructions</h3>
+                <h3 class="section-title" style="font-size: 1.8rem; text-align: left; margin: 40px 0 20px 0;">Flashing custom rom via PC</h3>
                 <ol class="step-list">
                     <li>
                         <div class="step-content">
@@ -199,17 +199,7 @@ fastboot reboot recovery</div>
                     <li>
                         <div class="step-content">
                             <h3>Flash GApps (For Vanilla Builds)</h3>
-                            <p>If you are flashing a vanilla build and want Google Apps:</p>
-                            <ul style="margin-top: 10px; margin-left: 20px; list-style-type: '• '; padding-left: 15px;">
-                                <li>When the ROM installation reaches 47%, select "Reboot to recovery".</li>
-                                <li>Once back in recovery, select "Apply update" and sideload your GApps package.</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="step-content">
-                            <h3>Reboot to System</h3>
-                            <p>Your device should now boot into your new custom ROM. The first boot may take some time.</p>
+                            <p>When the rom package is installed then reboot to recovery and select "Apply update" and sideload your GApps package.</p>
                         </div>
                     </li>
                 </ol>
@@ -217,7 +207,7 @@ fastboot reboot recovery</div>
                 <h3 class="section-title" style="font-size: 1.8rem; text-align: left; margin: 40px 0 20px 0;">🚨 Common Errors & Solutions</h3>
                 <div class="error-section"><h4>SPL downgrade, Flash aborted</h4><p><strong>Solution:</strong> Use recovery from an older ROM build, then flash your desired ROM.</p></div>
                 <div class="error-section"><h4>ROM package has .bin extension</h4><p><strong>Solution:</strong> Simply rename the file from .bin to .zip.</p></div>
-                <div class="error-section"><h4>Device rebooted to classic bootloader</h4><p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p></div>
+                <div class="error-section"><h4>Device rebooted to classic bootloader</h4><p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p> <a href="https://ibb.co/6c4sXjtL"><img src="https://i.ibb.co/1Y92zFXj/IMG-20250513-201944-808.jpg" alt="IMG-20250513-201944-808" border="0" /></a></div>
                 <div class="error-section"><h4>Status 3 error during sideloading</h4><p><strong>Solution:</strong> Update your ADB platform tools to the latest version.</p></div>
                 <div class="error-section"><h4>Device not showing in fastboot or ADB</h4><p><strong>Solution:</strong> Install the proper USB drivers for your device on your computer.</p></div>
             </div>
@@ -225,12 +215,6 @@ fastboot reboot recovery</div>
     </main>
 
     <footer>
-        <div class="container footer-content">
-            <div class="footer-section warning">
-                <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
-                <p>Installing custom ROMs may void your warranty. Always back up your data before proceeding. You are responsible for any changes to your device.</p>
-            </div>
-        </div>
         <div class="footer-bottom">
             <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
             <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank">Glitch Wraith</a></p>
