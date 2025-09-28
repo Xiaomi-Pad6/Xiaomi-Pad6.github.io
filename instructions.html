@@ -68,6 +68,7 @@
                         <li><span class="highlight">boot.img</span></li>
                         <li><span class="highlight">dtbo.img</span></li>
                         <li><span class="highlight">vendor_boot.img</span></li>
+                        <li><span class="highlight">super_empty.img</span></li>
                         <li><span class="highlight">firmware.zip</span> (if not included in ROM)</li>
                     </ul>
                 </div>
@@ -91,6 +92,7 @@
                                 <div class="code-block">fastboot flash boot boot.img
 fastboot flash dtbo dtbo.img
 fastboot flash vendor_boot vendor_boot.img
+fastboot wipe-super super_empty.img
 fastboot reboot recovery</div>
                             </div>
                         </li>
