@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Step-by-step instructions for flashing custom ROMs on Xiaomi Pad 6">
+    <meta name="keywords" content="Xiaomi Pad 6, flashing guide, custom ROM instructions, bootloader unlock">
     <title>Instructions | Xiaomi Pad 6</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -28,215 +30,202 @@
         </div>
     </header>
 
-    <main class="container">
-        <section id="instructions">
-            <h2 class="section-title">Flashing Custom ROMs</h2>
-            
-            <div class="nav-buttons">
-                <a href="#flashing-guide" class="nav-button"><i class="fas fa-microchip"></i> C.Rom</a>
-                <a href="#custom-recovery" class="nav-button"><i class="fas fa-tools"></i> C.Rec</a>
-                <a href="#errors" class="nav-button"><i class="fas fa-exclamation-triangle"></i> Errors</a>
-            </div>
-
-            <div class="instructions-container">
-                <div class="footer-section warning" style="margin-bottom: 30px;">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
-                    <p>Flashing custom ROMs can brick your device if done incorrectly. Proceed at your own risk and ensure you have proper backups. This process will void your warranty.</p>
+    <main>
+        <div class="container">
+            <section id="instructions">
+                <h2 class="section-title">Flashing Custom ROMs</h2>
+                
+                <div class="nav-buttons">
+                    <a href="#flashing-guide" class="nav-button">
+                        <i class="fas fa-microchip"></i> C.Rom
+                    </a>
+                    <a href="#custom-recovery" class="nav-button">
+                        <i class="fas fa-tools"></i> C.Rec
+                    </a>
+                    <a href="#errors" class="nav-button">
+                        <i class="fas fa-exclamation-triangle"></i> Errors
+                    </a>
                 </div>
 
-                <div class="guide-section">
-                    <div class="guide-header">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h3>Prerequisites</h3>
+                <div class="instructions-container">
+                    <div class="footer-section warning">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
+                        <p>Flashing custom ROMs can brick your device if done incorrectly. Proceed at your own risk and ensure you have proper backups. This process will void your warranty.</p>
                     </div>
-                    <div class="prerequisites">
-                        <div class="prereq-item"><h4><i class="fas fa-unlock-alt"></i> Unlocked Bootloader</h4><p>Your bootloader must be unlocked</p></div>
-                        <div class="prereq-item"><h4><i class="fas fa-terminal"></i> Platform Tools</h4><p>ADB and Fastboot on your PC</p></div>
-                        <div class="prereq-item"><h4><i class="fas fa-battery-half"></i> Battery Level</h4><p>At least 50% charge</p></div>
-                        <div class="prereq-item"><h4><i class="fas fa-file-archive"></i> ROM Package</h4><p>Downloaded ROM and image files</p></div>
-                    </div>
-                </div>
 
-                <div class="guide-section">
-                    <div class="guide-header">
-                        <i class="fas fa-download"></i>
-                        <h3>Required Downloads</h3>
-                    </div>
-                    <p style="color: var(--text-muted); margin-bottom: 15px;">Download the following files and place them in your platform tools folder:</p>
-                    <ul style="margin-left: 20px; list-style-type: '▶ '; padding-left: 20px;">
-                        <li><span class="highlight">ROM package (.zip)</span></li>
-                        <li><span class="highlight">boot.img</span></li>
-                        <li><span class="highlight">dtbo.img</span></li>
-                        <li><span class="highlight">vendor_boot.img</span></li>
-                        <li><span class="highlight">super_empty.img</span></li>
-                        <li><span class="highlight">firmware.zip</span> (if not included in ROM)</li>
-                    </ul>
-                </div>
-
-                <div id="flashing-guide" class="guide-section">
-                    <div class="guide-header">
-                        <i class="fas fa-microchip"></i>
-                        <h3>Flashing Guide</h3>
-                    </div>
-                    <ol class="step-list">
-                        <li>
-                            <div class="step-content">
-                                <h3>Reboot to Bootloader</h3>
-                                <p>Hold <span class="highlight">Power + Volume Down</span> buttons simultaneously to enter bootloader mode.</p>
+                    <div class="guide-section">
+                        <div class="guide-header">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h3>Prerequisites</h3>
+                        </div>
+                        <div class="prerequisites">
+                            <div class="prereq-item">
+                                <i class="fas fa-unlock-alt"></i>
+                                <h4>Unlocked Bootloader</h4>
+                                <p>Must be unlocked</p>
                             </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Flash Recovery Components</h3>
-                                <p>Open a terminal in your platform tools folder and run these commands:</p>
-                                <div class="code-block">fastboot flash boot boot.img
+                            <div class="prereq-item">
+                                <i class="fas fa-terminal"></i>
+                                <h4>Platform Tools</h4>
+                                <p>ADB and Fastboot</p>
+                            </div>
+                            <div class="prereq-item">
+                                <i class="fas fa-battery-half"></i>
+                                <h4>Battery Level</h4>
+                                <p>At least 50%</p>
+                            </div>
+                            <div class="prereq-item">
+                                <i class="fas fa-file-archive"></i>
+                                <h4>ROM Package</h4>
+                                <p>Downloaded files</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-section">
+                        <div class="guide-header">
+                            <i class="fas fa-download"></i>
+                            <h3>Required Downloads</h3>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 16px;">Download these files and place them in your platform tools folder: ROM package (.zip), boot.img, dtbo.img, vendor_boot.img, super_empty.img, and firmware.zip (if not included in ROM).</p>
+                    </div>
+
+                    <div id="flashing-guide" class="guide-section">
+                        <div class="guide-header">
+                            <i class="fas fa-microchip"></i>
+                            <h3>Flashing Guide</h3>
+                        </div>
+                        <ol class="step-list">
+                            <li>
+                                <div class="step-content">
+                                    <h3>Reboot to Bootloader</h3>
+                                    <p>Hold <span class="highlight">Power + Volume Down</span> buttons simultaneously to enter bootloader mode.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Flash Recovery Components</h3>
+                                    <p>Open a terminal in your platform tools folder and run these commands:</p>
+                                    <div class="code-block">fastboot flash boot boot.img
 fastboot flash dtbo dtbo.img
 fastboot flash vendor_boot vendor_boot.img
 fastboot wipe-super super_empty.img
 fastboot reboot recovery</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Format Data (Optional)</h3>
-                                <p>In recovery, format data if you are switching between different ROM types (e.g., MIUI to AOSP).</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Reboot to Recovery</h3>
-                                <p>In recovery, select <span class="highlight">Advanced → Reboot to recovery</span>.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Flash Firmware (If Required)</h3>
-                                <p>Select "Apply update" in recovery, then sideload the firmware:</p>
-                                <div class="code-block">adb sideload firmware.zip</div>
-                                <div class="note"><p><strong>Note:</strong> Skip this step if firmware is bundled with the ROM package.</p></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Flash ROM Package</h3>
-                                <p>Reboot to recovery again (optional but recommended), select "Apply update", and sideload the ROM:</p>
-                                <div class="code-block">adb sideload rom.zip</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Flash GApps (For Vanilla Builds)</h3>
-                                <p>When the rom package is installed then reboot to recovery and select "Apply update" and sideload your GApps package.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Reboot Device</h3>
-                                <p>You may reboot your device now.</p>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Format Data (Optional)</h3>
+                                    <p>In recovery, format data if switching between different ROM types (e.g., MIUI to AOSP).</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Reboot to Recovery</h3>
+                                    <p>In recovery, select <span class="highlight">Advanced → Reboot to recovery</span>.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Flash Firmware (If Required)</h3>
+                                    <p>Select "Apply update" in recovery, then sideload the firmware:</p>
+                                    <div class="code-block">adb sideload firmware.zip</div>
+                                    <div class="note">
+                                        <p><strong>Note:</strong> Skip this step if firmware is bundled with the ROM package.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Flash ROM Package</h3>
+                                    <p>Reboot to recovery again (recommended), select "Apply update", and sideload the ROM:</p>
+                                    <div class="code-block">adb sideload rom.zip</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Flash GApps (For Vanilla Builds)</h3>
+                                    <p>After ROM installation, reboot to recovery and sideload your GApps package.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Reboot Device</h3>
+                                    <p>You may now reboot your device to the new ROM.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
 
-                <div id="custom-recovery" class="guide-section">
-                    <div class="guide-header">
-                        <i class="fas fa-tools"></i>
-                        <h3>Using a Custom Recovery</h3>
+                    <div id="custom-recovery" class="guide-section">
+                        <div class="guide-header">
+                            <i class="fas fa-tools"></i>
+                            <h3>Using a Custom Recovery</h3>
+                        </div>
+                        <ol class="step-list">
+                            <li>
+                                <div class="step-content">
+                                    <h3>Reboot to Bootloader</h3>
+                                    <p>Hold <span class="highlight">Power + Volume Down</span> buttons to enter bootloader mode.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Boot Custom Recovery</h3>
+                                    <p>Run this command to temporarily boot custom recovery:</p>
+                                    <div class="code-block">fastboot boot recovery.img</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="step-content">
+                                    <h3>Install Permanently</h3>
+                                    <p>Navigate to <span class="highlight">Advanced</span> in recovery, then select <span class="highlight">Install Current TWRP</span> to install permanently.</p>
+                                </div>
+                            </li>
+                        </ol>
                     </div>
-                    <ol class="step-list">
-                        <li>
-                            <div class="step-content">
-                                <h3>Reboot to Bootloader</h3>
-                                <p>Hold <span class="highlight">Power + Volume Down</span> buttons simultaneously to enter bootloader mode.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Boot Custom Recovery</h3>
-                                <p>Open a terminal in your platform tools folder and run:</p>
-                                <div class="code-block">fastboot boot {path to recovery.img}</div>
-                                <p>This will boot custom recovery temporarily.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="step-content">
-                                <h3>Install Permanently</h3>
-                                <p>To install permanently, navigate to <span class="highlight">Advanced</span> in custom recovery.</p>
-                                <p>Select <span class="highlight">Install Current TWRP</span> and tap Install to confirm.</p>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
 
-                <div id="errors" class="guide-section">
-                    <div class="guide-header">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h3>Some Common Errors</h3>
-                    </div>
-                    <div class="error-section">
-                        <h4><i class="fas fa-ban"></i> SPL downgrade, Flash aborted</h4>
-                        <p><strong>Solution:</strong> Use recovery from an older ROM build, then flash your desired ROM.</p>
-                    </div>
-                    <div class="error-section">
-                        <h4><i class="fas fa-file-archive"></i> ROM package has .bin extension</h4>
-                        <p><strong>Solution:</strong> Simply rename the file from .bin to .zip.</p>
-                    </div>
-                    <div class="error-section">
-                        <h4><i class="fas fa-redo"></i> Device rebooted to classic bootloader</h4>
-                        <p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p>
-                        <a href="https://ibb.co/6c4sXjtL"><img src="https://i.ibb.co/1Y92zFXj/IMG-20250513-201944-808.jpg" alt="IMG-20250513-201944-808" border="0" /></a>
-                    </div>
-                    <div class="error-section">
-                        <h4><i class="fas fa-times-circle"></i> Status 3 error during sideloading</h4>
-                        <p><strong>Solution:</strong> Update your ADB platform tools to the latest version.</p>
-                    </div>
-                    <div class="error-section">
-                        <h4><i class="fas fa-unlink"></i> Device not showing in fastboot or ADB</h4>
-                        <p><strong>Solution:</strong> Install the proper USB drivers for your device on your computer.</p>
+                    <div id="errors" class="guide-section">
+                        <div class="guide-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Common Errors</h3>
+                        </div>
+                        <div class="error-section">
+                            <h4><i class="fas fa-ban"></i> SPL downgrade, Flash aborted</h4>
+                            <p><strong>Solution:</strong> Use recovery from an older ROM build, then flash your desired ROM.</p>
+                        </div>
+                        <div class="error-section">
+                            <h4><i class="fas fa-file-archive"></i> ROM package has .bin extension</h4>
+                            <p><strong>Solution:</strong> Simply rename the file from .bin to .zip.</p>
+                        </div>
+                        <div class="error-section">
+                            <h4><i class="fas fa-redo"></i> Device rebooted to classic bootloader</h4>
+                            <p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p>
+                            <img src="https://i.ibb.co/1Y92zFXj/IMG-20250513-201944-808.jpg" alt="Classic bootloader error" loading="lazy">
+                        </div>
+                        <div class="error-section">
+                            <h4><i class="fas fa-times-circle"></i> Status 3 error during sideloading</h4>
+                            <p><strong>Solution:</strong> Update your ADB platform tools to the latest version.</p>
+                        </div>
+                        <div class="error-section">
+                            <h4><i class="fas fa-unlink"></i> Device not showing in fastboot or ADB</h4>
+                            <p><strong>Solution:</strong> Install the proper USB drivers for your device on your computer.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
-            <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank">Glitch Wraith</a></p>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
+                <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank" rel="noopener">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank" rel="noopener">Glitch Wraith</a></p>
+            </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('.section-title, .nav-buttons, .guide-section, .prereq-item, .step-list li, .error-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-            
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>

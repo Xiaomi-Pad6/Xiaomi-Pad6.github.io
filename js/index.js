@@ -3,321 +3,367 @@ document.addEventListener('DOMContentLoaded', () => {
   const kernelsContainer = document.querySelector('.kernels-container');
   const recoveriesContainer = document.querySelector('.recoveries-container');
   const filterControls = document.querySelector('.filter-controls');
+  const searchInput = document.getElementById('rom-search');
+  const clearBtn = document.getElementById('clear-search');
+  const resultsCounter = document.getElementById('search-results-count');
 
   let allRomsData = [];
   let allKernelsData = [];
   let allRecoveriesData = [];
   let allItems = [];
+  let currentFilter = 'Android 16';
 
-  function versionNum(v) {
-    if (v == null) return '';
-    const m = String(v).match(/(\d{1,2})/);
-    return m ? m[1] : '';
-  }
+  const versionNum = v => {
+    if (!v) return '';
+    const match = String(v).match(/(\d{1,2})/);
+    return match ? match[1] : '';
+  };
 
-  async function fetchAllData() {
+  const debounce = (fn, delay = 200) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), delay);
+    };
+  };
+
+  async function fetchData(url) {
     try {
-      const [romsResp, kernelsResp, recoveriesResp] = await Promise.all([
-        fetch('assets/roms.json'),
-        fetch('assets/kernels.json'),
-        fetch('assets/recoveries.json')
-      ]);
-
-      if (!romsResp.ok) throw new Error('Failed to fetch roms.json');
-      if (!kernelsResp.ok) throw new Error('Failed to fetch kernels.json');
-      if (!recoveriesResp.ok) throw new Error('Failed to fetch recoveries.json');
-
-      allRomsData = await romsResp.json();
-      allKernelsData = await kernelsResp.json();
-      allRecoveriesData = await recoveriesResp.json();
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+      return await response.json();
     } catch (error) {
-      console.error('Error fetching data:', error);
-      if (romsContainer) romsContainer.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i><p>Failed to load ROMs. Check console and ensure JSON files are available.</p></div>`;
-      if (kernelsContainer) kernelsContainer.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i><p>Failed to load kernels.</p></div>`;
-      if (recoveriesContainer) recoveriesContainer.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i><p>Failed to load recoveries.</p></div>`;
+      console.error(`Error fetching ${url}:`, error);
+      return [];
     }
   }
 
-  function generateRomCards(filter = 'Android 16') {
-    if (!romsContainer) return;
-    romsContainer.innerHTML = '';
+  async function loadAllData() {
+    const [roms, kernels, recoveries] = await Promise.all([
+      fetchData('assets/roms.json'),
+      fetchData('assets/kernels.json'),
+      fetchData('assets/recoveries.json')
+    ]);
+    
+    allRomsData = roms;
+    allKernelsData = kernels;
+    allRecoveriesData = recoveries;
+  }
 
-    const filterNum = versionNum(filter);
-    let filtered;
-    if (!filter || String(filter).toLowerCase() === 'all') {
-      filtered = allRomsData.slice();
-    } else if (filterNum) {
-      filtered = allRomsData.filter(r => versionNum(r.android) === filterNum);
+  function createCardHTML(item, type = 'rom') {
+    const imageSrc = item.image || 'assets/images/placeholder.jpg';
+    const maintainer = item.maintainer || 'Unknown';
+    const buildDate = item.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${item.build_date}</span>` : '';
+    
+    let tagsHTML = '';
+    let buttonsHTML = `
+      <a href="${item.download || '#'}" target="_blank" rel="noopener" class="rom-btn download">
+        <i class="fas fa-download"></i> Download
+      </a>
+      <a href="${item.mirror || '#'}" target="_blank" rel="noopener" class="rom-btn">
+        <i class="fas fa-link"></i> Mirror
+      </a>
+    `;
+
+    if (type === 'rom') {
+      const statusClass = item.status ? `status-${String(item.status).toLowerCase()}` : 'status-unofficial';
+      const buildType = item.build_type || 'vanilla';
+      const androidVer = versionNum(item.android) ? `Android ${versionNum(item.android)}` : '';
+      
+      tagsHTML = `
+        <span class="rom-tag ${statusClass}">${item.status || 'Unofficial'}</span>
+        <span class="rom-tag build-type-${buildType.toLowerCase()}">${buildType.toUpperCase()}</span>
+      `;
+      
+      if (item.post) {
+        buttonsHTML += `<a href="${item.post}" target="_blank" rel="noopener" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>`;
+      }
+      if (item.support) {
+        buttonsHTML += `<a href="${item.support}" target="_blank" rel="noopener" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>`;
+      }
+      
+      return `
+        <div class="${type === 'rom' ? 'rom' : 'kr'}-image">
+          <img src="${imageSrc}" alt="${item.name}" loading="lazy">
+          <div class="rom-tags">${tagsHTML}</div>
+        </div>
+        <div class="${type === 'rom' ? 'rom' : 'kr'}-content">
+          <h3 class="${type === 'rom' ? 'rom' : 'kr'}-name">${item.name || 'Untitled'}</h3>
+          <p class="${type === 'rom' ? 'rom' : 'kr'}-details">
+            <span><i class="fas fa-user"></i> ${maintainer}</span>
+            ${androidVer ? `<span>${androidVer}</span>` : ''}
+            ${buildDate}
+          </p>
+          <div class="${type === 'rom' ? 'rom' : 'kr'}-buttons">${buttonsHTML}</div>
+        </div>
+      `;
     } else {
-      const lower = String(filter).toLowerCase();
-      filtered = allRomsData.filter(r => String(r.android || '').toLowerCase() === lower || (r.status || '').toLowerCase() === lower || (r.build_type || '').toLowerCase() === lower);
-    }
-
-    if (!filtered.length) {
-        if (allRomsData.length > 0) {
-            filtered = allRomsData.slice();
-        } else {
-            romsContainer.innerHTML = `<div class="loading">No ROMs found.</div>`;
-            collectAllItems();
-            return;
+      if (type === 'kernel') {
+        const compatibility = item.compatibility ? `<span class="rom-tag build-type-vanilla">${item.compatibility}</span>` : '';
+        const variant = item.variant ? `<span class="rom-tag status-official">${item.variant}</span>` : '';
+        tagsHTML = `${variant} ${compatibility}`;
+        
+        if (item.support) {
+          buttonsHTML += `<a href="${item.support}" target="_blank" rel="noopener" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>`;
         }
-    }
-
-    filtered.forEach((rom, index) => {
-      const romCard = document.createElement('div');
-      romCard.className = 'rom-card';
-      const buildType = rom.build_type || 'N/A';
-      const statusClass = rom.status ? `status-${String(rom.status).toLowerCase()}` : 'status-unofficial';
-      const imageSrc = rom.image || 'assets/images/placeholder.jpg';
-      const maint = rom.maintainer || '';
-      const displayedVersion = versionNum(rom.android) ? `Android ${versionNum(rom.android)}` : (rom.android || '');
-      const postBtn = rom.post ? `<a href="${rom.post}" target="_blank" class="rom-btn"><i class="fas fa-file-lines"></i> Post</a>` : '';
-      const supportBtn = rom.support ? `<a href="${rom.support}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
-      const buildDate = rom.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${rom.build_date}</span>` : '';
-
-      romCard.innerHTML = `
-        <div class="rom-image">
-          <img src="${imageSrc}" alt="${rom.name || ''}" loading="lazy">
-          <div class="rom-tags">
-            <span class="rom-tag ${statusClass}">${rom.status ? String(rom.status).charAt(0).toUpperCase() + String(rom.status).slice(1) : 'Unofficial'}</span>
-            <span class="rom-tag build-type-${String(buildType).replace(/\s+/g,'-').toLowerCase()}">${(rom.build_type || '').toUpperCase()}</span>
-          </div>
-        </div>
-        <div class="rom-content">
-          <h3 class="rom-name">${rom.name || 'Untitled'}</h3>
-          <p class="rom-details">
-            <span><i class="fas fa-user"></i> ${maint}</span>
-            <span>${displayedVersion}</span>
-            ${buildDate}
-          </p>
-          <div class="rom-buttons">
-            <a href="${rom.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
-            <a href="${rom.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
-            ${postBtn}
-            ${supportBtn}
-          </div>
-        </div>
-      `;
-      romCard.dataset.name = (rom.name || '').toLowerCase();
-      romCard.dataset.maintainer = (rom.maintainer || '').toLowerCase();
-      romCard.dataset.version = (versionNum(rom.android) || '').toLowerCase();
-      romCard.dataset.status = (rom.status || '').toLowerCase();
-      romCard.dataset.build = (rom.build_type || '').toLowerCase();
-
-      romsContainer.appendChild(romCard);
-      setTimeout(() => romCard.classList.add('visible'), index * 60);
-    });
-    collectAllItems();
-  }
-
-  function renderKernels() {
-    if (!kernelsContainer) return;
-    kernelsContainer.innerHTML = '';
-    if (!allKernelsData.length) {
-      kernelsContainer.innerHTML = `<div class="loading">No kernels available.</div>`;
-      collectAllItems();
-      return;
-    }
-    allKernelsData.forEach((k, idx) => {
-      const card = document.createElement('div');
-      card.className = 'kr-card';
-      const imageSrc = k.image || 'assets/images/placeholder.jpg';
-      const compatibilityText = k.compatibility ? String(k.compatibility) : '';
-      const compatTag = compatibilityText ? `<span class="rom-tag build-type-vanilla">${compatibilityText}</span>` : '';
-      const variantTag = k.variant ? `<span class="rom-tag status-official">${k.variant}</span>` : '';
-      const supportBtn = k.support ? `<a href="${k.support}" target="_blank" class="rom-btn"><i class="fas fa-hands-helping"></i> Support</a>` : '';
-      const buildDate = k.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${k.build_date}</span>` : '';
-
-      card.innerHTML = `
+      } else if (type === 'recovery' && item.post) {
+        buttonsHTML += `<a href="${item.post}" target="_blank" rel="noopener" class="rom-btn" style="grid-column: span 2;"><i class="fas fa-file-lines"></i> Post</a>`;
+      }
+      
+      return `
         <div class="kr-image">
-          <img src="${imageSrc}" alt="${k.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;">
-            ${variantTag}
-            ${compatTag}
-          </div>
+          <img src="${imageSrc}" alt="${item.name}" loading="lazy">
+          <div class="rom-tags">${tagsHTML}</div>
         </div>
         <div class="kr-content">
-          <h3 class="kr-name">${k.name || 'Untitled'}</h3>
+          <h3 class="kr-name">${item.name || 'Untitled'}</h3>
           <p class="kr-details">
-            <span><i class="fas fa-user"></i> ${k.maintainer || ''}</span>
+            <span><i class="fas fa-user"></i> ${maintainer}</span>
             ${buildDate}
           </p>
-          <div class="kr-buttons">
-            <a href="${k.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
-            <a href="${k.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
-            ${supportBtn}
-          </div>
+          <div class="kr-buttons">${buttonsHTML}</div>
         </div>
       `;
-      kernelsContainer.appendChild(card);
-      setTimeout(() => card.classList.add('visible'), idx * 60);
-    });
-    collectAllItems();
+    }
   }
 
-  function renderRecoveries() {
-    if (!recoveriesContainer) return;
-    recoveriesContainer.innerHTML = '';
-    if (!allRecoveriesData.length) {
-      recoveriesContainer.innerHTML = `<div class="loading">No recoveries available.</div>`;
-      collectAllItems();
+  function renderCards(container, data, type = 'rom', filter = null) {
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    let filtered = data;
+    if (type === 'rom' && filter) {
+      const filterNum = versionNum(filter);
+      if (filterNum) {
+        filtered = data.filter(r => versionNum(r.android) === filterNum);
+      }
+    }
+    
+    if (!filtered.length) {
+      container.innerHTML = `<div class="loading">No ${type}s available.</div>`;
       return;
     }
-    allRecoveriesData.forEach((r, idx) => {
+    
+    filtered.forEach((item, index) => {
       const card = document.createElement('div');
-      card.className = 'kr-card';
-      const imageSrc = r.image || 'assets/images/placeholder.jpg';
-      const postBtn = r.post ? `<a href="${r.post}" target="_blank" class="rom-btn" style="grid-column: span 2;"><i class="fas fa-file-lines"></i> Post</a>` : '';
-      const buildDate = r.build_date ? `<span><i class="fas fa-calendar-alt"></i> ${r.build_date}</span>` : '';
-
-      card.innerHTML = `
-        <div class="kr-image">
-          <img src="${imageSrc}" alt="${r.name||''}" loading="lazy">
-          <div class="rom-tags" style="left:14px; top:14px;"></div>
-        </div>
-        <div class="kr-content">
-          <h3 class="kr-name">${r.name || 'Untitled'}</h3>
-          <p class="kr-details">
-            <span><i class="fas fa-user"></i> ${r.maintainer || ''}</span>
-            ${buildDate}
-          </p>
-          <div class="kr-buttons">
-            <a href="${r.download || '#'}" target="_blank" class="rom-btn download"><i class="fas fa-download"></i> Download</a>
-            <a href="${r.mirror || '#'}" target="_blank" class="rom-btn"><i class="fas fa-link"></i> Mirror</a>
-            ${postBtn}
-          </div>
-        </div>
-      `;
-      recoveriesContainer.appendChild(card);
-      setTimeout(() => card.classList.add('visible'), idx * 60);
+      card.className = type === 'rom' ? 'rom-card' : 'kr-card';
+      card.innerHTML = createCardHTML(item, type);
+      
+      card.dataset.name = (item.name || '').toLowerCase();
+      card.dataset.maintainer = (item.maintainer || '').toLowerCase();
+      if (type === 'rom') {
+        card.dataset.version = versionNum(item.android).toLowerCase();
+        card.dataset.status = (item.status || '').toLowerCase();
+        card.dataset.build = (item.build_type || '').toLowerCase();
+      }
+      
+      container.appendChild(card);
+      requestAnimationFrame(() => {
+        setTimeout(() => card.classList.add('visible'), index * 50);
+      });
     });
+    
     collectAllItems();
   }
 
   function collectAllItems() {
     allItems = [];
-    document.querySelectorAll('.rom-card').forEach(card => {
-      allItems.push({ element: card, type: 'rom', searchableText: getSearchableText(card) });
+    document.querySelectorAll('.rom-card, .kr-card').forEach(card => {
+      const title = card.querySelector('h3')?.textContent || '';
+      const details = card.querySelector('.rom-details, .kr-details')?.textContent || '';
+      allItems.push({
+        element: card,
+        searchableText: `${title} ${details}`.toLowerCase()
+      });
     });
-    document.querySelectorAll('.kernels-container .kr-card, .recoveries-container .kr-card').forEach(card => {
-      allItems.push({ element: card, type: 'kr', searchableText: getSearchableText(card) });
-    });
-  }
-
-  function getSearchableText(card) {
-    const title = card.querySelector('h3')?.textContent || '';
-    const details = card.querySelector('.rom-details, .kr-details')?.textContent || '';
-    return `${title} ${details}`.toLowerCase();
   }
 
   function performSearch(searchTerm) {
-    const q = String(searchTerm || '').toLowerCase().trim();
-    const resultsCounter = document.getElementById('search-results-count');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
-    if (!q) {
-      allItems.forEach((item) => item.element.classList.remove('hidden', 'search-hidden'));
+    const query = searchTerm.toLowerCase().trim();
+    
+    if (!query) {
+      allItems.forEach(item => item.element.classList.remove('search-hidden'));
       if (resultsCounter) resultsCounter.textContent = '';
-      filterBtns.forEach(btn => btn.style.opacity = '1');
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.style.opacity = '');
       return;
     }
-
-    collectAllItems();
-    filterBtns.forEach(btn => btn.style.opacity = '0.5');
-    let visible = 0;
-    allItems.forEach(it => {
-      const ok = it.searchableText.includes(q);
-      if (ok) {
-        it.element.classList.remove('hidden', 'search-hidden');
-        visible++;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.style.opacity = '0.5');
+    
+    let visibleCount = 0;
+    allItems.forEach(item => {
+      if (item.searchableText.includes(query)) {
+        item.element.classList.remove('search-hidden');
+        visibleCount++;
       } else {
-        it.element.classList.add('search-hidden');
-        it.element.classList.remove('hidden');
+        item.element.classList.add('search-hidden');
       }
     });
+    
     if (resultsCounter) {
-      if (visible === 0) {
+      if (visibleCount === 0) {
         resultsCounter.textContent = 'No results found';
-        resultsCounter.style.color = '#ff6700';
+        resultsCounter.style.color = 'var(--warning-color)';
       } else {
-        resultsCounter.textContent = `Found ${visible} result${visible>1?'s':''} (showing all categories)`;
-        resultsCounter.style.color = '#888888';
+        resultsCounter.textContent = `Found ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
+        resultsCounter.style.color = 'var(--text-muted)';
       }
     }
-  }
-
-  function debounce(fn, wait = 200) {
-    let t;
-    return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
   }
 
   function setupSearch() {
-    const searchInput = document.getElementById('rom-search');
-    const clearBtn = document.getElementById('clear-search');
     if (!searchInput) return;
-
-    const deb = debounce((v) => performSearch(v), 180);
-    searchInput.addEventListener('input', (e) => {
-      const v = e.target.value || '';
-      if (clearBtn) clearBtn.classList.toggle('show', !!v.trim());
-      deb(v);
+    
+    const debouncedSearch = debounce(performSearch, 150);
+    
+    searchInput.addEventListener('input', e => {
+      const value = e.target.value;
+      if (clearBtn) clearBtn.classList.toggle('show', !!value.trim());
+      debouncedSearch(value);
     });
-    searchInput.addEventListener('keypress', (e) => {
+    
+    searchInput.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
-        const first = document.querySelector('.rom-card:not(.hidden):not(.search-hidden), .kr-card:not(.hidden):not(.search-hidden)');
-        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        e.preventDefault();
+        const firstVisible = document.querySelector('.rom-card:not(.search-hidden), .kr-card:not(.search-hidden)');
+        if (firstVisible) {
+          firstVisible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       }
     });
+    
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         searchInput.value = '';
         clearBtn.classList.remove('show');
-        document.querySelectorAll('.filter-btn').forEach(b => b.style.opacity = '1');
         performSearch('');
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.style.opacity = '');
       });
     }
   }
 
   function setupFilters() {
     if (!filterControls) return;
-    filterControls.addEventListener('click', (e) => {
-      if (e.target && e.target.tagName === 'BUTTON') {
-        const activeSearch = document.getElementById('rom-search')?.value.trim();
-        if (activeSearch) return;
-        const prev = filterControls.querySelector('.filter-btn.active');
-        if (prev) prev.classList.remove('active');
-        e.target.classList.add('active');
-        generateRomCards(e.target.dataset.filter || e.target.textContent.trim());
-      }
+    
+    filterControls.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      
+      if (searchInput?.value.trim()) return;
+      
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      currentFilter = btn.dataset.filter || btn.textContent.trim();
+      renderCards(romsContainer, allRomsData, 'rom', currentFilter);
+    });
+  }
+
+  function setupDonateButtons() {
+    const donateHandlers = {
+      'upi-donate': () => window.open('upi://pay?pa=your-upi-id@paytm', '_blank'),
+      'coffee-donate': () => window.open('https://www.buymeacoffee.com/yourprofile', '_blank'),
+      'paypal-donate': () => window.open('https://www.paypal.com/paypalme/yourprofile', '_blank')
+    };
+    
+    Object.entries(donateHandlers).forEach(([id, handler]) => {
+      const btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', handler);
     });
   }
 
   function setupScrollAnimations() {
-    const sections = document.querySelectorAll('.section-title, .spec-item, .search-container, .filter-controls, .donate-section, .community-card, .instructions-container');
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-    sections.forEach(section => {
-      observer.observe(section);
+    }, observerOptions);
+    
+    const elements = document.querySelectorAll(`
+      .section-title,
+      .spec-item,
+      .search-container,
+      .filter-controls,
+      .donate-section,
+      .community-card,
+      .nav-buttons,
+      .guide-section,
+      .prereq-item,
+      .step-list li,
+      .error-section
+    `);
+    
+    elements.forEach(el => observer.observe(el));
+  }
+
+  function setupSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const targetId = anchor.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const headerOffset = 80;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
     });
   }
 
-  (async function init() {
-    await fetchAllData();
-    const activeBtn = document.querySelector('.filter-btn.active');
-    const initial = activeBtn ? (activeBtn.dataset.filter || activeBtn.textContent.trim()) : 'Android 16';
-    generateRomCards(initial);
-    renderKernels();
-    renderRecoveries();
+  async function initialize() {
+    await loadAllData();
+    
+    if (romsContainer) {
+      renderCards(romsContainer, allRomsData, 'rom', currentFilter);
+    }
+    if (kernelsContainer) {
+      renderCards(kernelsContainer, allKernelsData, 'kernel');
+    }
+    if (recoveriesContainer) {
+      renderCards(recoveriesContainer, allRecoveriesData, 'recovery');
+    }
+    
     setupFilters();
     setupSearch();
+    setupDonateButtons();
     setupScrollAnimations();
-  })();
+    setupSmoothScrolling();
+    
+    if ('IntersectionObserver' in window) {
+      const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+            }
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+      
+      lazyImages.forEach(img => imageObserver.observe(img));
+    }
+  }
+
+  initialize();
 });

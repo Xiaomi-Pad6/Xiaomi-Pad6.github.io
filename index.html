@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Xiaomi Pad 6 Custom ROMs, Kernels, and Recoveries. Unlock your device's full potential with our curated collection.">
+    <meta name="keywords" content="Xiaomi Pad 6, custom ROMs, Android ROMs, pipa, kernels, recoveries">
     <title>Xiaomi Pad 6 Custom ROMs | pipa</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -19,118 +21,177 @@
                     <span>Xiaomi Pad 6 ROMs</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="/#overview">Overview</a></li>
+                    <li><a href="#overview">Overview</a></li>
                     <li><a href="instructions.html">Instructions</a></li>
-                    <li><a href="/#donate">Support</a></li>
-                    <li><a href="/#community">Community</a></li>
+                    <li><a href="#donate">Support</a></li>
+                    <li><a href="#community">Community</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Xiaomi Pad 6</h1>
-                <p class="tagline">Unlock the Full Potential of Your Device with Custom ROMs.</p>
-                <a href="#roms" class="btn">Explore ROMs</a>
-            </div>
-            <div class="hero-image">
-                <img src="assets/images/Pad6.png" alt="Xiaomi Pad 6">
-            </div>
-        </section>
+    <main>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Xiaomi Pad 6</h1>
+                    <p class="tagline">Unlock the Full Potential of Your Device with Custom ROMs.</p>
+                    <a href="#roms" class="btn">Explore ROMs</a>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/images/Pad6.png" alt="Xiaomi Pad 6" width="400" height="300">
+                </div>
+            </section>
 
-        <section id="overview">
-            <h2 class="section-title">Device Overview</h2>
-            <div class="specs">
+            <section id="overview">
+                <h2 class="section-title">Device Overview</h2>
                 <div class="spec-grid">
-                    <div class="spec-item"><i class="fas fa-microchip"></i><h3>Processor</h3><p>Snapdragon 870</p></div>
-                    <div class="spec-item"><i class="fas fa-memory"></i><h3>RAM</h3><p>6/8 GB LPDDR5</p></div>
-                    <div class="spec-item"><i class="fas fa-expand"></i><h3>Display</h3><p>11" 144Hz WQHD+</p></div>
-                    <div class="spec-item"><i class="fas fa-hdd"></i><h3>Storage</h3><p>128/256 GB UFS 3.1</p></div>
-                    <div class="spec-item"><i class="fas fa-battery-full"></i><h3>Battery</h3><p>8840 mAh</p></div>
+                    <div class="spec-item">
+                        <i class="fas fa-microchip"></i>
+                        <h3>Processor</h3>
+                        <p>Snapdragon 870</p>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-memory"></i>
+                        <h3>RAM</h3>
+                        <p>6/8 GB LPDDR5</p>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-expand"></i>
+                        <h3>Display</h3>
+                        <p>11" 144Hz WQHD+</p>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-hdd"></i>
+                        <h3>Storage</h3>
+                        <p>128/256 GB UFS 3.1</p>
+                    </div>
+                    <div class="spec-item">
+                        <i class="fas fa-battery-full"></i>
+                        <h3>Battery</h3>
+                        <p>8840 mAh</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="roms">
-            <h2 class="section-title">Available ROMs</h2>
-            <div class="search-container">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="rom-search" placeholder="Search ROMs, kernels, recoveries by name, developer, or Android version...">
-                    <button class="clear-search" id="clear-search"><i class="fas fa-times"></i></button>
+            <section id="roms">
+                <h2 class="section-title">Available ROMs</h2>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="rom-search" placeholder="Search ROMs, kernels, recoveries...">
+                        <button class="clear-search" id="clear-search" aria-label="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="search-results-count" class="search-results-count"></div>
-            <div class="filter-controls">
-                <button class="filter-btn active" data-filter="Android 16">Android 16</button>
-                <button class="filter-btn" data-filter="Android 15">Android 15</button>
-            </div>
-            <div class="roms-container">
-                <div class="loading"><i class="fas fa-spinner"></i>Loading ROMs...</div>
-            </div>
-        </section>
-
-        <section id="kernels">
-            <h2 class="section-title">Kernels</h2>
-            <div class="kernels-container">
-                <div class="loading"><i class="fas fa-spinner"></i>Loading Kernels...</div>
-            </div>
-        </section>
-
-        <section id="recoveries">
-            <h2 class="section-title">Recoveries</h2>
-            <div class="recoveries-container">
-                <div class="loading"><i class="fas fa-spinner"></i>Loading Recoveries...</div>
-            </div>
-        </section>
-
-        <section id="donate" class="donate-section">
-            <h2 class="donate-title">Support Our Work</h2>
-            <p class="donate-subtitle">Your support helps us maintain and improve this ROM repository for the community. Every contribution makes a difference in keeping this project alive and updated.</p>
-            <div class="donate-methods">
-                <div class="donate-method">
-                    <div class="donate-icon upi"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>UPI Payment</h3><p>Quick and easy payment via UPI</p>
-                    <button class="donate-btn" id="upi-donate">Donate</button>
+                <div id="search-results-count" class="search-results-count"></div>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="Android 16">Android 16</button>
+                    <button class="filter-btn" data-filter="Android 15">Android 15</button>
                 </div>
-                <div class="donate-method">
-                    <div class="donate-icon coffee"><i class="fas fa-coffee"></i></div>
-                    <h3>Buy Me a Coffee</h3><p>Support with a coffee donation</p>
-                    <button class="donate-btn" id="coffee-donate">Donate</button>
+                <div class="roms-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        Loading ROMs...
+                    </div>
                 </div>
-                <div class="donate-method">
-                    <div class="donate-icon paypal"><i class="fab fa-paypal"></i></div>
-                    <h3>PayPal</h3><p>Secure donation via PayPal</p>
-                    <button class="donate-btn" id="paypal-donate">Donate</button>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="community">
-            <h2 class="section-title">Join Our Community</h2>
-            <div class="community-grid">
-                <div class="community-card"><i class="fab fa-telegram"></i><h3>The Usual Suspects</h3><a href="https://t.me/the_usual_suspects_777" target="_blank">Join Channel</a></div>
-                <div class="community-card"><i class="fab fa-telegram"></i><h3>PAD6 Repo</h3><a href="https://t.me/PAD6Repo" target="_blank">Join Channel</a></div>
-                <div class="community-card"><i class="fab fa-telegram"></i><h3>Xiaomi Pad 6 Global</h3><a href="https://t.me/XiaomiPad6Global" target="_blank">Join Group</a></div>
-                <div class="community-card"><i class="fab fa-telegram"></i><h3>Mi Pad 6</h3><a href="https://t.me/mipad6" target="_blank">Join Group</a></div>
-            </div>
-        </section>
+            <section id="kernels">
+                <h2 class="section-title">Kernels</h2>
+                <div class="kernels-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        Loading Kernels...
+                    </div>
+                </div>
+            </section>
+
+            <section id="recoveries">
+                <h2 class="section-title">Recoveries</h2>
+                <div class="recoveries-container">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        Loading Recoveries...
+                    </div>
+                </div>
+            </section>
+
+            <section id="donate" class="donate-section">
+                <h2 class="donate-title">Support Our Work</h2>
+                <p class="donate-subtitle">Your support helps us maintain and improve this ROM repository for the community.</p>
+                <div class="donate-methods">
+                    <div class="donate-method">
+                        <div class="donate-icon upi">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>UPI Payment</h3>
+                        <p>Quick and easy payment via UPI</p>
+                        <button class="donate-btn" id="upi-donate">Donate</button>
+                    </div>
+                    <div class="donate-method">
+                        <div class="donate-icon coffee">
+                            <i class="fas fa-coffee"></i>
+                        </div>
+                        <h3>Buy Me a Coffee</h3>
+                        <p>Support with a coffee donation</p>
+                        <button class="donate-btn" id="coffee-donate">Donate</button>
+                    </div>
+                    <div class="donate-method">
+                        <div class="donate-icon paypal">
+                            <i class="fab fa-paypal"></i>
+                        </div>
+                        <h3>PayPal</h3>
+                        <p>Secure donation via PayPal</p>
+                        <button class="donate-btn" id="paypal-donate">Donate</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community">
+                <h2 class="section-title">Join Our Community</h2>
+                <div class="community-grid">
+                    <div class="community-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>The Usual Suspects</h3>
+                        <a href="https://t.me/the_usual_suspects_777" target="_blank" rel="noopener">Join Channel</a>
+                    </div>
+                    <div class="community-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>PAD6 Repo</h3>
+                        <a href="https://t.me/PAD6Repo" target="_blank" rel="noopener">Join Channel</a>
+                    </div>
+                    <div class="community-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>Xiaomi Pad 6 Global</h3>
+                        <a href="https://t.me/XiaomiPad6Global" target="_blank" rel="noopener">Join Group</a>
+                    </div>
+                    <div class="community-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>Mi Pad 6</h3>
+                        <a href="https://t.me/mipad6" target="_blank" rel="noopener">Join Group</a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <div class="container footer-content">
-            <div class="footer-section warning">
-                <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
-                <p>Installing custom ROMs may void your warranty. Always back up your data before proceeding. You are responsible for any changes to your device.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section warning">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
+                    <p>Installing custom ROMs may void your warranty. Always back up your data before proceeding. You are responsible for any changes to your device.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
+                <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank" rel="noopener">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank" rel="noopener">Glitch Wraith</a></p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Xiaomi Pad 6 Custom ROMs | Designed for pipa</p>
-            <p class="credits">Webpage by <a href="https://t.me/SCARFACEE_01" target="_blank">Mufasa</a> & <a href="https://glitchwraith.vercel.app/" target="_blank">Glitch Wraith</a></p>
-        </div>
     </footer>
+    
     <script src="js/index.js"></script>
 </body>
 </html>
