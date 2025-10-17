@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Step-by-step instructions for flashing custom ROMs on Xiaomi Pad 6">
     <meta name="keywords" content="Xiaomi Pad 6, flashing guide, custom ROM instructions, bootloader unlock">
-    <title>Instructions | Xiaomi Pad 6</title>
-    <link rel="stylesheet" href="css/index.css">
+    <title>Instructions</title>
+    <link rel="stylesheet" href="css/instructions.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,185 +32,368 @@
 
     <main>
         <div class="container">
-            <section id="instructions">
-                <h2 class="section-title">Flashing Custom ROMs</h2>
-                
-                <div class="nav-buttons">
-                    <a href="#flashing-guide" class="nav-button">
-                        <i class="fas fa-microchip"></i> C.Rom
-                    </a>
-                    <a href="#custom-recovery" class="nav-button">
-                        <i class="fas fa-tools"></i> C.Rec
-                    </a>
-                    <a href="#errors" class="nav-button">
-                        <i class="fas fa-exclamation-triangle"></i> Errors
-                    </a>
+            <h1 class="page-title">Instructions</h1>
+
+            <section class="remember-section">
+                <h2><i class="fas fa-lightbulb"></i> Points to Remember</h2>
+                <div class="points-grid">
+                    <div class="point-card">
+                        <span class="point-number">1</span>
+                        <p>You can use any rom recovery to flash any rom.</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">2</span>
+                        <p>Formatting data means it's a clean flash.</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">3</span>
+                        <p>You don't need to flash boot, dtbo, vendor_boot again to update rom.</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">4</span>
+                        <p>If super_empty fails to flash then leave it.</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">5</span>
+                        <p>Sideloading may stuck at 47% and it may go above 100% too.</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">6</span>
+                        <p>If the recovery screen says done/successful after sideloading any file then it means the file has been installed successfully (Don't mind what the other device/pc screen says).</p>
+                    </div>
+                    <div class="point-card">
+                        <span class="point-number">7</span>
+                        <p>To install a custom kernel, sideload the kernel zip the same way as you sideload rom (format data not needed).</p>
+                    </div>
                 </div>
+            </section>
 
-                <div class="instructions-container">
-                    <div class="footer-section warning">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Important Notes</h3>
-                        <p>Flashing custom ROMs can brick your device if done incorrectly. Proceed at your own risk and ensure you have proper backups. This process will void your warranty.</p>
-                    </div>
+            <section class="nav-section">
+                <a href="#otg-bugjaeger" class="method-button">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Flashing via OTG Bugjaeger</span>
+                </a>
+                <a href="#termux" class="method-button">
+                    <i class="fas fa-terminal"></i>
+                    <span>Flashing via Termux</span>
+                </a>
+                <a href="#common-errors" class="method-button">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Common Errors</span>
+                </a>
+            </section>
 
-                    <div class="guide-section">
-                        <div class="guide-header">
-                            <i class="fas fa-clipboard-list"></i>
-                            <h3>Prerequisites</h3>
+            <section id="otg-bugjaeger" class="guide-section">
+                <h2><i class="fas fa-mobile-alt"></i> Flashing via OTG Bugjaeger</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p>Install and open <a href="https://play.google.com/store/apps/details?id=eu.sisik.hackendebug" target="_blank" rel="noopener">Bugjaeger</a></p>
                         </div>
-                        <div class="prerequisites">
-                            <div class="prereq-item">
-                                <i class="fas fa-unlock-alt"></i>
-                                <h4>Unlocked Bootloader</h4>
-                                <p>Must be unlocked</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p>Toggle OTG setting if present in your device</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p>Connect tab in fastboot mode (Hold power and volume down button when tab is switched off to go in fastboot mode)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p>Click ok on the device when prompted for permission to bugjaeger every time it asks</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <p>Slide the horizontal tab present in the upper section of app, click on the icon which indicates lightning</p>
+                            <img src="assets/img/fastboot.png" alt="Fastboot icon in Bugjaeger" loading="lazy">
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <p>Click on the blue floating thing present at right corner</p>
+                            <img src="assets/img/floating-icon.png" alt="Floating action button" loading="lazy">
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <p>Flash some necessary files</p>
+                            <div class="command-block">
+                                <code>fastboot flash boot {attach boot.img}</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
                             </div>
-                            <div class="prereq-item">
-                                <i class="fas fa-terminal"></i>
-                                <h4>Platform Tools</h4>
-                                <p>ADB and Fastboot</p>
+                            <div class="command-block">
+                                <code>fastboot flash dtbo {attach dtbo.img}</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
                             </div>
-                            <div class="prereq-item">
-                                <i class="fas fa-battery-half"></i>
-                                <h4>Battery Level</h4>
-                                <p>At least 50%</p>
+                            <div class="command-block">
+                                <code>fastboot flash vendor_boot {attach vendor_boot.img}</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
                             </div>
-                            <div class="prereq-item">
-                                <i class="fas fa-file-archive"></i>
-                                <h4>ROM Package</h4>
-                                <p>Downloaded files</p>
+                            <div class="command-block">
+                                <code>fastboot wipe-super {attach super_empty.img}</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <img src="assets/img/attach.png" alt="File attachment in Bugjaeger" loading="lazy">
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <p>Reboot to recovery by <code class="inline-code">fastboot reboot recovery</code> or hold power and volume up button</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">9</div>
+                        <div class="step-content">
+                            <p>On tab click Install Update > Adb Sideload</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">10</div>
+                        <div class="step-content">
+                            <p>Connect tab to otg again, click ok to every prompt, go to the same lightning symbol tab</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">11</div>
+                        <div class="step-content">
+                            <p>Scroll down and choose last option (Pick file and perform sideload)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">12</div>
+                        <div class="step-content">
+                            <p>Select the appropriate firmware (the 150 MB thing) if not present in rom</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">13</div>
+                        <div class="step-content">
+                            <p>Click yes if anything asked on tab screen</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">14</div>
+                        <div class="step-content">
+                            <p>Sideload the rom same way and then gapps if you want and rom is vanilla</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">15</div>
+                        <div class="step-content">
+                            <p>Now format data in recovery if switching roms and then reboot</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="termux" class="guide-section">
+                <h2><i class="fas fa-terminal"></i> Flashing via Termux</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p>Install <a href="https://github.com/termux/termux-app/releases" target="_blank" rel="noopener">termux</a> and <a href="https://github.com/termux/termux-api/releases" target="_blank" rel="noopener">termux-api</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p>Open termux-api and allow necessary things</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p>Open termux and type</p>
+                            <div class="command-block">
+                                <code>termux-setup-storage</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <p>Hit enter and allow storage permission</p>
+                            <div class="command-block">
+                                <code>pkg update && pkg upgrade</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <div class="command-block">
+                                <code>curl -sS https://raw.githubusercontent.com/offici5l/MiTool/67577f94e67a352b805cdc0047f25ab05573d987/install.sh | bash</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <p class="credit-text">Thanks <a href="https://github.com/offici5l" target="_blank" rel="noopener">offici5l</a> for script</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p>Move downloaded files to a folder let's say pipa in Downloads folder</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <p>In termux type</p>
+                            <div class="command-block">
+                                <code>cp -r storage/downloads/pipa ~/ && cd pipa && adb start-server</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
                             </div>
                         </div>
                     </div>
-
-                    <div class="guide-section">
-                        <div class="guide-header">
-                            <i class="fas fa-download"></i>
-                            <h3>Required Downloads</h3>
+                    
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <p>Toggle OTG setting if present on your other device</p>
                         </div>
-                        <p style="color: var(--text-secondary); margin-bottom: 16px;">Download these files and place them in your platform tools folder: ROM package (.zip), boot.img, dtbo.img, vendor_boot.img, super_empty.img, and firmware.zip (if not included in ROM).</p>
                     </div>
-
-                    <div id="flashing-guide" class="guide-section">
-                        <div class="guide-header">
-                            <i class="fas fa-microchip"></i>
-                            <h3>Flashing Guide</h3>
+                    
+                    <div class="step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <p>Connect tab in fastboot mode (Hold power and volume down button when tab is switched off to go in fastboot mode)</p>
                         </div>
-                        <ol class="step-list">
-                            <li>
-                                <div class="step-content">
-                                    <h3>Reboot to Bootloader</h3>
-                                    <p>Hold <span class="highlight">Power + Volume Down</span> buttons simultaneously to enter bootloader mode.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Flash Recovery Components</h3>
-                                    <p>Open a terminal in your platform tools folder and run these commands:</p>
-                                    <div class="code-block">fastboot flash boot boot.img
-fastboot flash dtbo dtbo.img
-fastboot flash vendor_boot vendor_boot.img
-fastboot wipe-super super_empty.img
-fastboot reboot recovery</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Format Data (Optional)</h3>
-                                    <p>In recovery, format data if switching between different ROM types (e.g., MIUI to AOSP).</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Reboot to Recovery</h3>
-                                    <p>In recovery, select <span class="highlight">Advanced → Reboot to recovery</span>.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Flash Firmware (If Required)</h3>
-                                    <p>Select "Apply update" in recovery, then sideload the firmware:</p>
-                                    <div class="code-block">adb sideload firmware.zip</div>
-                                    <div class="note">
-                                        <p><strong>Note:</strong> Skip this step if firmware is bundled with the ROM package.</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Flash ROM Package</h3>
-                                    <p>Reboot to recovery again (recommended), select "Apply update", and sideload the ROM:</p>
-                                    <div class="code-block">adb sideload rom.zip</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Flash GApps (For Vanilla Builds)</h3>
-                                    <p>After ROM installation, reboot to recovery and sideload your GApps package.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Reboot Device</h3>
-                                    <p>You may now reboot your device to the new ROM.</p>
-                                </div>
-                            </li>
-                        </ol>
                     </div>
-
-                    <div id="custom-recovery" class="guide-section">
-                        <div class="guide-header">
-                            <i class="fas fa-tools"></i>
-                            <h3>Using a Custom Recovery</h3>
+                    
+                    <div class="step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <p>Click ok when prompted for permission. If no pop up appears do <code class="inline-code">adb kill-server && adb start-server</code> then connect tab again</p>
                         </div>
-                        <ol class="step-list">
-                            <li>
-                                <div class="step-content">
-                                    <h3>Reboot to Bootloader</h3>
-                                    <p>Hold <span class="highlight">Power + Volume Down</span> buttons to enter bootloader mode.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Boot Custom Recovery</h3>
-                                    <p>Run this command to temporarily boot custom recovery:</p>
-                                    <div class="code-block">fastboot boot recovery.img</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="step-content">
-                                    <h3>Install Permanently</h3>
-                                    <p>Navigate to <span class="highlight">Advanced</span> in recovery, then select <span class="highlight">Install Current TWRP</span> to install permanently.</p>
-                                </div>
-                            </li>
-                        </ol>
                     </div>
+                    
+                    <div class="step">
+                        <div class="step-number">9</div>
+                        <div class="step-content">
+                            <p>Flash files</p>
+                            <div class="command-block">
+                                <code>fastboot flash boot boot.img</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <div class="command-block">
+                                <code>fastboot flash dtbo dtbo.img</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <div class="command-block">
+                                <code>fastboot flash vendor_boot vendor_boot.img</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                            <div class="command-block">
+                                <code>fastboot wipe-super super_empty.img</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">10</div>
+                        <div class="step-content">
+                            <p>Reboot to recovery by <code class="inline-code">fastboot reboot recovery</code> or hold power and volume up button</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">11</div>
+                        <div class="step-content">
+                            <p>On tab click Install Update > Adb Sideload</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">12</div>
+                        <div class="step-content">
+                            <p>Connect tab to otg again, click ok on the prompt</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">13</div>
+                        <div class="step-content">
+                            <p>Sideload firmware if not available in rom via</p>
+                            <div class="command-block">
+                                <code>adb sideload {firmware file name}</code>
+                                <button class="copy-btn" title="Copy command"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">14</div>
+                        <div class="step-content">
+                            <p>Click yes if anything asked on tab screen</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">15</div>
+                        <div class="step-content">
+                            <p>Sideload the rom same way and then gapps if you want and rom is vanilla</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">16</div>
+                        <div class="step-content">
+                            <p>Now format data in recovery if switching roms and then reboot</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <div id="errors" class="guide-section">
-                        <div class="guide-header">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <h3>Common Errors</h3>
-                        </div>
-                        <div class="error-section">
-                            <h4><i class="fas fa-ban"></i> SPL downgrade, Flash aborted</h4>
-                            <p><strong>Solution:</strong> Use recovery from an older ROM build, then flash your desired ROM.</p>
-                        </div>
-                        <div class="error-section">
-                            <h4><i class="fas fa-file-archive"></i> ROM package has .bin extension</h4>
-                            <p><strong>Solution:</strong> Simply rename the file from .bin to .zip.</p>
-                        </div>
-                        <div class="error-section">
-                            <h4><i class="fas fa-redo"></i> Device rebooted to classic bootloader</h4>
-                            <p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p>
-                            <img src="https://i.ibb.co/1Y92zFXj/IMG-20250513-201944-808.jpg" alt="Classic bootloader error" loading="lazy">
-                        </div>
-                        <div class="error-section">
-                            <h4><i class="fas fa-times-circle"></i> Status 3 error during sideloading</h4>
-                            <p><strong>Solution:</strong> Update your ADB platform tools to the latest version.</p>
-                        </div>
-                        <div class="error-section">
-                            <h4><i class="fas fa-unlink"></i> Device not showing in fastboot or ADB</h4>
-                            <p><strong>Solution:</strong> Install the proper USB drivers for your device on your computer.</p>
-                        </div>
+            <section id="common-errors" class="guide-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> Common Errors</h2>
+                <div class="error-container">
+                    <div class="error-card">
+                        <h3><i class="fas fa-ban"></i> SPL downgrade, Flash aborted</h3>
+                        <p><strong>Solution:</strong> Use recovery from an older ROM build, then flash your desired ROM.</p>
+                    </div>
+                    
+                    <div class="error-card">
+                        <h3><i class="fas fa-file-archive"></i> ROM package has .bin extension</h3>
+                        <p><strong>Solution:</strong> Simply rename the file from .bin to .zip.</p>
+                    </div>
+                    
+                    <div class="error-card">
+                        <h3><i class="fas fa-redo"></i> Device rebooted to classic bootloader</h3>
+                        <p><strong>Solution:</strong> Choose "reboot bootloader" and flash the stock fastboot ROM.</p>
+                        <img src="https://i.ibb.co/1Y92zFXj/IMG-20250513-201944-808.jpg" alt="Classic bootloader error" loading="lazy">
+                    </div>
+                    
+                    <div class="error-card">
+                        <h3><i class="fas fa-times-circle"></i> Status 3 error during sideloading</h3>
+                        <p><strong>Solution:</strong> Update your ADB platform tools to the latest version.</p>
+                    </div>
+                    
+                    <div class="error-card">
+                        <h3><i class="fas fa-unlink"></i> Device not showing in fastboot or ADB</h3>
+                        <p><strong>Solution:</strong> Install the proper USB drivers for your device on your computer.</p>
                     </div>
                 </div>
             </section>
@@ -226,6 +409,6 @@ fastboot reboot recovery</div>
         </div>
     </footer>
 
-    <script src="js/index.js"></script>
+    <script src="js/instructions.js"></script>
 </body>
 </html>
