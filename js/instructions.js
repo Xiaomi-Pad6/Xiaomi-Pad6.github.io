@@ -1,29 +1,74 @@
+/*
+ * Instructions Page JavaScript
+ * Includes: Copy-to-Clipboard, Smooth Scrolling, Dark/Light Mode Toggle, Scroll Animations.
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
+    const body = document.body;
+    const themeToggle = document.getElementById('theme-toggle');
+    const steps = document.querySelectorAll('.step');
+    const header = document.querySelector('header');
+    const navLinks = document.querySelectorAll('a[href^="#"]');
     const copyButtons = document.querySelectorAll('.copy-btn');
-    
+
+    // --- 1. Theme Toggle (Dark/Light Mode) ---
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', currentTheme);
+    updateThemeToggleIcon(currentTheme);
+
+    function updateThemeToggleIcon(theme) {
+        const icon = themeToggle.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+
+    themeToggle.addEventListener('click', function() {
+        const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeToggleIcon(newTheme);
+    });
+
+    // --- 2. Copy-to-Clipboard Functionality ---
     copyButtons.forEach(button => {
         button.addEventListener('click', function() {
             const commandBlock = this.closest('.command-block');
             const code = commandBlock.querySelector('code');
-            const textToCopy = code.textContent;
+            // Use innerText to get the content without HTML tags
+            const textToCopy = code.innerText.trim();
             
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const originalHTML = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check"></i>';
-                this.classList.add('copied');
-                
-                setTimeout(() => {
-                    this.innerHTML = originalHTML;
-                    this.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
-                alert('Failed to copy command. Please copy manually.');
-            });
+            // Fallback for environments where navigator.clipboard is not available
+            if (!navigator.clipboard) {
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = textToCopy;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+                console.warn('Clipboard API not available. Used fallback.');
+            } else {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Success animation
+                    const originalIconClass = this.querySelector('i').className;
+                    this.classList.add('copied');
+                    this.querySelector('i').className = 'fas fa-check';
+                    
+                    setTimeout(() => {
+                        this.classList.remove('copied');
+                        this.querySelector('i').className = originalIconClass;
+                    }, 1500);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    alert('Failed to copy command. Please copy manually.');
+                });
+            }
         });
     });
-    
-    const navLinks = document.querySelectorAll('a[href^="#"]');
+
+    // --- 3. Smooth Scrolling for Anchor Links ---
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
@@ -32,9 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                const headerOffset = 100;
+                // Offset by header height for smooth scroll
+                const headerHeight = header.offsetHeight;
                 const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20; // Added 20px padding
                 
                 window.scrollTo({
                     top: offsetPosition,
@@ -43,19 +89,44 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.src;
-                    observer.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
+
+    // --- 4. Scroll Progress Indicator ---
+    const scrollProgress = document.createElement('div');
+    scrollProgress.id = 'scroll-progress';
+    document.body.prepend(scrollProgress);
+
+    function updateScrollProgress() {
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = window.scrollY;
+        const progress = (scrolled / scrollHeight) * 100;
+        scrollProgress.style.width = progress + '%';
     }
+
+    // --- 5. Step Reveal Animation (Intersection Observer) ---
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    };
+
+    const stepObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    steps.forEach(step => {
+        stepObserver.observe(step);
+    });
+
+    // --- 6. Event Listeners ---
+    window.addEventListener('scroll', function() {
+        updateScrollProgress();
+    });
+
+    // Initial call to set progress and check for visible steps on load
+    updateScrollProgress();
 });

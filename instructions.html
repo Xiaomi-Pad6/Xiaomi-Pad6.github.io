@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Step-by-step instructions for flashing custom ROMs on Xiaomi Pad 6">
     <meta name="keywords" content="Xiaomi Pad 6, flashing guide, custom ROM instructions, bootloader unlock">
-    <title>Instructions</title>
+    <title>Instructions | Xiaomi Pad 6 ROMs</title>
     <link rel="stylesheet" href="css/instructions.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-theme="dark">
     <header>
         <div class="container">
             <nav>
@@ -22,10 +22,13 @@
                 </div>
                 <ul class="nav-links">
                     <li><a href="index.html#overview">Overview</a></li>
-                    <li><a href="instructions.html">Instructions</a></li>
+                    <li><a href="instructions.html" class="active">Instructions</a></li>
                     <li><a href="index.html#donate">Support</a></li>
                     <li><a href="index.html#community">Community</a></li>
                 </ul>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
+                    <i class="fas fa-sun"></i>
+                </button>
             </nav>
         </div>
     </header>
@@ -90,35 +93,35 @@
             <section id="otg-bugjaeger" class="guide-section">
                 <h2><i class="fas fa-mobile-alt"></i> Flashing via OTG Bugjaeger</h2>
                 <div class="steps-container">
-                    <div class="step">
+                    <div class="step" data-step="1">
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <p>Install and open <a href="https://play.google.com/store/apps/details?id=eu.sisik.hackendebug" target="_blank" rel="noopener">Bugjaeger</a></p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="2">
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <p>Toggle OTG setting if present in your device</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="3">
                         <div class="step-number">3</div>
                         <div class="step-content">
                             <p>Connect tab in fastboot mode (Hold power and volume down button when tab is switched off to go in fastboot mode)</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="4">
                         <div class="step-number">4</div>
                         <div class="step-content">
                             <p>Click ok on the device when prompted for permission to bugjaeger every time it asks</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="5">
                         <div class="step-number">5</div>
                         <div class="step-content">
                             <p>Slide the horizontal tab present in the upper section of app, click on the icon which indicates lightning</p>
@@ -126,7 +129,7 @@
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="6">
                         <div class="step-number">6</div>
                         <div class="step-content">
                             <p>Click on the blue floating thing present at right corner</p>
@@ -134,7 +137,7 @@
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="7">
                         <div class="step-number">7</div>
                         <div class="step-content">
                             <p>Flash some necessary files</p>
@@ -158,56 +161,56 @@
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="8">
                         <div class="step-number">8</div>
                         <div class="step-content">
                             <p>Reboot to recovery by <code class="inline-code">fastboot reboot recovery</code> or hold power and volume up button</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="9">
                         <div class="step-number">9</div>
                         <div class="step-content">
                             <p>On tab click Install Update > Adb Sideload</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="10">
                         <div class="step-number">10</div>
                         <div class="step-content">
                             <p>Connect tab to otg again, click ok to every prompt, go to the same lightning symbol tab</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="11">
                         <div class="step-number">11</div>
                         <div class="step-content">
                             <p>Scroll down and choose last option (Pick file and perform sideload)</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="12">
                         <div class="step-number">12</div>
                         <div class="step-content">
                             <p>Select the appropriate firmware (the 150 MB thing) if not present in rom</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="13">
                         <div class="step-number">13</div>
                         <div class="step-content">
                             <p>Click yes if anything asked on tab screen</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="14">
                         <div class="step-number">14</div>
                         <div class="step-content">
                             <p>Sideload the rom same way and then gapps if you want and rom is vanilla</p>
                         </div>
                     </div>
                     
-                    <div class="step">
+                    <div class="step" data-step="15">
                         <div class="step-number">15</div>
                         <div class="step-content">
                             <p>Now format data in recovery if switching roms and then reboot</p>
@@ -219,21 +222,21 @@
             <section id="termux" class="guide-section">
                 <h2><i class="fas fa-terminal"></i> Flashing via Termux</h2>
                 <div class="steps-container">
-                    <div class="step">
+                    <div class="step" data-step="1">
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <p>Install <a href="https://github.com/termux/termux-app/releases" target="_blank" rel="noopener">termux</a> and <a href="https://github.com/termux/termux-api/releases" target="_blank" rel="noopener">termux-api</a></p>
                         </div>
                     </div>
                 
-                    <div class="step">
+                    <div class="step" data-step="2">
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <p>Open termux-api and allow necessary things</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="3">
                         <div class="step-number">3</div>
                         <div class="step-content">
                             <p>Open termux and type</p>
@@ -254,14 +257,14 @@
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="4">
                         <div class="step-number">4</div>
                         <div class="step-content">
                             <p>Move downloaded files to a folder let's say pipa in Downloads folder</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="5">
                         <div class="step-number">5</div>
                         <div class="step-content">
                             <p>In termux type</p>
@@ -272,28 +275,28 @@
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="6">
                         <div class="step-number">6</div>
                         <div class="step-content">
                             <p>Toggle OTG setting if present on your other device</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="7">
                         <div class="step-number">7</div>
                         <div class="step-content">
                             <p>Connect tab in fastboot mode (Hold power and volume down button when tab is switched off to go in fastboot mode)</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="8">
                         <div class="step-number">8</div>
                         <div class="step-content">
                             <p>Click ok when prompted for permission. If no pop up appears do <code>adb kill-server && adb start-server</code> then connect tab again</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="9">
                         <div class="step-number">9</div>
                         <div class="step-content">
                             <p>Flash files</p>
@@ -316,28 +319,28 @@
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="10">
                         <div class="step-number">10</div>
                         <div class="step-content">
                             <p>Reboot to recovery by <code>fastboot reboot recovery</code> or hold power and volume up button</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="11">
                         <div class="step-number">11</div>
                         <div class="step-content">
                             <p>On tab click Install Update > Adb Sideload</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="12">
                         <div class="step-number">12</div>
                         <div class="step-content">
                             <p>Connect tab to otg again, click ok on the prompt</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="13">
                         <div class="step-number">13</div>
                         <div class="step-content">
                             <p>Sideload firmware if not available in rom via</p>
@@ -348,21 +351,21 @@
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="14">
                         <div class="step-number">14</div>
                         <div class="step-content">
                             <p>Click yes if anything asked on tab screen</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="15">
                         <div class="step-number">15</div>
                         <div class="step-content">
                             <p>Sideload the rom same way and then gapps if you want and rom is vanilla</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="16">
                         <div class="step-number">16</div>
                         <div class="step-content">
                             <p>Now format data in recovery if switching roms and then reboot</p>
@@ -375,28 +378,28 @@
                 <h2><i class="fas fa-desktop"></i> Flashing via PC (Windows)</h2>
                 <div class="steps-container">
 
-                    <div class="step">
+                    <div class="step" data-step="1">
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <p>Install ADB & Fastboot globally</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="2">
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <p>Download the <a href="https://github.com/K3V1991/ADB-and-FastbootPlusPlus/releases" target="_blank" rel="noopener">.msi installer</a> and install it (Next → Next → Finish)</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="3">
                         <div class="step-number">3</div>
                         <div class="step-content">
                             <p>Reboot tab to bootloader (Hold power + volume down)</p>
                         </div>
                     </div>
 
-                    <div class="step">
+                    <div class="step" data-step="4">
                         <div class="step-number">4</div>
                         <div class="step-content">
                             <p>In your PC, open the folder where ROM files are stored → right-click in empty space → Open in Terminal</p>
@@ -424,8 +427,8 @@
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">6</div>
+                    <div class="step" data-step="5">
+                        <div class="step-number">5</div>
                         <div class="step-content">
                             <p>Reboot to recovery using</p>
                             <div class="command-block">
@@ -436,15 +439,15 @@
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">7</div>
+                    <div class="step" data-step="6">
+                        <div class="step-number">6</div>
                         <div class="step-content">
                             <p>On tab click Install Update → ADB Sideload</p>
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">8</div>
+                    <div class="step" data-step="7">
+                        <div class="step-number">7</div>
                         <div class="step-content">
                             <p>Sideload firmware (if not available in ROM) using:</p>
                             <div class="command-block">
@@ -455,30 +458,30 @@
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">9</div>
+                    <div class="step" data-step="8">
+                        <div class="step-number">8</div>
                         <div class="step-content">
                             <p>Press Yes if the tab asks for confirmation</p>
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">10</div>
+                    <div class="step" data-step="9">
+                        <div class="step-number">9</div>
                         <div class="step-content">
                             <p>(Optional) Reboot recovery again</p>
                             <p>Install Update → ADB sideload again</p>
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">11</div>
+                    <div class="step" data-step="10">
+                        <div class="step-number">10</div>
                         <div class="step-content">
                             <p>Sideload the ROM the same way, then gapps if needed</p>
                         </div>
                     </div>
 
-                    <div class="step">
-                        <div class="step-number">12</div>
+                    <div class="step" data-step="11">
+                        <div class="step-number">11</div>
                         <div class="step-content">
                             <p>Format data from recovery if switching ROMs → reboot system</p>
                         </div>

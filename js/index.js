@@ -262,9 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setupDonateButtons() {
     const donateHandlers = {
-      'upi-donate': () => window.open('upi://pay?pa=your-upi-id@paytm', '_blank'),
-      'coffee-donate': () => window.open('https://www.buymeacoffee.com/yourprofile', '_blank'),
-      'paypal-donate': () => window.open('https://www.paypal.com/paypalme/yourprofile', '_blank')
+      'upi-donate': () => window.open('upi://pay?pa=sheoranpranshu@oksbi', '_blank'),
+      'coffee-donate': () => window.open('https://ko-fi.com/sheoranpranshu', '_blank'),
+      'paypal-donate': () => window.open('https://www.paypal.com/paypalme/sheoranpranshu', '_blank')
     };
     
     Object.entries(donateHandlers).forEach(([id, handler]) => {
